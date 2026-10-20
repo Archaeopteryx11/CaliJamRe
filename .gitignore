@@ -1,19 +1,16 @@
 # Archivos temporales y librerías generadas por Unity
-**/[Library]/
-[Le]vels/
-[Mm]emoryCaptures/
-[Ob]jects/
-[Oo]bj/
-[Build]/
-[Bu]ilds/
-[Cc]ache/
+**/[Ll]ibrary/
+**/[Tt]emp/
+**/[Oo]bj/
+**/[Bb]uild/
+**/[Bb]uilds/
 **/[Ll]ogs/
-[Mm]emoryCaptures/
+**/[Uu]ser[Ss]ettings/
+**/[Cc]ache/
+**/[Mm]emoryCaptures/
+**/[Oo]bjects/
+**/[Ll]evels/
 /[Uu]nityConfiguration.gen.txt
-
-# Carpetas de compilación de proyectos
-/[Bb]uild/
-/[Bb]uilds/
 
 # Archivos de configuración de usuario de Visual Studio y Rider
 .vs/
@@ -31,16 +28,9 @@
 *.csproj
 *.unityproj
 *.sln
-*.suo
 *.tmp
-*.user
-*.userprefs
-*.pidb
-*.booproj
-*.svclog
-*.generated
 
-# Sistema Operativo y archivos basura
+# Sistema Operativo
 .DS_Store
 Thumbs.db
 Desktop.ini

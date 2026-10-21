@@ -1,5 +1,6 @@
 # Archivos temporales y librerías generadas por Unity
-**/[Library]/
+**/[Ll]ibrary/
+[Ll]ibrary/
 [Tt]emp/
 [Le]vels/
 [Mm]emoryCaptures/

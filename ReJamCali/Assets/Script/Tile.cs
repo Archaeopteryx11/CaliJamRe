@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class Tile : MonoBehaviour
 {
     /// Distancia entre centros de tiles contiguos. CÁMBIALA si tus tiles no miden 1 unidad.
@@ -17,6 +18,12 @@ public class Tile : MonoBehaviour
 
     public bool IsOccupied { get { return occupants.Count > 0; } }
 
+    [Header("Magnetismo")]
+    public bool magneticSurface;
+
+    //[Tooltip("Normal de la superficie local. Normalmente el eje Y local.")]
+    public Vector3 surfaceNormal => transform.up;
+
     /// Una casilla es transitable si NINGÚN tile apilado en ella está bloqueado.
     /// Primer tile bloqueado de esta casilla (o null si está libre).
     public Tile BlockingTile
@@ -29,6 +36,11 @@ public class Tile : MonoBehaviour
                 if (t != null && t.blocked) return t;
             return null;
         }
+    }
+
+    public bool CanMagnetize
+    {
+        get { return magneticSurface && !blocked; }
     }
 
     public bool IsWalkable { get { return BlockingTile == null; } }
@@ -50,6 +62,14 @@ public class Tile : MonoBehaviour
 
     // ---------- Registro por casilla (varios tiles pueden compartir XZ) ----------
     static readonly Dictionary<Vector2Int, List<Tile>> registry = new Dictionary<Vector2Int, List<Tile>>();
+
+    // Registro de todos los tiles de la escena.
+    static readonly HashSet<Tile> allTiles = new HashSet<Tile>();
+
+    public static IEnumerable<Tile> AllTiles
+    {
+        get { return allTiles; }
+    }
 
     static Vector2Int Key(Vector3 p)
     {
@@ -86,10 +106,16 @@ public class Tile : MonoBehaviour
         var l = CellTiles(key);
         if (l == null) { l = new List<Tile>(); registry[key] = l; }
         if (!l.Contains(this)) l.Add(this);
+
+        if (!l.Contains(this)) l.Add(this);
+
+        allTiles.Add(this);
     }
 
     void OnDestroy()
     {
+        allTiles.Remove(this);
+
         var l = CellTiles(key);
         if (l == null) return;
         l.Remove(this);
@@ -139,6 +165,6 @@ public class Tile : MonoBehaviour
 
     public Vector3 GetTilePosition()
     {
-        return (Vector3.right * transform.position.x + Vector3.forward * transform.position.z);
+        return transform.position;
     }
 }

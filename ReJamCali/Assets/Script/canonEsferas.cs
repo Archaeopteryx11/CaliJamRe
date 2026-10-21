@@ -1,4 +1,3 @@
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -9,25 +8,38 @@ public class canonEsferas : MonoBehaviour
     [SerializeField] private float fuerza = 15f;
     [SerializeField] private float tiempoVida = 5f;
     [SerializeField] private SelectorModulos seleccionModulo;
-    private bool disparoActivo = true;
-    void OnEnable()
-    {
-        seleccionModulo.OnDeteccionCambiada += disparo;
-    }
+    [SerializeField] private Animator animator;
 
-    void OnDisable()
-    {
-        seleccionModulo.OnDeteccionCambiada -= disparo;
-    }
+    private static readonly int DisparoHash = Animator.StringToHash("Shot");
+    private bool disparoActivo = false;
+    private bool disparando = false;        // true desde que empieza la animación hasta que termina
+
+    void OnEnable() { seleccionModulo.OnDeteccionCambiada += disparo; }
+    void OnDisable() { seleccionModulo.OnDeteccionCambiada -= disparo; }
 
     public void Update()
     {
         if (Keyboard.current.spaceKey.wasPressedThisFrame || disparoActivo)
+            IniciarDisparo();
+    }
+
+    void IniciarDisparo()
+    {
+        if (disparando) return;             // ya hay un disparo en curso
+        disparando = true;
+
+        if (animator != null)
         {
-            Disparar();
+            animator.SetTrigger(DisparoHash);   // la esfera saldrá cuando la animación llame a EmitirEsfera()
+        }
+        else
+        {
+            EmitirEsfera();                     // sin animator: dispara al instante
+            FinDisparo();
         }
     }
-    public void Disparar()
+
+    public void EmitirEsfera()
     {
         Transform origen = puntoDisparo != null ? puntoDisparo : transform;
 
@@ -40,15 +52,14 @@ public class canonEsferas : MonoBehaviour
 
         Destroy(esfera, tiempoVida);
     }
+
+    public void FinDisparo()
+    {
+        disparando = false;
+    }
+
     public void disparo(bool activar)
     {
-        if(activar)
-        {
-            disparoActivo = false;
-        }
-        else
-        {
-            disparoActivo = true;
-        }
+        disparoActivo = activar;
     }
 }

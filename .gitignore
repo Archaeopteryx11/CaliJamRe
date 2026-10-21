@@ -1,14 +1,17 @@
 # Archivos temporales y librerías generadas por Unity
 **/[Library]/
+[Tt]emp/
 [Le]vels/
 [Mm]emoryCaptures/
 [Ob]jects/
 [Oo]bj/
 [Build]/
-[Bu]ilds/
+[Bb]uilds/
 [Cc]ache/
 **/[Ll]ogs/
+[Uu]ser[Ss]ettings/
 [Mm]emoryCaptures/
+[Rr]ecordings/
 /[Uu]nityConfiguration.gen.txt
 
 # Carpetas de compilación de proyectos
@@ -17,6 +20,7 @@
 
 # Archivos de configuración de usuario de Visual Studio y Rider
 .vs/
+.vscode/
 .idea/
 *.suo
 *.user

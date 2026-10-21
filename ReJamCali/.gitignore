@@ -1,0 +1,38 @@
+# Archivos temporales y librerías generadas por Unity
+/[Ll]ibrary/
+/[Tt]emp/
+/[Oo]bj/
+/[Bb]uild/
+/[Bb]uilds/
+/[Ll]ogs/
+/[Uu]ser[Ss]ettings/
+/[Mm]emoryCaptures/
+/[Rr]ecordings/
+/[Ll]evels/
+/[Oo]bjects/
+/[Cc]ache/
+/[Uu]nityConfiguration.gen.txt
+
+# Entornos de desarrollo e IDEs (Visual Studio, Rider, VS Code)
+.vs/
+.vscode/
+.idea/
+*.csproj
+*.unityproj
+*.sln
+*.suo
+*.user
+*.userprefs
+*.pidb
+*.booproj
+*.svclog
+*.saved
+*.generated
+
+# Archivos basura del sistema operativo
+.DS_Store
+.DS_Store?
+ehthumbs.db
+Icon?
+Thumbs.db
+Desktop.ini

@@ -1,21 +1,36 @@
+# Archivos temporales y librerías generadas por Unity
 **/[Ll]ibrary/
 **/[Tt]emp/
 **/[Oo]bj/
 **/[Bb]uild/
 **/[Bb]uilds/
-**/[Cc]aptures/
+**/[Ll]ogs/
+**/[Uu]ser[Ss]ettings/
+**/[Cc]ache/
 **/[Mm]emoryCaptures/
-**/[Mm]Logs/
-*.csproj
-*.unityproj
-*.sln
+**/[Oo]bjects/
+**/[Ll]evels/
+/[Uu]nityConfiguration.gen.txt
+
+# Archivos de configuración de usuario de Visual Studio y Rider
+.vs/
+.idea/
 *.suo
-*.tmp
 *.user
 *.userprefs
 *.pidb
 *.booproj
-*.svd
-*.pdb
-*.opendb
-*.VC.db
+*.svclog
+*.saved
+*.generated
+
+# Archivos de solución generados automáticamente por Unity
+*.csproj
+*.unityproj
+*.sln
+*.tmp
+
+# Sistema Operativo
+.DS_Store
+Thumbs.db
+Desktop.ini

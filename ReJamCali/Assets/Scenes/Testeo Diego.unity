@@ -2171,7 +2171,7 @@ MonoBehaviour:
   pitch: 35.264
   baseYaw: 45
   distance: 5
-  orthoSize: 2
+  orthoSize: 4
   rotateSmoothTime: 0.12
   followTarget: {fileID: 0}
   followSmoothTime: 0.15
@@ -6322,7 +6322,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: ce2064f27a88bd74ca9cd173aef2a605, type: 2}
+  - {fileID: 2100000, guid: e68a918aa636a8c4d9b0e149acb9c678, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -6384,7 +6384,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 365428667}
   - {fileID: 184457856}
@@ -6428,8 +6428,10 @@ MonoBehaviour:
     m_Bits: 4294967295
   magneticAlignmentSpeed: 540
   neighbourDirectionThreshold: 0.85
-  magneticSurfaceOffset: 0.5
-  magneticVerticalOffset: 0.5
+  magneticSurfaceOffset: 0
+  magneticVerticalOffset: 0
+  magneticAttachSpeed: 5
+  magneticDetachSpeed: 8
 --- !u!114 &1357598069
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8766,7 +8768,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: ce2064f27a88bd74ca9cd173aef2a605, type: 2}
+  - {fileID: 2100000, guid: e68a918aa636a8c4d9b0e149acb9c678, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

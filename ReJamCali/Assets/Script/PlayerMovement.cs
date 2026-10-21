@@ -70,6 +70,16 @@ public class PlayerMovement : MonoBehaviour
     public float magneticSurfaceOffset = 0.5f;
     public float magneticVerticalOffset = 0.5f;
 
+    public float magneticAttachSpeed = 5f;
+    private bool magneticAttaching = false;
+
+    [Header("Desenganche magnético")]
+    public float magneticDetachSpeed = 8f;
+
+    private bool magneticDetaching = false;
+    private Tile landingTile;
+    private Quaternion normalRotation;
+
     void Awake()
     {
         if (cameraRig == null) cameraRig = Object.FindFirstObjectByType<CameraFollow>();
@@ -113,10 +123,18 @@ public class PlayerMovement : MonoBehaviour
         ToggleMagnetism();
         }
 
+        UpdateMagneticAttach();
+        UpdateMagneticDetach();
+
+        if (magneticAttaching || magneticDetaching)
+            return;
+
         SyncInitialTile();
         if (!moving) ReadInput();
         if (moving) PerformMovement();
         RotateTowardsFacing();
+
+        
     }
 
     /// El detector de piso rellena currentTile unos frames después de empezar;
@@ -409,7 +427,11 @@ public class PlayerMovement : MonoBehaviour
         destinationTile = neighbour;
         magneticMoving = true;
 
-        targetPosition = neighbour.transform.position;
+        targetPosition =
+            neighbour.transform.position
+            + wallNormal * magneticSurfaceOffset
+            + Vector3.up * magneticVerticalOffset;
+            
         movingDirection = direction;
 
         distanceToTarget = Vector3.Distance(transform.position, targetPosition);
@@ -498,6 +520,16 @@ public class PlayerMovement : MonoBehaviour
 
     void ToggleMagnetism()
     {
+
+        if (magneticAttaching || magneticDetaching || magneticMoving)
+            return;
+
+        if (magneticMode)
+        {
+            BeginMagneticDetach();
+            return;
+        }
+
         if (magneticMode)
         {
             magneticMode = false;
@@ -514,6 +546,17 @@ public class PlayerMovement : MonoBehaviour
             magneticTile = tile;
             magneticMode = true;
             surfaceUp = tile.surfaceNormal.normalized;
+
+            Vector3 wallNormal = surfaceUp;
+
+            targetPosition =
+                tile.transform.position
+                + wallNormal * magneticSurfaceOffset
+                + Vector3.up * magneticVerticalOffset;
+
+            magneticAttaching = true;
+            magneticMoving = false;
+            moving = false;
 
             // Proyectar la dirección del personaje sobre la pared.
             Vector3 projectedForward = Vector3.ProjectOnPlane(
@@ -555,53 +598,175 @@ public class PlayerMovement : MonoBehaviour
     }
 
     bool TryFindMagneticTile(out Tile tile)
-{
-    tile = null;
-
-    Vector3 origin = transform.position + Vector3.up * 1f;
-
-    // Buscar en las seis direcciones principales del mundo.
-    Vector3[] directions =
     {
-        Vector3.up,
-        Vector3.down,
-        Vector3.left,
-        Vector3.right,
-        Vector3.forward,
-        Vector3.back
-    };
+        tile = null;
 
-    foreach (Vector3 direction in directions)
-    {
-        Debug.DrawRay(
-            origin,
-            direction * magneticRange,
-            Color.yellow,
-            2f
-        );
+        Vector3 origin = transform.position + Vector3.up * 1f;
 
-        if (!Physics.Raycast(
-            origin,
-            direction,
-            out RaycastHit hit,
-            magneticRange,
-            magneticLayers,
-            QueryTriggerInteraction.Ignore))
+        // Buscar en las seis direcciones principales del mundo.
+        Vector3[] directions =
         {
-            continue;
+            Vector3.up,
+            Vector3.down,
+            Vector3.left,
+            Vector3.right,
+            Vector3.forward,
+            Vector3.back
+        };
+
+        foreach (Vector3 direction in directions)
+        {
+            Debug.DrawRay(
+                origin,
+                direction * magneticRange,
+                Color.yellow,
+                2f
+            );
+
+            if (!Physics.Raycast(
+                origin,
+                direction,
+                out RaycastHit hit,
+                magneticRange,
+                magneticLayers,
+                QueryTriggerInteraction.Ignore))
+            {
+                continue;
+            }
+
+            Tile detected = hit.collider.GetComponentInChildren<Tile>();
+
+            if (detected == null || !detected.CanMagnetize)
+                continue;
+
+            tile = detected;
+            return true;
         }
 
-        Tile detected = hit.collider.GetComponentInChildren<Tile>();
-
-        if (detected == null || !detected.CanMagnetize)
-            continue;
-
-        tile = detected;
-        return true;
+        return false;
     }
 
-    return false;
-}
+    void UpdateMagneticAttach()
+    {
+        if (!magneticAttaching)
+            return;
+
+        transform.position = Vector3.MoveTowards(
+            transform.position,
+            targetPosition,
+            magneticAttachSpeed * Time.deltaTime
+        );
+
+        if (Vector3.Distance(transform.position, targetPosition) < 0.01f)
+        {
+            transform.position = targetPosition;
+            magneticAttaching = false;
+        }
+    }
+
+    void BeginMagneticDetach()
+    {
+        Tile bestFloor = null;
+        float bestDistance = float.MaxValue;
+
+        foreach (Tile candidate in Tile.AllTiles)
+        {
+            if (candidate == null)
+                continue;
+
+            // El suelo no debe ser una superficie magnética.
+            if (candidate.magneticSurface || !candidate.IsWalkable)
+                continue;
+
+            // Buscar un tile situado debajo de la pared.
+            if (candidate.transform.position.y >= magneticTile.transform.position.y)
+                continue;
+
+            Vector2 wallXZ = new Vector2(
+                magneticTile.transform.position.x,
+                magneticTile.transform.position.z
+            );
+
+            Vector2 floorXZ = new Vector2(
+                candidate.transform.position.x,
+                candidate.transform.position.z
+            );
+
+            float horizontalDistance = Vector2.Distance(wallXZ, floorXZ);
+
+            if (horizontalDistance < bestDistance)
+            {
+                bestDistance = horizontalDistance;
+                bestFloor = candidate;
+            }
+        }
+
+        if (bestFloor == null)
+        {
+            Debug.LogWarning("No se encontró un tile de suelo para aterrizar.");
+            return;
+        }
+
+        landingTile = bestFloor;
+
+        // Desactivar el magnetismo, pero conservar el destino de caída.
+        magneticMode = false;
+        magneticTile = null;
+        magneticMoving = false;
+        magneticAttaching = false;
+
+        // Recuperar una orientación vertical, manteniendo el rumbo horizontal.
+        Vector3 forward = Vector3.ProjectOnPlane(transform.forward, Vector3.up);
+
+        if (forward.sqrMagnitude > 0.001f)
+            normalRotation = Quaternion.LookRotation(forward.normalized, Vector3.up);
+        else
+            normalRotation = Quaternion.identity;
+
+        // El personaje caerá hasta la posición habitual del tile de suelo.
+        targetPosition = landingTile.GetTilePosition();
+
+        magneticDetaching = true;
+        moving = false;
+    }
+
+    void UpdateMagneticDetach()
+    {
+        if (!magneticDetaching)
+            return;
+
+        transform.position = Vector3.MoveTowards(
+            transform.position,
+            targetPosition,
+            magneticDetachSpeed * Time.deltaTime
+        );
+
+        transform.rotation = Quaternion.RotateTowards(
+            transform.rotation,
+            normalRotation,
+            magneticRotationSpeed * Time.deltaTime
+        );
+
+        bool arrived =
+            Vector3.Distance(transform.position, targetPosition) < 0.01f;
+
+        bool rotated =
+            Quaternion.Angle(transform.rotation, normalRotation) < 0.5f;
+
+        if (arrived && rotated)
+        {
+            transform.position = targetPosition;
+            transform.rotation = normalRotation;
+
+            magneticDetaching = false;
+            landingTile = null;
+
+            // El movimiento normal vuelve a estar disponible.
+            moving = false;
+            magneticMoving = false;
+            destinationTile = null;
+        }
+    }
 
     public void SetLeftTile(Tile tile) { leftTile = tile; }
     public void SetRightTile(Tile tile) { rightTile = tile; }

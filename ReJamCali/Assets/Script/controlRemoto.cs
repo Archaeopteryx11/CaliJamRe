@@ -6,11 +6,12 @@ using UnityEngine.InputSystem;
 public class BuscadorPorTag : MonoBehaviour
 {
     [SerializeField] private string tagBuscado;
-    [SerializeField] private List<GameObject> objetosEncontrados = new List<GameObject>();
+    private List<GameObject> objetosEncontrados = new List<GameObject>();
     private int indiceActual = 0;
-    [SerializeField] private SelectorModulos seleccionModulo;
+    private SelectorModulos seleccionModulo;
     private bool activarInventario = false;
-    [SerializeField] private GameObject playerMovement;
+    private GameObject playerMovement;
+    private bool activar = false;
     void OnEnable()
     {
         seleccionModulo.OnDeteccionCambiada += controlar;
@@ -23,6 +24,7 @@ public class BuscadorPorTag : MonoBehaviour
     void Start()
     {
         BuscarObjetos();
+        playerMovement = GameObject.FindGameObjectWithTag("Player");
     }
 
     public void BuscarObjetos()
@@ -35,23 +37,25 @@ public class BuscadorPorTag : MonoBehaviour
         var rueda = Mouse.current;
         if (rueda == null) return;
         float scroll = rueda.scroll.ReadValue().y;
-        if (indiceActual == objetosEncontrados.Count)
-        {
-            indiceActual = 0;
-        }
-        else if (indiceActual == -1)
-        {
-            indiceActual = objetosEncontrados.Count - 1;
-        }
-
         if (scroll > 0)
         {
             indiceActual++;
+            Debug.Log("Modulo seleccionado: " + (indiceActual));
         }
         else if (scroll < 0)
         {
             indiceActual--;
+            Debug.Log("Modulo seleccionado: " + (indiceActual));
         }
+        if (indiceActual >= objetosEncontrados.Count)
+        {
+            indiceActual = 0;
+        }
+        else if (indiceActual < 0)
+        {
+            indiceActual = objetosEncontrados.Count - 1;
+        }
+
     }
     public void controlar(bool activar)
     {
@@ -66,19 +70,33 @@ public class BuscadorPorTag : MonoBehaviour
     }
     public void Update()
     {
-        if (!activarInventario)
+        if (!activarInventario && activar)
         {
             seleccionRueda();
             if (Keyboard.current.spaceKey.wasPressedThisFrame)
             {
                 objetosEncontrados[indiceActual].GetComponent<PlayerMovement>().enabled = true;
                 playerMovement.GetComponent<PlayerMovement>().enabled = false;
+                Debug.Log("Control remoto " + indiceActual);
             }
-            else
+            else if (Keyboard.current.escapeKey.wasPressedThisFrame)
             {
                 objetosEncontrados[indiceActual].GetComponent<PlayerMovement>().enabled = false;
                 playerMovement.GetComponent<PlayerMovement>().enabled = true;
+                Debug.Log("Control remoto " + indiceActual);
             }
         }
+        if (!activar)
+        {
+            objetosEncontrados[indiceActual].GetComponent<PlayerMovement>().enabled = false;
+            playerMovement.GetComponent<PlayerMovement>().enabled = true;
+            Debug.Log("Control remoto " + indiceActual);
+        }
     }
+    public void activo()
+    {
+        activar = !activar;
+        Debug.Log("Control remoto: " + activar);
+    }
+   
 }

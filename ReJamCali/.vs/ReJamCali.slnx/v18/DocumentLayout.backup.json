@@ -1,0 +1,136 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "D:\\videojuegos 3d\\CaliJamRe\\ReJamCali\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{B4CD19DA-EE08-5225-FB19-1D0DFA4113DD}|Assembly-CSharp.csproj|d:\\videojuegos 3d\\calijamre\\rejamcali\\assets\\script\\playermovement.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B4CD19DA-EE08-5225-FB19-1D0DFA4113DD}|Assembly-CSharp.csproj|solutionrelative:assets\\script\\playermovement.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\videojuegos 3d\\CaliJamRe\\ReJamCali\\Assets\\Script\\controlRemoto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Assets\\Script\\controlRemoto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B4CD19DA-EE08-5225-FB19-1D0DFA4113DD}|Assembly-CSharp.csproj|d:\\videojuegos 3d\\calijamre\\rejamcali\\assets\\script\\seleccionmodulo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B4CD19DA-EE08-5225-FB19-1D0DFA4113DD}|Assembly-CSharp.csproj|solutionrelative:assets\\script\\seleccionmodulo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B4CD19DA-EE08-5225-FB19-1D0DFA4113DD}|Assembly-CSharp.csproj|d:\\videojuegos 3d\\calijamre\\rejamcali\\assets\\script\\imantar.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B4CD19DA-EE08-5225-FB19-1D0DFA4113DD}|Assembly-CSharp.csproj|solutionrelative:assets\\script\\imantar.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B4CD19DA-EE08-5225-FB19-1D0DFA4113DD}|Assembly-CSharp.csproj|d:\\videojuegos 3d\\calijamre\\rejamcali\\assets\\script\\tiledetector.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B4CD19DA-EE08-5225-FB19-1D0DFA4113DD}|Assembly-CSharp.csproj|solutionrelative:assets\\script\\tiledetector.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B4CD19DA-EE08-5225-FB19-1D0DFA4113DD}|Assembly-CSharp.csproj|d:\\videojuegos 3d\\calijamre\\rejamcali\\assets\\script\\rayhit.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B4CD19DA-EE08-5225-FB19-1D0DFA4113DD}|Assembly-CSharp.csproj|solutionrelative:assets\\script\\rayhit.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B4CD19DA-EE08-5225-FB19-1D0DFA4113DD}|Assembly-CSharp.csproj|d:\\videojuegos 3d\\calijamre\\rejamcali\\assets\\script\\canonesferas.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B4CD19DA-EE08-5225-FB19-1D0DFA4113DD}|Assembly-CSharp.csproj|solutionrelative:assets\\script\\canonesferas.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 1,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "canonEsferas.cs",
+              "DocumentMoniker": "D:\\videojuegos 3d\\CaliJamRe\\ReJamCali\\Assets\\Script\\canonEsferas.cs",
+              "RelativeDocumentMoniker": "Assets\\Script\\canonEsferas.cs",
+              "ToolTip": "D:\\videojuegos 3d\\CaliJamRe\\ReJamCali\\Assets\\Script\\canonEsferas.cs",
+              "RelativeToolTip": "Assets\\Script\\canonEsferas.cs",
+              "ViewState": "AgIAAAoAAAAAAAAAAAA0wBgAAAAMAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-10-20T03:50:47.816Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "PlayerMovement.cs",
+              "DocumentMoniker": "D:\\videojuegos 3d\\CaliJamRe\\ReJamCali\\Assets\\Script\\PlayerMovement.cs",
+              "RelativeDocumentMoniker": "Assets\\Script\\PlayerMovement.cs",
+              "ToolTip": "D:\\videojuegos 3d\\CaliJamRe\\ReJamCali\\Assets\\Script\\PlayerMovement.cs",
+              "RelativeToolTip": "Assets\\Script\\PlayerMovement.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAPUAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-10-20T03:04:59.648Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Imantar.cs",
+              "DocumentMoniker": "D:\\videojuegos 3d\\CaliJamRe\\ReJamCali\\Assets\\Script\\Imantar.cs",
+              "RelativeDocumentMoniker": "Assets\\Script\\Imantar.cs",
+              "ToolTip": "D:\\videojuegos 3d\\CaliJamRe\\ReJamCali\\Assets\\Script\\Imantar.cs",
+              "RelativeToolTip": "Assets\\Script\\Imantar.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-10-20T03:00:08.137Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "RayHit.cs",
+              "DocumentMoniker": "D:\\videojuegos 3d\\CaliJamRe\\ReJamCali\\Assets\\Script\\RayHit.cs",
+              "RelativeDocumentMoniker": "Assets\\Script\\RayHit.cs",
+              "ToolTip": "D:\\videojuegos 3d\\CaliJamRe\\ReJamCali\\Assets\\Script\\RayHit.cs",
+              "RelativeToolTip": "Assets\\Script\\RayHit.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAQAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-10-20T02:59:41.831Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "TileDetector.cs",
+              "DocumentMoniker": "D:\\videojuegos 3d\\CaliJamRe\\ReJamCali\\Assets\\Script\\TileDetector.cs",
+              "RelativeDocumentMoniker": "Assets\\Script\\TileDetector.cs",
+              "ToolTip": "D:\\videojuegos 3d\\CaliJamRe\\ReJamCali\\Assets\\Script\\TileDetector.cs",
+              "RelativeToolTip": "Assets\\Script\\TileDetector.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-10-20T02:51:11.937Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "seleccionModulo.cs",
+              "DocumentMoniker": "D:\\videojuegos 3d\\CaliJamRe\\ReJamCali\\Assets\\Script\\seleccionModulo.cs",
+              "RelativeDocumentMoniker": "Assets\\Script\\seleccionModulo.cs",
+              "ToolTip": "D:\\videojuegos 3d\\CaliJamRe\\ReJamCali\\Assets\\Script\\seleccionModulo.cs",
+              "RelativeToolTip": "Assets\\Script\\seleccionModulo.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAAUAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-10-20T02:00:55.278Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "controlRemoto.cs",
+              "DocumentMoniker": "D:\\videojuegos 3d\\CaliJamRe\\ReJamCali\\Assets\\Script\\controlRemoto.cs",
+              "RelativeDocumentMoniker": "Assets\\Script\\controlRemoto.cs",
+              "ToolTip": "D:\\videojuegos 3d\\CaliJamRe\\ReJamCali\\Assets\\Script\\controlRemoto.cs",
+              "RelativeToolTip": "Assets\\Script\\controlRemoto.cs",
+              "ViewState": "AgIAAAsAAAAAAAAAAAAIwAgAAAAEAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-10-21T04:08:47.912Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -20,6 +20,17 @@ public class PlayerMovement : MonoBehaviour
     public Tile forwardTile;
     public Tile backwardTile;
 
+    [Header("Paredes (tiles a la altura del cuerpo)")]
+    public Tile wallLeftTile;
+    public Tile wallRightTile;
+    public Tile wallForwardTile;
+    public Tile wallBackwardTile;
+
+    public void SetWallLeftTile(Tile t) { wallLeftTile = t; }
+    public void SetWallRightTile(Tile t) { wallRightTile = t; }
+    public void SetWallForwardTile(Tile t) { wallForwardTile = t; }
+    public void SetWallBackwardTile(Tile t) { wallBackwardTile = t; }
+
     [Header("Control")]
     public ControlScheme scheme = ControlScheme.TapToTurnHoldToMove;
     [Tooltip("Segundos que hay que mantener la tecla para empezar a caminar.")]
@@ -227,6 +238,8 @@ public class PlayerMovement : MonoBehaviour
         // Dirección del paso (plana) y, si hay caja en el destino, si se puede empujar.
         Vector3 flatPos = new Vector3(transform.position.x, 0f, transform.position.z);
         Vector3 dir = (tile.GetTilePosition() - flatPos).normalized;
+
+        if (WallInDirection(dir)) return;
 
         Box box = tile.BoxOn;
         Tile beyond = null;
@@ -766,6 +779,18 @@ public class PlayerMovement : MonoBehaviour
             magneticMoving = false;
             destinationTile = null;
         }
+    }
+
+    bool WallInDirection(Vector3 worldDir)
+    {
+        Vector3 local = transform.InverseTransformDirection(worldDir);
+
+        Tile wall = Mathf.Abs(local.z) > Mathf.Abs(local.x)
+            ? (local.z > 0f ? wallForwardTile : wallBackwardTile)
+            : (local.x > 0f ? wallRightTile : wallLeftTile);
+
+        // isActiveAndEnabled: si la pared se desactiva (puerta que se abre), deja de bloquear
+        return wall != null && wall.isActiveAndEnabled;
     }
 
     public void SetLeftTile(Tile tile) { leftTile = tile; }

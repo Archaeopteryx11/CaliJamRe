@@ -4,7 +4,6 @@ using UnityEngine.Events;
 using UnityEngine.InputSystem;
 
 
-
 public class SelectorModulos : MonoBehaviour
 {
     [SerializeField] private UnityEvent[] evento;
@@ -14,6 +13,7 @@ public class SelectorModulos : MonoBehaviour
 
     void Update()
     {
+        invetario();
         if (activarInventario)
         {
             seleccionarModulo();
@@ -34,14 +34,17 @@ public class SelectorModulos : MonoBehaviour
         if (teclado.digit1Key.wasPressedThisFrame || teclado.numpad1Key.wasPressedThisFrame)
         {
             indiceActual = 0;
+            Debug.Log("Modulo seleccionado: " + (indiceActual + 1));
         }
         else if (teclado.digit2Key.wasPressedThisFrame || teclado.numpad2Key.wasPressedThisFrame)
         {
             indiceActual = 1;
+            Debug.Log("Modulo seleccionado: " + (indiceActual + 1));
         }
         else if (teclado.digit3Key.wasPressedThisFrame || teclado.numpad3Key.wasPressedThisFrame)
         {
             indiceActual = 2;
+            Debug.Log("Modulo seleccionado: " + (indiceActual + 1));
         }
     }
     public void seleccionRueda()
@@ -61,11 +64,14 @@ public class SelectorModulos : MonoBehaviour
         if (scroll > 0)
         {
             indiceActual++;
+            Debug.Log("Modulo seleccionado: " + (indiceActual + 1));
         }
         else if (scroll < 0)
         {
             indiceActual--;
+            Debug.Log("Modulo seleccionado: " + (indiceActual + 1));
         }
+        
     }
     public void ejecutarEvento()
     {
@@ -74,6 +80,7 @@ public class SelectorModulos : MonoBehaviour
             if (evento[indiceActual] != null)
             {
                 evento[indiceActual].Invoke();
+                Debug.Log("Evento " + evento[indiceActual].ToString() + " ejecutado");
             }
         }
     }
@@ -82,6 +89,7 @@ public class SelectorModulos : MonoBehaviour
         if(Keyboard.current.tabKey.wasPressedThisFrame)
         {
             activarInventario = !activarInventario;
+            Debug.Log("Inventario " + (activarInventario ? "activado" : "desactivado"));
         }
     }
 }

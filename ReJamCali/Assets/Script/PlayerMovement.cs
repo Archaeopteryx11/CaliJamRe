@@ -20,6 +20,17 @@ public class PlayerMovement : MonoBehaviour
     public Tile forwardTile;
     public Tile backwardTile;
 
+    [Header("Paredes (tiles a la altura del cuerpo)")]
+    public Tile wallLeftTile;
+    public Tile wallRightTile;
+    public Tile wallForwardTile;
+    public Tile wallBackwardTile;
+
+    public void SetWallLeftTile(Tile t) { wallLeftTile = t; }
+    public void SetWallRightTile(Tile t) { wallRightTile = t; }
+    public void SetWallForwardTile(Tile t) { wallForwardTile = t; }
+    public void SetWallBackwardTile(Tile t) { wallBackwardTile = t; }
+
     [Header("Control")]
     public ControlScheme scheme = ControlScheme.TapToTurnHoldToMove;
     [Tooltip("Segundos que hay que mantener la tecla para empezar a caminar.")]
@@ -48,6 +59,38 @@ public class PlayerMovement : MonoBehaviour
     Tile occupiedTile;        // tile del que "parte" el robot
     Tile destinationTile;     // tile al que va
 
+    [Header("Magnetismo")]
+    public bool magneticMode;
+    public Key magneticToggleKey = Key.M;
+    public float magneticRange = 1.2f;
+    public float magneticRotationSpeed = 360f;
+    public LayerMask magneticLayers = ~0;
+
+    private Vector3 surfaceUp = Vector3.up;
+    private Tile magneticTile;
+    private InputAction magneticToggleAction;
+
+    [Header("Movimiento magnético")]
+    public float magneticAlignmentSpeed = 540f;
+    [Range(0.5f, 1f)]
+    public float neighbourDirectionThreshold = 0.85f;
+
+    private Vector3 magneticForward;
+    private bool magneticMoving;
+
+    public float magneticSurfaceOffset = 0.5f;
+    public float magneticVerticalOffset = 0.5f;
+
+    public float magneticAttachSpeed = 5f;
+    private bool magneticAttaching = false;
+
+    [Header("Desenganche magnético")]
+    public float magneticDetachSpeed = 8f;
+
+    private bool magneticDetaching = false;
+    private Tile landingTile;
+    private Quaternion normalRotation;
+
     void Awake()
     {
         if (cameraRig == null) cameraRig = Object.FindFirstObjectByType<CameraFollow>();
@@ -63,6 +106,12 @@ public class PlayerMovement : MonoBehaviour
             Make("TurnDown", "<Keyboard>/downArrow"), Make("TurnLeft", "<Keyboard>/leftArrow"),
         };
 
+        magneticToggleAction = new InputAction(
+            "ToggleMagnetism",
+            InputActionType.Button,
+            "<Keyboard>/m"
+        );
+
         Vector3 f = playerAvatar != null ? playerAvatar.transform.forward : transform.forward;
         f.y = 0f;
         facingDir = f.sqrMagnitude > 0.0001f ? f.normalized : Vector3.forward;
@@ -73,16 +122,30 @@ public class PlayerMovement : MonoBehaviour
         return new InputAction(name, InputActionType.Button, binding);
     }
 
-    void OnEnable() { foreach (var a in moveKeys) a.Enable(); foreach (var a in turnKeys) a.Enable(); }
-    void OnDisable() { foreach (var a in moveKeys) a.Disable(); foreach (var a in turnKeys) a.Disable(); }
-    void OnDestroy() { foreach (var a in moveKeys) a.Dispose(); foreach (var a in turnKeys) a.Dispose(); }
+    void OnEnable() { foreach (var a in moveKeys) a.Enable(); foreach (var a in turnKeys) a.Enable(); magneticToggleAction.Enable();}
+    void OnDisable() { foreach (var a in moveKeys) a.Disable(); foreach (var a in turnKeys) a.Disable(); magneticToggleAction.Disable();}
+    void OnDestroy() { foreach (var a in moveKeys) a.Dispose(); foreach (var a in turnKeys) a.Dispose(); magneticToggleAction.Dispose();}
 
     void Update()
     {
+
+        if (magneticToggleAction.WasPressedThisFrame()){
+        Debug.Log("Tecla M detectada");
+        ToggleMagnetism();
+        }
+
+        UpdateMagneticAttach();
+        UpdateMagneticDetach();
+
+        if (magneticAttaching || magneticDetaching)
+            return;
+
         SyncInitialTile();
         if (!moving) ReadInput();
         if (moving) PerformMovement();
         RotateTowardsFacing();
+
+        
     }
 
     /// El detector de piso rellena currentTile unos frames después de empezar;
@@ -97,10 +160,17 @@ public class PlayerMovement : MonoBehaviour
     // ---------------- Input ----------------
     void ReadInput()
     {
-        if (scheme == ControlScheme.TapToTurnHoldToMove) HandleTapHold();
-        else HandleArrowsTurn();
-    }
+        if (magneticMode)
+        {
+            HandleMagneticInput();
+            return;
+        }
 
+        if (scheme == ControlScheme.TapToTurnHoldToMove)
+            HandleTapHold();
+        else
+            HandleArrowsTurn();
+    }
     void HandleTapHold()
     {
         int active = -1;
@@ -169,6 +239,8 @@ public class PlayerMovement : MonoBehaviour
         Vector3 flatPos = new Vector3(transform.position.x, 0f, transform.position.z);
         Vector3 dir = (tile.GetTilePosition() - flatPos).normalized;
 
+        if (WallInDirection(dir)) return;
+
         Box box = tile.BoxOn;
         Tile beyond = null;
         if (box != null)
@@ -208,20 +280,55 @@ public class PlayerMovement : MonoBehaviour
 
     void OnArrived()
     {
+        if (magneticMoving)
+        {
+            magneticTile = destinationTile;
+            destinationTile = null;
+            magneticMoving = false;
+            return;
+        }
+
         if (occupiedTile != null && occupiedTile != destinationTile)
-            occupiedTile.Exit(gameObject);               // recién ahora se "suelta" el tile anterior
+            occupiedTile.Exit(gameObject);
+
         occupiedTile = destinationTile;
         destinationTile = null;
     }
 
     void RotateTowardsFacing()
     {
-        if (facingDir.sqrMagnitude < 0.0001f) { rotating = false; return; }
+        if (facingDir.sqrMagnitude < 0.0001f)
+        {
+            rotating = false;
+            return;
+        }
 
-        Quaternion target = Quaternion.LookRotation(facingDir);
+        Vector3 up = magneticMode ? surfaceUp : Vector3.up;
+
+        Vector3 forward = Vector3.ProjectOnPlane(
+            facingDir,
+            up
+        ).normalized;
+
+        if (forward.sqrMagnitude < 0.0001f)
+        {
+            rotating = false;
+            return;
+        }
+
+        Quaternion target = Quaternion.LookRotation(forward, up);
+
         playerAvatar.transform.rotation = Quaternion.RotateTowards(
-            playerAvatar.transform.rotation, target, rotationSpeed * Time.deltaTime);
-        rotating = Quaternion.Angle(playerAvatar.transform.rotation, target) > 0.5f;
+            playerAvatar.transform.rotation,
+            target,
+            (magneticMode ? magneticAlignmentSpeed : rotationSpeed)
+                * Time.deltaTime
+        );
+
+        rotating = Quaternion.Angle(
+            playerAvatar.transform.rotation,
+            target
+        ) > 0.5f;
     }
 
     public void MoveToPosition(Vector3 position)
@@ -236,6 +343,454 @@ public class PlayerMovement : MonoBehaviour
         if (flat.sqrMagnitude > 0.0001f) facingDir = flat.normalized;
 
         moving = true;
+    }
+
+    void HandleMagneticInput()
+    {
+        if (magneticTile == null || moving)
+            return;
+
+        int active = -1;
+        float latest = float.MinValue;
+
+        for (int i = 0; i < 4; i++)
+        {
+            if (moveKeys[i].WasPressedThisFrame())
+                pressTime[i] = Time.time;
+
+            if (moveKeys[i].IsPressed() &&
+                pressTime[i] >= latest)
+            {
+                latest = pressTime[i];
+                active = i;
+            }
+        }
+
+        if (active < 0)
+            return;
+
+        Vector3 wallNormal = surfaceUp.normalized;
+
+        // Eje vertical del mundo: subir y bajar por la pared.
+        Vector3 vertical = Vector3.up;
+
+        // Eje horizontal de la pared, si después lo necesitas.
+        Vector3 horizontal = Vector3.Cross(wallNormal, vertical).normalized;
+
+        Vector3 direction;
+
+        switch (active)
+        {
+            case 0: direction = vertical; break;       // Arriba
+            case 1: direction = horizontal; break;     // Derecha
+            case 2: direction = -vertical; break;      // Abajo
+            default: direction = -horizontal; break;   // Izquierda
+        }
+
+        facingDir = direction;
+
+        // Mantener el sistema de pulsación prolongada.
+        if (Time.time - pressTime[active] < holdThreshold)
+            return;
+
+        // Diagnóstico temporal.
+        Debug.Log($"Movimiento magnético solicitado: {direction}");
+
+        TryMagneticMove(direction);
+    }
+
+    void TryMagneticMove(Vector3 direction)
+    {
+        if (magneticMoving || magneticTile == null)
+        {
+            Debug.LogWarning("Bloqueado: ya se mueve o no hay tile magnético.");
+            return;
+        }
+
+        // Solo permitimos movimiento vertical por la pared.
+        direction = direction.y >= 0f ? Vector3.up : Vector3.down;
+
+        // Comprobar que la dirección vertical esté en el plano de la pared.
+        Vector3 wallNormal = surfaceUp.normalized;
+
+        
+
+        if (Mathf.Abs(Vector3.Dot(direction, wallNormal)) > 0.1f)
+        {
+            Debug.LogWarning(
+                "Movimiento cancelado: la pared no permite movimiento vertical."
+            );
+            return;
+        }
+
+        Tile neighbour = FindMagneticNeighbour(direction);
+
+        if (neighbour == null)
+        {
+            Debug.LogWarning("Movimiento cancelado: no se encontró un tile vecino.");
+            return;
+        }
+
+        if (neighbour.BoxOn != null)
+        {
+            Debug.LogWarning("Movimiento cancelado: hay una caja en el vecino.");
+            return;
+        }
+
+        destinationTile = neighbour;
+        magneticMoving = true;
+
+        targetPosition =
+            neighbour.transform.position
+            + wallNormal * magneticSurfaceOffset
+            + Vector3.up * magneticVerticalOffset;
+            
+        movingDirection = direction;
+
+        distanceToTarget = Vector3.Distance(transform.position, targetPosition);
+        moving = distanceToTarget > 0.001f;
+
+        if (!moving)
+        {
+            magneticTile = destinationTile;
+            destinationTile = null;
+            magneticMoving = false;
+        }
+    }
+    
+    Tile FindMagneticNeighbour(Vector3 direction)
+    {
+        Tile best = null;
+        float bestDistance = float.MaxValue;
+
+        foreach (Tile candidate in Tile.AllTiles)
+        {
+            if (candidate == null || candidate == magneticTile)
+                continue;
+
+            if (!candidate.CanMagnetize)
+            {
+                Debug.Log($"{candidate.name}: no puede magnetizarse.");
+                continue;
+            }
+
+            Vector3 delta =
+                candidate.transform.position -
+                magneticTile.transform.position;
+
+            float distance = delta.magnitude;
+
+            if (distance < 0.001f)
+                continue;
+
+            if (Mathf.Abs(distance - Tile.TileSize) > 0.2f)
+            {
+                Debug.Log(
+                    $"{candidate.name}: distancia incorrecta ({distance:F2})."
+                );
+                continue;
+            }
+
+            Vector3 candidateDirection = delta / distance;
+
+            if (Vector3.Dot(candidateDirection, direction)
+                < neighbourDirectionThreshold)
+            {
+                Debug.Log(
+                    $"{candidate.name}: dirección incorrecta. " +
+                    $"Dot={Vector3.Dot(candidateDirection, direction):F2}"
+                );
+                continue;
+            }
+
+            if (Vector3.Dot(
+                candidate.surfaceNormal.normalized,
+                surfaceUp
+            ) < 0.95f)
+            {
+                Debug.Log(
+                    $"{candidate.name}: normal de superficie diferente."
+                );
+                continue;
+            }
+
+            if (distance < bestDistance)
+            {
+                best = candidate;
+                bestDistance = distance;
+            }
+        }
+
+        Debug.Log(
+            best != null
+                ? $"Vecino seleccionado: {best.name}"
+                : "No existe ningún vecino válido."
+        );
+
+        return best;
+    }
+
+
+    void ToggleMagnetism()
+    {
+
+        if (magneticAttaching || magneticDetaching || magneticMoving)
+            return;
+
+        if (magneticMode)
+        {
+            BeginMagneticDetach();
+            return;
+        }
+
+        if (magneticMode)
+        {
+            magneticMode = false;
+            magneticTile = null;
+            surfaceUp = Vector3.up;
+            magneticMoving = false;
+
+            Debug.Log("Magnetismo desactivado");
+            return;
+        }
+
+        if (TryFindMagneticTile(out Tile tile))
+        {
+            magneticTile = tile;
+            magneticMode = true;
+            surfaceUp = tile.surfaceNormal.normalized;
+
+            Vector3 wallNormal = surfaceUp;
+
+            targetPosition =
+                tile.transform.position
+                + wallNormal * magneticSurfaceOffset
+                + Vector3.up * magneticVerticalOffset;
+
+            magneticAttaching = true;
+            magneticMoving = false;
+            moving = false;
+
+            // Proyectar la dirección del personaje sobre la pared.
+            Vector3 projectedForward = Vector3.ProjectOnPlane(
+                playerAvatar.transform.forward,
+                surfaceUp
+            ).normalized;
+
+            // Si mira directamente hacia la pared, usar el eje vertical
+            // del mundo como dirección inicial para poder escalar.
+            if (projectedForward.sqrMagnitude < 0.001f)
+            {
+                projectedForward = Vector3.ProjectOnPlane(
+                    Vector3.up,
+                    surfaceUp
+                ).normalized;
+            }
+
+            // Último recurso si la superficie es horizontal.
+            if (projectedForward.sqrMagnitude < 0.001f)
+            {
+                projectedForward = Vector3.ProjectOnPlane(
+                    Vector3.forward,
+                    surfaceUp
+                ).normalized;
+            }
+
+            facingDir = projectedForward;
+            magneticForward = projectedForward;
+            
+
+            Debug.Log("Magnetismo activado en: " + tile.name);
+        }
+        else
+        {
+            Debug.LogWarning(
+                "No se encontró ningún Tile metálico en el alcance del raycast."
+            );
+        }
+    }
+
+    bool TryFindMagneticTile(out Tile tile)
+    {
+        tile = null;
+
+        Vector3 origin = transform.position + Vector3.up * 1f;
+
+        // Buscar en las seis direcciones principales del mundo.
+        Vector3[] directions =
+        {
+            Vector3.up,
+            Vector3.down,
+            Vector3.left,
+            Vector3.right,
+            Vector3.forward,
+            Vector3.back
+        };
+
+        foreach (Vector3 direction in directions)
+        {
+            Debug.DrawRay(
+                origin,
+                direction * magneticRange,
+                Color.yellow,
+                2f
+            );
+
+            if (!Physics.Raycast(
+                origin,
+                direction,
+                out RaycastHit hit,
+                magneticRange,
+                magneticLayers,
+                QueryTriggerInteraction.Ignore))
+            {
+                continue;
+            }
+
+            Tile detected = hit.collider.GetComponentInChildren<Tile>();
+
+            if (detected == null || !detected.CanMagnetize)
+                continue;
+
+            tile = detected;
+            return true;
+        }
+
+        return false;
+    }
+
+    void UpdateMagneticAttach()
+    {
+        if (!magneticAttaching)
+            return;
+
+        transform.position = Vector3.MoveTowards(
+            transform.position,
+            targetPosition,
+            magneticAttachSpeed * Time.deltaTime
+        );
+
+        if (Vector3.Distance(transform.position, targetPosition) < 0.01f)
+        {
+            transform.position = targetPosition;
+            magneticAttaching = false;
+        }
+    }
+
+    void BeginMagneticDetach()
+    {
+        Tile bestFloor = null;
+        float bestDistance = float.MaxValue;
+
+        foreach (Tile candidate in Tile.AllTiles)
+        {
+            if (candidate == null)
+                continue;
+
+            // El suelo no debe ser una superficie magnética.
+            if (candidate.magneticSurface || !candidate.IsWalkable)
+                continue;
+
+            // Buscar un tile situado debajo de la pared.
+            if (candidate.transform.position.y >= magneticTile.transform.position.y)
+                continue;
+
+            Vector2 wallXZ = new Vector2(
+                magneticTile.transform.position.x,
+                magneticTile.transform.position.z
+            );
+
+            Vector2 floorXZ = new Vector2(
+                candidate.transform.position.x,
+                candidate.transform.position.z
+            );
+
+            float horizontalDistance = Vector2.Distance(wallXZ, floorXZ);
+
+            if (horizontalDistance < bestDistance)
+            {
+                bestDistance = horizontalDistance;
+                bestFloor = candidate;
+            }
+        }
+
+        if (bestFloor == null)
+        {
+            Debug.LogWarning("No se encontró un tile de suelo para aterrizar.");
+            return;
+        }
+
+        landingTile = bestFloor;
+
+        // Desactivar el magnetismo, pero conservar el destino de caída.
+        magneticMode = false;
+        magneticTile = null;
+        magneticMoving = false;
+        magneticAttaching = false;
+
+        // Recuperar una orientación vertical, manteniendo el rumbo horizontal.
+        Vector3 forward = Vector3.ProjectOnPlane(transform.forward, Vector3.up);
+
+        if (forward.sqrMagnitude > 0.001f)
+            normalRotation = Quaternion.LookRotation(forward.normalized, Vector3.up);
+        else
+            normalRotation = Quaternion.identity;
+
+        // El personaje caerá hasta la posición habitual del tile de suelo.
+        targetPosition = landingTile.GetTilePosition();
+
+        magneticDetaching = true;
+        moving = false;
+    }
+
+    void UpdateMagneticDetach()
+    {
+        if (!magneticDetaching)
+            return;
+
+        transform.position = Vector3.MoveTowards(
+            transform.position,
+            targetPosition,
+            magneticDetachSpeed * Time.deltaTime
+        );
+
+        transform.rotation = Quaternion.RotateTowards(
+            transform.rotation,
+            normalRotation,
+            magneticRotationSpeed * Time.deltaTime
+        );
+
+        bool arrived =
+            Vector3.Distance(transform.position, targetPosition) < 0.01f;
+
+        bool rotated =
+            Quaternion.Angle(transform.rotation, normalRotation) < 0.5f;
+
+        if (arrived && rotated)
+        {
+            transform.position = targetPosition;
+            transform.rotation = normalRotation;
+
+            magneticDetaching = false;
+            landingTile = null;
+
+            // El movimiento normal vuelve a estar disponible.
+            moving = false;
+            magneticMoving = false;
+            destinationTile = null;
+        }
+    }
+
+    bool WallInDirection(Vector3 worldDir)
+    {
+        Vector3 local = transform.InverseTransformDirection(worldDir);
+
+        Tile wall = Mathf.Abs(local.z) > Mathf.Abs(local.x)
+            ? (local.z > 0f ? wallForwardTile : wallBackwardTile)
+            : (local.x > 0f ? wallRightTile : wallLeftTile);
+
+        // isActiveAndEnabled: si la pared se desactiva (puerta que se abre), deja de bloquear
+        return wall != null && wall.isActiveAndEnabled;
     }
 
     public void SetLeftTile(Tile tile) { leftTile = tile; }

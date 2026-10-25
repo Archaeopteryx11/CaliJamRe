@@ -51,7 +51,6 @@ GameObject:
   - component: {fileID: 971347485811866755}
   - component: {fileID: 7980955862630171490}
   - component: {fileID: 2476811334371584741}
-  - component: {fileID: 5671469501826641489}
   m_Layer: 0
   m_Name: PlayerOrigin
   m_TagString: Player
@@ -152,19 +151,6 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8
   distancia: 5
---- !u!114 &5671469501826641489
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 713357589696133963}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 595499beaf601a64e8cc0dfcfadd1c3c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::SelectorModulos
-  evento: []
 --- !u!1 &1131549149207013128
 GameObject:
   m_ObjectHideFlags: 0
@@ -1263,7 +1249,6 @@ MonoBehaviour:
   puntoDisparo: {fileID: 5965289938473737938}
   fuerza: 7
   tiempoVida: 2
-  seleccionModulo: {fileID: 5671469501826641489}
   animator: {fileID: 5739601430869017850}
 --- !u!65 &2449252089958787363
 BoxCollider:

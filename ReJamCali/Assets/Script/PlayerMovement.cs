@@ -166,9 +166,7 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
 
-        if (magneticToggleAction.WasPressedThisFrame()){
-        ToggleMagnetism();
-        }
+        if (HabilidadesNivel.Imantar && magneticToggleAction.WasPressedThisFrame()) ToggleMagnetism();
 
         UpdateMagneticAttach();
         UpdateMagneticDetach();
@@ -308,7 +306,8 @@ public class PlayerMovement : MonoBehaviour
             return;
         }
 
-        if (box != null) box.PushTo(beyond, speed);      // la caja se mueve a la misma velocidad que el robot
+        // Se envía la dirección 'dir' a la caja para que sepa hacia dónde desplazarse en el aire si 'beyond' es null
+        if (box != null) box.PushTo(beyond, dir, speed);
     }
 
     void PerformMovement()

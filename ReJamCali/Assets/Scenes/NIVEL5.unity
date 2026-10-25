@@ -56996,10 +56996,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1381024720672264404, guid: 6e69722efd58d11429f0dfbd806f5904, type: 3}
       propertyPath: m_text
-      value: 'Presiona Tab para cambiar entre robots auxiliares
+      value: 'Usa Tab para cambiar entre robots auxiliares
 
-        Presiona
-        ESC para volver al principal'
+        Usa ESC para
+        volver al principal'
       objectReference: {fileID: 0}
     - target: {fileID: 1381024720672264404, guid: 6e69722efd58d11429f0dfbd806f5904, type: 3}
       propertyPath: m_lineSpacing

@@ -21119,6 +21119,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5a37fbb28f0e4854db9ad839a15d2ef7, type: 3}
+--- !u!82 &965046991 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 5757847179756810518, guid: 31f4bac4bb5d5e64585dbbdd9ff3cfbc, type: 3}
+  m_PrefabInstance: {fileID: 1957577703252020388}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &966453063
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -29918,6 +29923,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 971347485811866755, guid: 31f4bac4bb5d5e64585dbbdd9ff3cfbc, type: 3}
   m_PrefabInstance: {fileID: 1957577703252020388}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1357598069 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7225913600865837876, guid: 31f4bac4bb5d5e64585dbbdd9ff3cfbc, type: 3}
+  m_PrefabInstance: {fileID: 1957577703252020388}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 707a4e75ef81f4642bfad84c0e438ab7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerAudio
 --- !u!1001 &1358345337
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -46982,6 +46998,22 @@ PrefabInstance:
       propertyPath: m_Center.x
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2580558667140276770, guid: 31f4bac4bb5d5e64585dbbdd9ff3cfbc, type: 3}
+      propertyPath: m_Resource
+      value: 
+      objectReference: {fileID: 8300000, guid: 7c7505a46267d14428e155152bee553f, type: 3}
+    - target: {fileID: 2580558667140276770, guid: 31f4bac4bb5d5e64585dbbdd9ff3cfbc, type: 3}
+      propertyPath: MaxDistance
+      value: 1542.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 2580558667140276770, guid: 31f4bac4bb5d5e64585dbbdd9ff3cfbc, type: 3}
+      propertyPath: m_PlayOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7225913600865837876, guid: 31f4bac4bb5d5e64585dbbdd9ff3cfbc, type: 3}
+      propertyPath: fuente
+      value: 
+      objectReference: {fileID: 965046991}
     - target: {fileID: 7980955862630171490, guid: 31f4bac4bb5d5e64585dbbdd9ff3cfbc, type: 3}
       propertyPath: cameraRig
       value: 
@@ -47047,6 +47079,66 @@ PrefabInstance:
       propertyPath: targetCamera
       value: 
       objectReference: {fileID: 330585545}
+    - target: {fileID: 6697082628436623407, guid: c40d8a4d6fc84614888b9e5b520668f4, type: 3}
+      propertyPath: onWin.m_PersistentCalls.m_Calls.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6697082628436623407, guid: c40d8a4d6fc84614888b9e5b520668f4, type: 3}
+      propertyPath: onWinStart.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6697082628436623407, guid: c40d8a4d6fc84614888b9e5b520668f4, type: 3}
+      propertyPath: onWin.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6697082628436623407, guid: c40d8a4d6fc84614888b9e5b520668f4, type: 3}
+      propertyPath: onWin.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1357598069}
+    - target: {fileID: 6697082628436623407, guid: c40d8a4d6fc84614888b9e5b520668f4, type: 3}
+      propertyPath: onWin.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6697082628436623407, guid: c40d8a4d6fc84614888b9e5b520668f4, type: 3}
+      propertyPath: onWinStart.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6697082628436623407, guid: c40d8a4d6fc84614888b9e5b520668f4, type: 3}
+      propertyPath: onWin.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: Victoria
+      objectReference: {fileID: 0}
+    - target: {fileID: 6697082628436623407, guid: c40d8a4d6fc84614888b9e5b520668f4, type: 3}
+      propertyPath: onWinStart.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 7225913600865837876, guid: 31f4bac4bb5d5e64585dbbdd9ff3cfbc, type: 3}
+    - target: {fileID: 6697082628436623407, guid: c40d8a4d6fc84614888b9e5b520668f4, type: 3}
+      propertyPath: onWinStart.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6697082628436623407, guid: c40d8a4d6fc84614888b9e5b520668f4, type: 3}
+      propertyPath: onWinStart.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: Victoria
+      objectReference: {fileID: 0}
+    - target: {fileID: 6697082628436623407, guid: c40d8a4d6fc84614888b9e5b520668f4, type: 3}
+      propertyPath: onWin.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: PlayerAudio, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 6697082628436623407, guid: c40d8a4d6fc84614888b9e5b520668f4, type: 3}
+      propertyPath: onWin.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 6697082628436623407, guid: c40d8a4d6fc84614888b9e5b520668f4, type: 3}
+      propertyPath: onWinStart.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: PlayerAudio, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 6697082628436623407, guid: c40d8a4d6fc84614888b9e5b520668f4, type: 3}
+      propertyPath: onWin.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 6697082628436623407, guid: c40d8a4d6fc84614888b9e5b520668f4, type: 3}
+      propertyPath: onWinStart.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 7099135008017663552, guid: c40d8a4d6fc84614888b9e5b520668f4, type: 3}
       propertyPath: m_Name
       value: WinCondition

@@ -161,7 +161,6 @@ public class PlayerMovement : MonoBehaviour
     void Start()
     {
         if (autoCalibrateFeet) pivotToFeet = CalibratePivotToFeet();
-        Debug.Log($"[Calib] pivotToFeet={pivotToFeet:F3} (negativo = pies por encima del pivote)");
     }
 
     void Update()
@@ -594,9 +593,6 @@ public class PlayerMovement : MonoBehaviour
     void BeginMagneticDetach()
     {
 
-        LogBodyState("Detach"); // Debug
-
-
         // Garantiza que la caída no arranque dentro de la pared (no es un teletransporte: solo
         // corrige penetración, normalmente de unos milímetros).
        if (magneticTile != null)
@@ -700,8 +696,6 @@ public class PlayerMovement : MonoBehaviour
             float modelBottom = float.NaN;
             foreach (var r in GetComponentsInChildren<Renderer>())
                 modelBottom = float.IsNaN(modelBottom) ? r.bounds.min.y : Mathf.Min(modelBottom, r.bounds.min.y);
-
-            LogBodyState("Land"); //Debug
 
         detachPhase = DetachPhase.None;
         detachWallCollider = null;
@@ -908,25 +902,5 @@ public class PlayerMovement : MonoBehaviour
         if (GroundStateLocked) return false;
         if (IsMagneticWallTile(tile)) return false;
         return true;
-    }
-
-    void LogBodyState(string tag)
-    {
-        Transform av = playerAvatar.transform;
-
-        Renderer lowRoot = null, lowAvatar = null;
-        float minRoot = float.MaxValue, minAvatar = float.MaxValue;
-
-        foreach (Renderer r in GetComponentsInChildren<Renderer>())
-            if (r.bounds.min.y < minRoot) { minRoot = r.bounds.min.y; lowRoot = r; }
-
-        foreach (Renderer r in av.GetComponentsInChildren<Renderer>())
-            if (r.bounds.min.y < minAvatar) { minAvatar = r.bounds.min.y; lowAvatar = r; }
-
-        Debug.Log($"[{tag}] root={transform.position} | avatarWorld={av.position} " +
-                $"| avatarParent={(av.parent != null ? av.parent.name : "NINGUNO")} " +
-                $"| avatarEsHijoDeRaiz={av.IsChildOf(transform)} " +
-                $"| bajoRaiz='{(lowRoot != null ? lowRoot.name : "-")}' y={minRoot:F3} " +
-                $"| bajoAvatar='{(lowAvatar != null ? lowAvatar.name : "-")}' y={minAvatar:F3}");
     }
 }

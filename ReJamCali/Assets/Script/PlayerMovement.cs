@@ -489,8 +489,10 @@ public class PlayerMovement : MonoBehaviour
     
 
 
-    void ToggleMagnetism()
+    public void ToggleMagnetism()
     {
+        if (!isActiveAndEnabled) return;
+
         if (magneticAttaching || magneticMoving || moving || detachPhase != DetachPhase.None)
             return;
 

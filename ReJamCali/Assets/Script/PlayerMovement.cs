@@ -166,9 +166,7 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
 
-        if (magneticToggleAction.WasPressedThisFrame()){
-        ToggleMagnetism();
-        }
+        if (HabilidadesNivel.Imantar && magneticToggleAction.WasPressedThisFrame()) ToggleMagnetism();
 
         UpdateMagneticAttach();
         UpdateMagneticDetach();

@@ -7,12 +7,11 @@ public class ControlRemoto : MonoBehaviour
     [Header("Referencias")]
     [SerializeField] private PlayerMovement principal;      // vacío = se busca por el tag "Player"
     [SerializeField] private CameraFollow camara;           // vacío = se busca en la escena
-    [SerializeField] private SelectorModulos seleccionModulo;
 
     [Header("Dispositivos")]
     [SerializeField] private string tagBuscado = "Dispositivo";
-    [SerializeField] private Key teclaConectar = Key.Enter;
     [SerializeField] private Key teclaSalir = Key.Escape;
+    [SerializeField] private Key teclaCambiar = Key.Tab;
 
     private readonly List<PlayerMovement> dispositivos = new List<PlayerMovement>();
     private int indice;
@@ -73,26 +72,24 @@ public class ControlRemoto : MonoBehaviour
         Debug.Log("ControlRemoto: " + dispositivos.Count + " dispositivo(s) encontrados.");
     }
 
-    /// Conéctalo al UnityEvent del módulo de conexión inalámbrica en el SelectorModulos.
-    public void activo()
-    {
-        if (modoRemoto) Salir();
-        else EntrarModoRemoto();
-    }
-
     void Update()
     {
-        if (!modoRemoto) return;
+        var kb = Keyboard.current;
+        if (kb == null) return;
+
+        if (kb[teclaCambiar].wasPressedThisFrame)
+            Debug.Log("Tab detectada | modoRemoto=" + modoRemoto + " | Remoto permitido=" + HabilidadesNivel.Remoto + " | dispositivos=" + dispositivos.Count);
+
+        // Fuera del modo remoto, Tab entra (si el nivel lo permite).
+        if (!modoRemoto)
+        {
+            if (HabilidadesNivel.Remoto && kb[teclaCambiar].wasPressedThisFrame)
+                EntrarModoRemoto();
+            return;
+        }
 
         dispositivos.RemoveAll(d => d == null);
         if (dispositivos.Count == 0) { Salir(); return; }
-        indice = Mathf.Clamp(indice, 0, dispositivos.Count - 1);
-
-        // Con el inventario abierto la rueda es del selector de módulos.
-        if (seleccionModulo != null && seleccionModulo.activarInventario) return;
-
-        var kb = Keyboard.current;
-        if (kb == null) return;
 
         if (kb[teclaSalir].wasPressedThisFrame)
         {
@@ -100,64 +97,29 @@ public class ControlRemoto : MonoBehaviour
             return;
         }
 
-        if (conectado) return;
-
-        ElegirConRueda();
-        if (kb[teclaConectar].wasPressedThisFrame) Conectar(indice);
+        if (kb[teclaCambiar].wasPressedThisFrame && PuedeCambiar())
+            Conectar(indice + (kb.shiftKey.isPressed ? -1 : 1));
     }
 
-    // ---------------- Estados ----------------
     void EntrarModoRemoto()
     {
-        if (dispositivos.Count == 0)
-        {
-            Debug.LogWarning("ControlRemoto: no hay dispositivos con el tag '" + tagBuscado + "'.", this);
-            return;
-        }
-        if (principal.moving) return;          // espera a que termine el paso
+        if (dispositivos.Count == 0) return;     // nivel sin dispositivos: Tab no hace nada
+        if (principal.moving) return;
 
         modoRemoto = true;
-        conectado = false;
-        ActivarSolo(null);                     // nadie se mueve mientras se elige
-        if (seleccionModulo != null) seleccionModulo.CerrarInventario();
-        Enfocar(dispositivos[indice].transform);
-        Debug.Log("Modo remoto: rueda para elegir, " + teclaConectar + " para conectar, " + teclaSalir + " para salir.");
+        Conectar(indice);
     }
-
     void Conectar(int i)
     {
-        indice = i;
-        conectado = true;
-        ActivarSolo(dispositivos[i]);          // desactiva al principal y a todos los demás
-        Enfocar(dispositivos[i].transform);
-        Debug.Log("Conectado a: " + dispositivos[i].name);
-    }
-
-    void Salir()
-    {
-        modoRemoto = false;
-        conectado = false;
-        ActivarSolo(principal);
-        Enfocar(objetivoOriginal);             // lo que seguía la cámara antes (null = diorama fijo)
-        Debug.Log("Control devuelto al robot principal.");
-    }
-
-    // ---------------- Utilidades ----------------
-    void ElegirConRueda()
-    {
-        var mouse = Mouse.current;
-        if (mouse == null) return;
-
-        float scroll = mouse.scroll.ReadValue().y;
-        if (Mathf.Approximately(scroll, 0f)) return;
-
         int n = dispositivos.Count;
-        indice += scroll > 0f ? 1 : -1;
-        indice = ((indice % n) + n) % n;
+        if (n == 0) return;
+        indice = ((i % n) + n) % n;       // da la vuelta: después del último va el primero
 
+        ActivarSolo(dispositivos[indice]);
         Enfocar(dispositivos[indice].transform);
-        Debug.Log("Dispositivo seleccionado: " + dispositivos[indice].name);
+        Debug.Log("Controlando: " + dispositivos[indice].name + " (" + (indice + 1) + "/" + n + ")");
     }
+
 
     /// Solo "quien" puede moverse; el principal y todos los dispositivos restantes quedan desactivados.
     void ActivarSolo(PlayerMovement quien)
@@ -180,5 +142,14 @@ public class ControlRemoto : MonoBehaviour
     void Enfocar(Transform objetivo)
     {
         if (camara != null) camara.followTarget = objetivo;
+    }
+
+    public void Salir()
+    {
+        modoRemoto = false;
+
+        ActivarSolo(principal);
+        Enfocar(objetivoOriginal);
+        Debug.Log("Control devuelto al robot principal.");
     }
 }

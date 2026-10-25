@@ -75,14 +75,12 @@ public class SelectorModulos : MonoBehaviour
     }
     public void ejecutarEvento()
     {
-        if (Keyboard.current.spaceKey.wasPressedThisFrame)
-        {
-            if (evento[indiceActual] != null)
-            {
-                evento[indiceActual].Invoke();
-                Debug.Log("Evento " + evento[indiceActual].ToString() + " ejecutado");
-            }
-        }
+        if (Keyboard.current == null || !Keyboard.current.spaceKey.wasPressedThisFrame) return;
+        if (evento == null || indiceActual < 0 || indiceActual >= evento.Length) return;
+        if (evento[indiceActual] == null) return;
+
+        evento[indiceActual].Invoke();
+        Debug.Log("Modulo " + (indiceActual + 1) + " ejecutado");
     }
     public void invetario()
     {
@@ -91,5 +89,9 @@ public class SelectorModulos : MonoBehaviour
             activarInventario = !activarInventario;
             Debug.Log("Inventario " + (activarInventario ? "activado" : "desactivado"));
         }
+    }
+    public void CerrarInventario()
+    {
+        activarInventario = false;
     }
 }

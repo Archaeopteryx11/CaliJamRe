@@ -49,8 +49,7 @@ public class CameraFollow : MonoBehaviour
 
         cam.orthographic = true;
         cam.orthographicSize = orthoSize;
-        cam.nearClipPlane = 0.1f;
-        cam.farClipPlane = distance * 3f;
+        
 
         Quaternion tilt = Quaternion.Euler(pitch, 0f, 0f);
         cam.transform.localRotation = tilt;

@@ -159,7 +159,21 @@ public class PlayerAudio : MonoBehaviour
     /// Enlázalo, por ejemplo, al evento On Win de WinCondition.
     public void Victoria()
     {
-        Reproducir(victoria);
+        if (victoria == null)
+        {
+            Debug.LogWarning("PlayerAudio.Victoria(): el campo 'Victoria' no tiene clip asignado en " + name, this);
+            return;
+        }
+        if (fuente == null) fuente = GetComponent<AudioSource>();
+        if (fuente == null)
+        {
+            // Red de seguridad: suena aunque la fuente no exista (por ejemplo, si se llama antes de Awake).
+            AudioSource.PlayClipAtPoint(victoria, transform.position, volumen);
+            return;
+        }
+
+        Debug.Log("PlayerAudio.Victoria(): reproduciendo '" + victoria.name + "'", this);
+        fuente.PlayOneShot(victoria, volumen);
     }
 
     /// Reproduce cualquier clip por el AudioSource del robot (se puede enlazar desde un UnityEvent).

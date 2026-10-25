@@ -43,6 +43,9 @@ public class WinCondition : MonoBehaviour
     public float canvasDelay = 0.3f;
 
     [Header("Eventos")]
+    [Tooltip("Se lanza en cuanto el robot llega a la casilla, ANTES de la celebración. Aquí va el audio de victoria.")]
+    public UnityEvent onWinStart;
+    [Tooltip("Se lanza al final, cuando aparece el canvas.")]
     public UnityEvent onWin;
 
     bool won;
@@ -73,6 +76,7 @@ public class WinCondition : MonoBehaviour
         if (!SameCell(playerTf.position, transform.position)) return;   // debe estar sobre la casilla
 
         won = true;
+        onWinStart?.Invoke();
         StartCoroutine(WinRoutine(movement, playerTf));
     }
 

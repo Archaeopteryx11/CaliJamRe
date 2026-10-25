@@ -72,25 +72,57 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("Movimiento magnético")]
     public float magneticAlignmentSpeed = 540f;
-    [Range(0.5f, 1f)]
-    public float neighbourDirectionThreshold = 0.85f;
 
     private Vector3 magneticForward;
     private bool magneticMoving;
 
-    public float magneticSurfaceOffset = 0.5f;
-    public float magneticVerticalOffset = 0.5f;
-
+    [Header("Enganche magnético")]
     public float magneticAttachSpeed = 5f;
     private bool magneticAttaching = false;
-
-    [Header("Desenganche magnético")]
-    public float magneticDetachSpeed = 8f;
-
-    private bool magneticDetaching = false;
     private Tile landingTile;
-    private Quaternion normalRotation;
 
+    [Header("Geometría del jugador")]
+    [Tooltip("Distancia pivote→pies. Negativo = calibrar automáticamente en Start.")]
+    public float pivotToFeet = -1f;
+    public bool autoCalibrateFeet = true;
+    public float groundProbeUp = 0.3f;   // el rayo de suelo parte esta altura sobre los pies
+    [Tooltip("Si es false, magneticSurfaceOffset es la distancia pivote→superficie.")]
+    public bool autoSurfaceOffset = true;
+    public float magneticSurfaceOffset = 0.02f;
+    public float magneticProbeHeight = 1f;
+
+    [Header("Separación de la pared")]
+    [Tooltip("Si es true, usa el volumen de los Renderers del modelo; si no, solo el Collider.")]
+    public bool useModelBounds = true;
+    public float skin = 0.03f;
+    [Tooltip("Velocidad (m/s) a la que el cuerpo se aleja de la pared al caer.")]
+    public float peelOffSpeed = 3f;
+
+    Collider bodyCollider;
+    Collider detachWallCollider;
+    Vector3 detachNormal;
+    Vector3 detachFacePoint;
+    float settleTimer;
+
+    [Header("Caída (gravedad manual)")]
+    public float gravity = 20f;
+    public float maxFallSpeed = 25f;
+    public float landingCenterSpeed = 6f;
+    public LayerMask groundLayers = ~0;
+    [Range(0f, 1f)] public float groundMinNormalY = 0.7f;
+    public float fallAbortY = -100f;
+
+
+    enum DetachPhase { None, Falling, Settling }
+    DetachPhase detachPhase = DetachPhase.None;
+    float fallVelocity;
+    Vector3 landingPoint;
+
+    static readonly RaycastHit[] hitBuffer = new RaycastHit[16];
+    static readonly Vector3[] ProbeDirs =
+    {
+        Vector3.up, Vector3.down, Vector3.left, Vector3.right, Vector3.forward, Vector3.back
+    };
     void Awake()
     {
         if (cameraRig == null) cameraRig = Object.FindFirstObjectByType<CameraFollow>();
@@ -126,21 +158,37 @@ public class PlayerMovement : MonoBehaviour
     void OnDisable() { foreach (var a in moveKeys) a.Disable(); foreach (var a in turnKeys) a.Disable(); magneticToggleAction.Disable();}
     void OnDestroy() { foreach (var a in moveKeys) a.Dispose(); foreach (var a in turnKeys) a.Dispose(); magneticToggleAction.Dispose();}
 
+    void Start()
+    {
+        if (autoCalibrateFeet) pivotToFeet = CalibratePivotToFeet();
+        Debug.Log($"[Calib] pivotToFeet={pivotToFeet:F3} (negativo = pies por encima del pivote)");
+    }
+
     void Update()
     {
 
         if (magneticToggleAction.WasPressedThisFrame()){
-        Debug.Log("Tecla M detectada");
         ToggleMagnetism();
         }
 
         UpdateMagneticAttach();
         UpdateMagneticDetach();
 
-        if (magneticAttaching || magneticDetaching)
+        if (magneticAttaching || detachPhase != DetachPhase.None)
+        {
+            RotateTowardsFacing();   // el avatar se orienta mientras engancha/cae
             return;
-
-        SyncInitialTile();
+        }
+        if (!magneticMode)
+        {
+            // Si el detector coló un tile de pared, vuelve al tile realmente ocupado.
+            if (!moving && occupiedTile != null && IsMagneticWallTile(currentTile))
+            {
+                currentTile = occupiedTile;
+                RefreshGroundNeighbours(occupiedTile);
+            }
+            SyncInitialTile();
+        }
         if (!moving) ReadInput();
         if (moving) PerformMovement();
         RotateTowardsFacing();
@@ -251,7 +299,9 @@ public class PlayerMovement : MonoBehaviour
 
         destinationTile = tile;
         destinationTile.Enter(gameObject);
-        MoveToPosition(tile.GetTilePosition());
+        Vector3 stepTarget = tile.GetTilePosition();
+        stepTarget.y = transform.position.y;     // conservar la altura de aterrizaje
+        MoveToPosition(stepTarget);
         if (!moving)
         {
             destinationTile.Exit(gameObject);
@@ -345,318 +395,182 @@ public class PlayerMovement : MonoBehaviour
         moving = true;
     }
 
+    /// Ejes de la pared vistos por quien mira hacia ella: W=arriba, D=derecha.
+    void GetWallAxes(out Vector3 wallUp, out Vector3 wallRight)
+    {
+        Vector3 n = surfaceUp;
+        wallUp = Vector3.ProjectOnPlane(Vector3.up, n);
+        if (wallUp.sqrMagnitude < 0.01f)                    // techo/suelo
+            wallUp = Vector3.ProjectOnPlane(magneticForward, n);
+        wallUp.Normalize();
+        wallRight = Vector3.Cross(n, wallUp).normalized;    // corregido (antes Cross(up, n))
+    }
+
     void HandleMagneticInput()
     {
-        if (magneticTile == null || moving)
-            return;
+        if (magneticTile == null || moving) return;
 
         int active = -1;
         float latest = float.MinValue;
-
         for (int i = 0; i < 4; i++)
         {
-            if (moveKeys[i].WasPressedThisFrame())
-                pressTime[i] = Time.time;
-
-            if (moveKeys[i].IsPressed() &&
-                pressTime[i] >= latest)
+            if (moveKeys[i].WasPressedThisFrame()) pressTime[i] = Time.time;
+            if (moveKeys[i].IsPressed() && pressTime[i] >= latest)
             {
                 latest = pressTime[i];
                 active = i;
             }
         }
+        if (active < 0) return;
+        if (Time.time - pressTime[active] < holdThreshold) return;
 
-        if (active < 0)
-            return;
-
-        Vector3 wallNormal = surfaceUp.normalized;
-
-        // Eje vertical del mundo: subir y bajar por la pared.
-        Vector3 vertical = Vector3.up;
-
-        // Eje horizontal de la pared, si después lo necesitas.
-        Vector3 horizontal = Vector3.Cross(wallNormal, vertical).normalized;
+        GetWallAxes(out Vector3 wallUp, out Vector3 wallRight);
 
         Vector3 direction;
-
         switch (active)
         {
-            case 0: direction = vertical; break;       // Arriba
-            case 1: direction = horizontal; break;     // Derecha
-            case 2: direction = -vertical; break;      // Abajo
-            default: direction = -horizontal; break;   // Izquierda
+            case 0:  direction = wallUp; break;       // W
+            case 1:  direction = wallRight; break;    // D
+            case 2:  direction = -wallUp; break;      // S
+            default: direction = -wallRight; break;   // A
         }
 
         facingDir = direction;
-
-        // Mantener el sistema de pulsación prolongada.
-        if (Time.time - pressTime[active] < holdThreshold)
-            return;
-
-        // Diagnóstico temporal.
-        Debug.Log($"Movimiento magnético solicitado: {direction}");
-
         TryMagneticMove(direction);
     }
 
     void TryMagneticMove(Vector3 direction)
     {
-        if (magneticMoving || magneticTile == null)
-        {
-            Debug.LogWarning("Bloqueado: ya se mueve o no hay tile magnético.");
-            return;
-        }
-
-        // Solo permitimos movimiento vertical por la pared.
-        direction = direction.y >= 0f ? Vector3.up : Vector3.down;
-
-        // Comprobar que la dirección vertical esté en el plano de la pared.
-        Vector3 wallNormal = surfaceUp.normalized;
-
-        
-
-        if (Mathf.Abs(Vector3.Dot(direction, wallNormal)) > 0.1f)
-        {
-            Debug.LogWarning(
-                "Movimiento cancelado: la pared no permite movimiento vertical."
-            );
-            return;
-        }
+        if (magneticMoving || magneticTile == null) return;
 
         Tile neighbour = FindMagneticNeighbour(direction);
-
-        if (neighbour == null)
-        {
-            Debug.LogWarning("Movimiento cancelado: no se encontró un tile vecino.");
-            return;
-        }
-
-        if (neighbour.BoxOn != null)
-        {
-            Debug.LogWarning("Movimiento cancelado: hay una caja en el vecino.");
-            return;
-        }
+        if (neighbour == null || neighbour.BoxOn != null) return;
 
         destinationTile = neighbour;
         magneticMoving = true;
+        targetPosition = ComputeMagneticPivot(neighbour, surfaceUp);
 
-        targetPosition =
-            neighbour.transform.position
-            + wallNormal * magneticSurfaceOffset
-            + Vector3.up * magneticVerticalOffset;
-            
-        movingDirection = direction;
+        Vector3 delta = targetPosition - transform.position;
+        distanceToTarget = delta.magnitude;
 
-        distanceToTarget = Vector3.Distance(transform.position, targetPosition);
-        moving = distanceToTarget > 0.001f;
-
-        if (!moving)
+        if (distanceToTarget < 0.001f)
         {
-            magneticTile = destinationTile;
+            magneticTile = neighbour;
             destinationTile = null;
             magneticMoving = false;
+            return;
         }
+
+        movingDirection = delta / distanceToTarget;
+        moving = true;                 // PerformMovement/OnArrived existentes se reutilizan
     }
-    
+
     Tile FindMagneticNeighbour(Vector3 direction)
     {
+        Vector3 n = surfaceUp;
+        Vector3 origin = TileCenter(magneticTile);
+        Vector3 expected = direction * Tile.TileSize;
+
         Tile best = null;
-        float bestDistance = float.MaxValue;
+        float bestError = Tile.TileSize * 0.25f;   // tolerancia
 
-        foreach (Tile candidate in Tile.AllTiles)
+        foreach (Tile cand in Tile.AllTiles)
         {
-            if (candidate == null || candidate == magneticTile)
-                continue;
+            if (cand == null || cand == magneticTile || !cand.CanMagnetize) continue;
+            if (Vector3.Dot(cand.surfaceNormal.normalized, n) < 0.95f) continue;
 
-            if (!candidate.CanMagnetize)
-            {
-                Debug.Log($"{candidate.name}: no puede magnetizarse.");
-                continue;
-            }
+            Vector3 delta = TileCenter(cand) - origin;
+            if (Mathf.Abs(Vector3.Dot(delta, n)) > Tile.TileSize * 0.1f) continue; // coplanar
 
-            Vector3 delta =
-                candidate.transform.position -
-                magneticTile.transform.position;
-
-            float distance = delta.magnitude;
-
-            if (distance < 0.001f)
-                continue;
-
-            if (Mathf.Abs(distance - Tile.TileSize) > 0.2f)
-            {
-                Debug.Log(
-                    $"{candidate.name}: distancia incorrecta ({distance:F2})."
-                );
-                continue;
-            }
-
-            Vector3 candidateDirection = delta / distance;
-
-            if (Vector3.Dot(candidateDirection, direction)
-                < neighbourDirectionThreshold)
-            {
-                Debug.Log(
-                    $"{candidate.name}: dirección incorrecta. " +
-                    $"Dot={Vector3.Dot(candidateDirection, direction):F2}"
-                );
-                continue;
-            }
-
-            if (Vector3.Dot(
-                candidate.surfaceNormal.normalized,
-                surfaceUp
-            ) < 0.95f)
-            {
-                Debug.Log(
-                    $"{candidate.name}: normal de superficie diferente."
-                );
-                continue;
-            }
-
-            if (distance < bestDistance)
-            {
-                best = candidate;
-                bestDistance = distance;
-            }
+            float error = (delta - expected).magnitude;
+            if (error < bestError) { best = cand; bestError = error; }
         }
-
-        Debug.Log(
-            best != null
-                ? $"Vecino seleccionado: {best.name}"
-                : "No existe ningún vecino válido."
-        );
-
         return best;
     }
+    
 
 
     void ToggleMagnetism()
     {
-
-        if (magneticAttaching || magneticDetaching || magneticMoving)
+        if (magneticAttaching || magneticMoving || moving || detachPhase != DetachPhase.None)
             return;
 
-        if (magneticMode)
-        {
-            BeginMagneticDetach();
-            return;
-        }
+        if (magneticMode) { BeginMagneticDetach(); return; }
 
-        if (magneticMode)
+        if (!TryFindMagneticTile(out Tile tile, out Vector3 normal))
         {
-            magneticMode = false;
-            magneticTile = null;
-            surfaceUp = Vector3.up;
-            magneticMoving = false;
-
-            Debug.Log("Magnetismo desactivado");
+            Debug.LogWarning("No se encontró ningún Tile magnético al alcance.");
             return;
         }
 
-        if (TryFindMagneticTile(out Tile tile))
-        {
-            magneticTile = tile;
-            magneticMode = true;
-            surfaceUp = tile.surfaceNormal.normalized;
+        magneticTile = tile;
+        magneticMode = true;
+        surfaceUp = normal;
+        targetPosition = ComputeMagneticPivot(tile, surfaceUp);
 
-            Vector3 wallNormal = surfaceUp;
+        Vector3 fwd = Vector3.ProjectOnPlane(playerAvatar.transform.forward, surfaceUp);
+        if (fwd.sqrMagnitude < 0.001f) fwd = Vector3.ProjectOnPlane(Vector3.up, surfaceUp);
+        if (fwd.sqrMagnitude < 0.001f) fwd = Vector3.ProjectOnPlane(Vector3.forward, surfaceUp);
+        magneticForward = fwd.normalized;
+        facingDir = magneticForward;
 
-            targetPosition =
-                tile.transform.position
-                + wallNormal * magneticSurfaceOffset
-                + Vector3.up * magneticVerticalOffset;
+        // Ocupación: en la pared el robot ya no ocupa el tile del suelo.
+        if (occupiedTile != null) { occupiedTile.Exit(gameObject); occupiedTile = null; }
 
-            magneticAttaching = true;
-            magneticMoving = false;
-            moving = false;
-
-            // Proyectar la dirección del personaje sobre la pared.
-            Vector3 projectedForward = Vector3.ProjectOnPlane(
-                playerAvatar.transform.forward,
-                surfaceUp
-            ).normalized;
-
-            // Si mira directamente hacia la pared, usar el eje vertical
-            // del mundo como dirección inicial para poder escalar.
-            if (projectedForward.sqrMagnitude < 0.001f)
-            {
-                projectedForward = Vector3.ProjectOnPlane(
-                    Vector3.up,
-                    surfaceUp
-                ).normalized;
-            }
-
-            // Último recurso si la superficie es horizontal.
-            if (projectedForward.sqrMagnitude < 0.001f)
-            {
-                projectedForward = Vector3.ProjectOnPlane(
-                    Vector3.forward,
-                    surfaceUp
-                ).normalized;
-            }
-
-            facingDir = projectedForward;
-            magneticForward = projectedForward;
-            
-
-            Debug.Log("Magnetismo activado en: " + tile.name);
-        }
-        else
-        {
-            Debug.LogWarning(
-                "No se encontró ningún Tile metálico en el alcance del raycast."
-            );
-        }
+        magneticAttaching = true;
+        currentTile = null;
+        leftTile = rightTile = forwardTile = backwardTile = null;
     }
 
-    bool TryFindMagneticTile(out Tile tile)
+    bool RaycastNearest(Vector3 origin, Vector3 dir, float dist, out RaycastHit best)
+    {
+        best = default;
+        int n = Physics.RaycastNonAlloc(origin, dir, hitBuffer, dist, magneticLayers,
+                                        QueryTriggerInteraction.Ignore);
+        float bestDist = float.MaxValue;
+        bool found = false;
+        for (int i = 0; i < n; i++)
+        {
+            RaycastHit h = hitBuffer[i];
+            if (h.collider.transform.IsChildOf(transform)) continue;   // ignorar al propio jugador
+            if (h.distance < bestDist) { best = h; bestDist = h.distance; found = true; }
+        }
+        return found;
+    }
+
+    static Tile ResolveTile(Collider c)
+    {
+        if (c == null) return null;
+
+        Tile t = c.GetComponentInParent<Tile>();
+        if (t == null) t = c.GetComponentInChildren<Tile>();
+        if (t == null && c.attachedRigidbody != null)
+            t = c.attachedRigidbody.GetComponentInChildren<Tile>();
+        return t;
+    }
+
+    bool TryFindMagneticTile(out Tile tile, out Vector3 normal)
     {
         tile = null;
+        normal = Vector3.up;
+        Vector3 origin = transform.position + Vector3.up * magneticProbeHeight;
+        float bestDist = float.MaxValue;
 
-        Vector3 origin = transform.position + Vector3.up * 1f;
-
-        // Buscar en las seis direcciones principales del mundo.
-        Vector3[] directions =
+        foreach (Vector3 dir in ProbeDirs)
         {
-            Vector3.up,
-            Vector3.down,
-            Vector3.left,
-            Vector3.right,
-            Vector3.forward,
-            Vector3.back
-        };
+            Debug.DrawRay(origin, dir * magneticRange, Color.yellow, 2f);
+            if (!RaycastNearest(origin, dir, magneticRange, out RaycastHit hit)) continue;
+            if (hit.distance >= bestDist) continue;
 
-        foreach (Vector3 direction in directions)
-        {
-            Debug.DrawRay(
-                origin,
-                direction * magneticRange,
-                Color.yellow,
-                2f
-            );
+            Tile t = hit.collider.GetComponentInChildren<Tile>();
+            if (t == null || !t.CanMagnetize) continue;
 
-            if (!Physics.Raycast(
-                origin,
-                direction,
-                out RaycastHit hit,
-                magneticRange,
-                magneticLayers,
-                QueryTriggerInteraction.Ignore))
-            {
-                continue;
-            }
+            Vector3 n = t.surfaceNormal.normalized;
+            if (Vector3.Dot(hit.normal, n) < 0.9f) continue;   // solo la cara expuesta
 
-            Tile detected = hit.collider.GetComponentInChildren<Tile>();
-
-            if (detected == null || !detected.CanMagnetize)
-                continue;
-
-            tile = detected;
-            return true;
+            tile = t; normal = n; bestDist = hit.distance;
         }
-
-        return false;
+        return tile != null;
     }
 
     void UpdateMagneticAttach()
@@ -679,106 +593,174 @@ public class PlayerMovement : MonoBehaviour
 
     void BeginMagneticDetach()
     {
-        Tile bestFloor = null;
-        float bestDistance = float.MaxValue;
 
-        foreach (Tile candidate in Tile.AllTiles)
+        LogBodyState("Detach"); // Debug
+
+
+        // Garantiza que la caída no arranque dentro de la pared (no es un teletransporte: solo
+        // corrige penetración, normalmente de unos milímetros).
+       if (magneticTile != null)
         {
-            if (candidate == null)
-                continue;
-
-            // El suelo no debe ser una superficie magnética.
-            if (candidate.magneticSurface || !candidate.IsWalkable)
-                continue;
-
-            // Buscar un tile situado debajo de la pared.
-            if (candidate.transform.position.y >= magneticTile.transform.position.y)
-                continue;
-
-            Vector2 wallXZ = new Vector2(
-                magneticTile.transform.position.x,
-                magneticTile.transform.position.z
-            );
-
-            Vector2 floorXZ = new Vector2(
-                candidate.transform.position.x,
-                candidate.transform.position.z
-            );
-
-            float horizontalDistance = Vector2.Distance(wallXZ, floorXZ);
-
-            if (horizontalDistance < bestDistance)
-            {
-                bestDistance = horizontalDistance;
-                bestFloor = candidate;
-            }
+            detachWallCollider = TileCollider(magneticTile);
+            detachNormal = surfaceUp;
+            detachFacePoint = GetSurfacePoint(magneticTile, surfaceUp);
         }
+        settleTimer = 0f;
 
-        if (bestFloor == null)
-        {
-            Debug.LogWarning("No se encontró un tile de suelo para aterrizar.");
-            return;
-        }
+        facingDir = ComputeDetachFacing(surfaceUp);   // el avatar se endereza solo vía RotateTowardsFacing
 
-        landingTile = bestFloor;
-
-        // Desactivar el magnetismo, pero conservar el destino de caída.
         magneticMode = false;
         magneticTile = null;
+        surfaceUp = Vector3.up;
         magneticMoving = false;
         magneticAttaching = false;
-
-        // Recuperar una orientación vertical, manteniendo el rumbo horizontal.
-        Vector3 forward = Vector3.ProjectOnPlane(transform.forward, Vector3.up);
-
-        if (forward.sqrMagnitude > 0.001f)
-            normalRotation = Quaternion.LookRotation(forward.normalized, Vector3.up);
-        else
-            normalRotation = Quaternion.identity;
-
-        // El personaje caerá hasta la posición habitual del tile de suelo.
-        targetPosition = landingTile.GetTilePosition();
-
-        magneticDetaching = true;
         moving = false;
+        destinationTile = null;
+        landingTile = null;
+
+        fallVelocity = 0f;
+        detachPhase = DetachPhase.Falling;            // la caída parte de la posición ACTUAL
+    }
+
+    Vector3 ComputeDetachFacing(Vector3 wallNormal)
+    {
+        Vector3 f = Vector3.ProjectOnPlane(playerAvatar.transform.forward, Vector3.up);
+        if (f.sqrMagnitude < 0.01f) f = Vector3.ProjectOnPlane(-wallNormal, Vector3.up);
+        if (f.sqrMagnitude < 0.01f) f = Vector3.ProjectOnPlane(magneticForward, Vector3.up);
+        if (f.sqrMagnitude < 0.01f) f = Vector3.forward;
+        return f.normalized;
     }
 
     void UpdateMagneticDetach()
     {
-        if (!magneticDetaching)
-            return;
-
-        transform.position = Vector3.MoveTowards(
-            transform.position,
-            targetPosition,
-            magneticDetachSpeed * Time.deltaTime
-        );
-
-        transform.rotation = Quaternion.RotateTowards(
-            transform.rotation,
-            normalRotation,
-            magneticRotationSpeed * Time.deltaTime
-        );
-
-        bool arrived =
-            Vector3.Distance(transform.position, targetPosition) < 0.01f;
-
-        bool rotated =
-            Quaternion.Angle(transform.rotation, normalRotation) < 0.5f;
-
-        if (arrived && rotated)
+        switch (detachPhase)
         {
-            transform.position = targetPosition;
-            transform.rotation = normalRotation;
-
-            magneticDetaching = false;
-            landingTile = null;
-
-            // El movimiento normal vuelve a estar disponible.
-            moving = false;
-            magneticMoving = false;
-            destinationTile = null;
+            case DetachPhase.Falling:  StepFall();   break;
+            case DetachPhase.Settling: StepSettle(); break;
         }
+    }
+
+    void StepFall()
+    {
+        PeelFromWall(peelOffSpeed * Time.deltaTime);
+
+        fallVelocity = Mathf.Min(fallVelocity + gravity * Time.deltaTime, maxFallSpeed);
+        float step = fallVelocity * Time.deltaTime;
+        Vector3 pos = transform.position;
+
+        float feetY = pos.y - pivotToFeet;
+        Vector3 probeOrigin = new Vector3(pos.x, feetY + groundProbeUp, pos.z);
+
+        if (TryFindGround(probeOrigin, groundProbeUp + step, out RaycastHit hit, out Tile ground))
+        {
+            landingTile = ground;
+            Vector3 c = ground.GetTilePosition();
+            landingPoint = new Vector3(c.x, hit.point.y + pivotToFeet, c.z);   // 0.5 + (-0.492) ≈ 0.008
+            fallVelocity = 0f;
+            settleTimer = 0f;
+            detachPhase = DetachPhase.Settling;
+            return;
+        }
+
+        pos.y -= step;
+        transform.position = pos;
+
+        if (pos.y < fallAbortY)
+        {
+            Debug.LogError("Caída sin suelo detectado; se aborta la caída.");
+            detachPhase = DetachPhase.None;
+            detachWallCollider = null;
+        }
+    }
+
+    void StepSettle()
+    {
+        settleTimer += Time.deltaTime;
+
+        // Centrado hacia el tile de aterrizaje...
+        transform.position = Vector3.MoveTowards(
+            transform.position, landingPoint, landingCenterSpeed * Time.deltaTime);
+
+        // ...pero la pared siempre manda: el cuerpo nunca queda dentro.
+        float remaining = PeelFromWall(float.MaxValue);
+
+        bool atPoint = (transform.position - landingPoint).sqrMagnitude < 1e-6f;
+        bool settled = (atPoint && remaining <= 0.001f && !rotating) || settleTimer > 1.5f;
+        if (!settled) return;
+
+        if (!atPoint)
+            Debug.LogWarning($"[Land] El centro de {landingTile.name} queda dentro de la pared: " +
+                            "el cuerpo es más ancho que el hueco. Se respeta la pared.");
+
+            Collider gc = TileCollider(landingTile);
+            Renderer[] gr = landingTile.GetComponentsInParent<Renderer>();
+            float tileVisualTop = float.NaN;
+            foreach (var r in gr) tileVisualTop = float.IsNaN(tileVisualTop) ? r.bounds.max.y : Mathf.Max(tileVisualTop, r.bounds.max.y);
+
+            float modelBottom = float.NaN;
+            foreach (var r in GetComponentsInChildren<Renderer>())
+                modelBottom = float.IsNaN(modelBottom) ? r.bounds.min.y : Mathf.Min(modelBottom, r.bounds.min.y);
+
+            LogBodyState("Land"); //Debug
+
+        detachPhase = DetachPhase.None;
+        detachWallCollider = null;
+
+        occupiedTile = landingTile;
+        occupiedTile.Enter(gameObject);
+        currentTile = landingTile;
+        RefreshGroundNeighbours(landingTile);
+    }
+
+    /// Primer collider de suelo VÁLIDO bajo 'origin'. Una pared magnética nunca cuenta como suelo.
+    bool TryFindGround(Vector3 origin, float distance, out RaycastHit best, out Tile tile)
+    {
+        best = default;
+        tile = null;
+        int n = Physics.RaycastNonAlloc(origin, Vector3.down, hitBuffer, distance,
+                                        groundLayers, QueryTriggerInteraction.Ignore);
+        float bestDist = float.MaxValue;
+        for (int i = 0; i < n; i++)
+        {
+            RaycastHit h = hitBuffer[i];
+            if (h.distance >= bestDist) continue;
+            if (h.collider.transform.IsChildOf(transform)) continue;
+
+            Tile t = ResolveTile(h.collider);
+            if (!IsValidGround(t, h)) continue;
+
+            best = h; tile = t; bestDist = h.distance;
+        }
+        return tile != null;
+    }
+
+    bool IsValidGround(Tile t, RaycastHit h)
+    {
+        if (t == null || !t.IsWalkable) return false;
+        if (h.normal.y < groundMinNormalY) return false;           // cara lateral/inclinada
+        bool isMagneticWall = t.magneticSurface &&
+            Mathf.Abs(Vector3.Dot(t.surfaceNormal, Vector3.up)) < 0.5f;
+        return !isMagneticWall;
+    }
+    /// Tile magnético cuya cara expuesta es vertical: nunca puede ser "suelo" del jugador.
+    static bool IsMagneticWallTile(Tile t)
+    {
+        return t != null && t.magneticSurface &&
+            Mathf.Abs(Vector3.Dot(t.surfaceNormal, Vector3.up)) < 0.5f;
+    }
+
+    bool GroundStateLocked =>
+        magneticMode || magneticAttaching || detachPhase != DetachPhase.None;
+
+    /// Respaldo: rellena los 4 vecinos de suelo. Si tu detector externo ya los rellena, los sobrescribirá.
+    void RefreshGroundNeighbours(Tile t)
+    {
+        Vector3 p = t.GetTilePosition();
+        float s = Tile.TileSize;
+        forwardTile  = Tile.At(p + Vector3.forward * s);
+        backwardTile = Tile.At(p + Vector3.back * s);
+        rightTile    = Tile.At(p + Vector3.right * s);
+        leftTile     = Tile.At(p + Vector3.left * s);
     }
 
     bool WallInDirection(Vector3 worldDir)
@@ -793,9 +775,158 @@ public class PlayerMovement : MonoBehaviour
         return wall != null && wall.isActiveAndEnabled;
     }
 
-    public void SetLeftTile(Tile tile) { leftTile = tile; }
-    public void SetRightTile(Tile tile) { rightTile = tile; }
-    public void SetForwardTile(Tile tile) { forwardTile = tile; }
-    public void SetBackwardTile(Tile tile) { backwardTile = tile; }
-    public void SetCurrentTile(Tile tile) { currentTile = tile; }
+    float CalibratePivotToFeet()
+    {
+        float minY = float.MaxValue;
+        bool any = false;
+        foreach (Renderer r in GetComponentsInChildren<Renderer>())
+        {
+            if (r is ParticleSystemRenderer || r is TrailRenderer) continue;
+            minY = Mathf.Min(minY, r.bounds.min.y);
+            any = true;
+        }
+        if (any) return transform.position.y - minY;
+
+        Collider c = GetComponentInChildren<Collider>();
+        if (c != null) return transform.position.y - c.bounds.min.y;
+
+        Debug.LogWarning("No se pudo calibrar pivotToFeet; usando 0.");
+        return 0f;
+    }
+
+    bool TryGetBodyBounds(out Bounds b)
+    {
+        if (useModelBounds)
+        {
+            Renderer[] rs = GetComponentsInChildren<Renderer>();
+            bool any = false;
+            b = default;
+            foreach (Renderer r in rs)
+            {
+                if (r is ParticleSystemRenderer || r is TrailRenderer) continue;
+                if (!any) { b = r.bounds; any = true; }
+                else b.Encapsulate(r.bounds);
+            }
+            if (any) return true;
+        }
+
+        if (bodyCollider == null) bodyCollider = GetComponentInChildren<Collider>();
+        if (bodyCollider != null) { b = bodyCollider.bounds; return true; }
+
+        b = default;
+        return false;
+    }
+
+    /// Distancia pivote → cara del cuerpo que mira a la pared, medida en la dirección n.
+    float StandOffsetAlong(Vector3 n)
+    {
+        if (!autoSurfaceOffset) return magneticSurfaceOffset;
+
+        if (TryGetBodyBounds(out Bounds b))
+        {
+            float extent = Mathf.Abs(n.x) * b.extents.x
+                        + Mathf.Abs(n.y) * b.extents.y
+                        + Mathf.Abs(n.z) * b.extents.z;
+            float d = extent + Vector3.Dot(transform.position - b.center, n);
+            return Mathf.Max(d, 0.01f) + skin;
+        }
+        return Mathf.Max(pivotToFeet, 0.01f);
+    }
+
+    /// Distancia con signo pivote → cara de la pared con los pies tocándola.
+    /// Con el pivote bajo los pies (pivotToFeet < 0) es negativa: el pivote queda dentro de la pared.
+    float SurfaceStandOffset => autoSurfaceOffset ? pivotToFeet + skin : magneticSurfaceOffset;
+
+    float PeelFromWall(float maxMove)
+    {
+        if (detachWallCollider == null) return 0f;
+
+        float d = Vector3.Dot(transform.position - detachFacePoint, detachNormal);
+        float deficit = StandOffsetAlong(detachNormal) - d;
+        if (deficit <= 0.001f) return 0f;
+
+        // Ya por debajo/encima de la pared: nada que separar.
+        if (TryGetBodyBounds(out Bounds b) && !b.Intersects(detachWallCollider.bounds))
+            return 0f;
+
+        float move = Mathf.Min(deficit, maxMove);
+        transform.position += detachNormal * move;
+        return deficit - move;
+    }
+
+    static Collider TileCollider(Tile t)
+    {
+        Collider fallback = null;
+        float minSize = Tile.TileSize * 0.9f;
+
+        // Orden: el propio objeto primero, luego sus ancestros (el más cercano antes).
+        foreach (Collider c in t.GetComponentsInParent<Collider>())
+        {
+            if (!c.enabled || c.isTrigger) continue;
+
+            Vector3 s = c.bounds.size;
+            if (Mathf.Max(s.x, Mathf.Max(s.y, s.z)) >= minSize)
+                return c;                       // primer collider sólido del tamaño de un tile
+
+            if (fallback == null) fallback = c; // marcador pequeño: solo como último recurso
+        }
+        return fallback != null ? fallback : t.GetComponentInChildren<Collider>();
+    }
+    static Vector3 TileCenter(Tile t)
+    {
+        Collider c = TileCollider(t);
+        return (c != null && c.enabled) ? c.bounds.center : t.transform.position;
+    }
+
+    /// Punto real de la cara expuesta (centro de la cara), medido con el propio collider.
+    static Vector3 GetSurfacePoint(Tile t, Vector3 normal)
+    {
+        Collider c = TileCollider(t);
+        if (c == null || !c.enabled) return t.transform.position;
+
+        Vector3 center = c.bounds.center;
+        float reach = c.bounds.size.magnitude + 1f;
+        Ray ray = new Ray(center + normal * reach, -normal);
+        return c.Raycast(ray, out RaycastHit hit, reach * 2f) ? hit.point : center;
+    }
+
+    Vector3 ComputeMagneticPivot(Tile tile, Vector3 normal)
+    {
+        return GetSurfacePoint(tile, normal) + normal * SurfaceStandOffset;
+    }
+
+    public void SetLeftTile(Tile tile)     { if (AcceptGroundTile(tile)) leftTile = tile; }
+    public void SetRightTile(Tile tile)    { if (AcceptGroundTile(tile)) rightTile = tile; }
+    public void SetForwardTile(Tile tile)  { if (AcceptGroundTile(tile)) forwardTile = tile; }
+    public void SetBackwardTile(Tile tile) { if (AcceptGroundTile(tile)) backwardTile = tile; }
+    public void SetCurrentTile(Tile tile)  { if (AcceptGroundTile(tile)) currentTile = tile; }
+
+    /// Rechaza escrituras del detector mientras escalas/caes, y tiles de pared siempre.
+    bool AcceptGroundTile(Tile tile)
+    {
+        if (tile == null) return !GroundStateLocked;   // limpiar solo si no estamos bloqueados
+        if (GroundStateLocked) return false;
+        if (IsMagneticWallTile(tile)) return false;
+        return true;
+    }
+
+    void LogBodyState(string tag)
+    {
+        Transform av = playerAvatar.transform;
+
+        Renderer lowRoot = null, lowAvatar = null;
+        float minRoot = float.MaxValue, minAvatar = float.MaxValue;
+
+        foreach (Renderer r in GetComponentsInChildren<Renderer>())
+            if (r.bounds.min.y < minRoot) { minRoot = r.bounds.min.y; lowRoot = r; }
+
+        foreach (Renderer r in av.GetComponentsInChildren<Renderer>())
+            if (r.bounds.min.y < minAvatar) { minAvatar = r.bounds.min.y; lowAvatar = r; }
+
+        Debug.Log($"[{tag}] root={transform.position} | avatarWorld={av.position} " +
+                $"| avatarParent={(av.parent != null ? av.parent.name : "NINGUNO")} " +
+                $"| avatarEsHijoDeRaiz={av.IsChildOf(transform)} " +
+                $"| bajoRaiz='{(lowRoot != null ? lowRoot.name : "-")}' y={minRoot:F3} " +
+                $"| bajoAvatar='{(lowAvatar != null ? lowAvatar.name : "-")}' y={minAvatar:F3}");
+    }
 }

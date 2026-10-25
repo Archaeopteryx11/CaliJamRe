@@ -28460,6 +28460,7 @@ GameObject:
   - component: {fileID: 1060553690}
   - component: {fileID: 1060553693}
   - component: {fileID: 1060553692}
+  - component: {fileID: 1060553694}
   m_Layer: 0
   m_Name: Empty
   m_TagString: Untagged
@@ -28527,6 +28528,19 @@ MonoBehaviour:
   tagBuscado: Dispositivo
   teclaSalir: 60
   teclaCambiar: 3
+--- !u!114 &1060553694
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1060553689}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fd199d33f06c42b40bca9a43dace1426, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MusicaScene
+  musica: {fileID: 8300000, guid: f0867ca79001eb04289f1dfa38b894bb, type: 3}
 --- !u!1001 &1063252912
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -33417,7 +33431,7 @@ PrefabInstance:
     - target: {fileID: 2606560181938497758, guid: acb42d65585a90a47b05170d5c1b9ec8, type: 3}
       propertyPath: onWin.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 1957577703252020389}
+      objectReference: {fileID: 0}
     - target: {fileID: 2606560181938497758, guid: acb42d65585a90a47b05170d5c1b9ec8, type: 3}
       propertyPath: onWin.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
@@ -56820,17 +56834,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 31f4bac4bb5d5e64585dbbdd9ff3cfbc, type: 3}
---- !u!114 &1957577703252020389 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4969085824237544201, guid: 31f4bac4bb5d5e64585dbbdd9ff3cfbc, type: 3}
-  m_PrefabInstance: {fileID: 1957577703252020388}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 707a4e75ef81f4642bfad84c0e438ab7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PlayerAudio
 --- !u!1001 &4957922787965715590
 PrefabInstance:
   m_ObjectHideFlags: 0

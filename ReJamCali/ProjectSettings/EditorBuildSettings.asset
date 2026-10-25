@@ -8,6 +8,21 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/SampleScene.unity
     guid: 99c9720ab356a0642a771bea13969a05
+  - enabled: 1
+    path: Assets/Scenes/Cinematica.unity
+    guid: 587cfb2387dad8f46b099dca02ba9129
+  - enabled: 1
+    path: Assets/Scenes/MENUINICIAL.unity
+    guid: c06062cf4298a3e4fab67e436a8a1fb6
+  - enabled: 1
+    path: Assets/Scenes/NIVEL1.unity
+    guid: f7813427c4cccc74db40dde6de7e28bc
+  - enabled: 1
+    path: Assets/Scenes/NIVEL2.unity
+    guid: ae1f43b0337bbcc42921cfe2fd85dd92
+  - enabled: 1
+    path: Assets/Scenes/NIVEL3.unity
+    guid: 85cc44135eb7a2e4ab4b310e1e4fa33d
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_UseUCBPForAssetBundles: 0

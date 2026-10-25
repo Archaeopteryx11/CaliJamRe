@@ -74,6 +74,7 @@ Transform:
   m_Children:
   - {fileID: 5423823271866055356}
   - {fileID: 1214014930989449984}
+  - {fileID: 5965289938473737938}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &7980955862630171490
@@ -117,11 +118,24 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 4294967295
   magneticAlignmentSpeed: 540
-  neighbourDirectionThreshold: 0.85
-  magneticSurfaceOffset: 0.5
-  magneticVerticalOffset: 0.5
   magneticAttachSpeed: 5
-  magneticDetachSpeed: 8
+  pivotToFeet: -1
+  autoCalibrateFeet: 1
+  groundProbeUp: 0.3
+  autoSurfaceOffset: 1
+  magneticSurfaceOffset: 0
+  magneticProbeHeight: 1
+  useModelBounds: 1
+  skin: 0.03
+  peelOffSpeed: 3
+  gravity: 20
+  maxFallSpeed: 25
+  landingCenterSpeed: 6
+  groundLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  groundMinNormalY: 0.7
+  fallAbortY: -100
 --- !u!114 &2476811334371584741
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1006,6 +1020,37 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   detectorType: 4
+--- !u!1 &9031623245998366453
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5965289938473737938}
+  m_Layer: 0
+  m_Name: PuntoDisparo
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5965289938473737938
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9031623245998366453}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.626, z: 0.193}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 971347485811866755}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &5534910722308300119
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1114,6 +1159,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Robotcito
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 70fb8a08a271bf14b8a0fe7da0411b33, type: 3}
+      propertyPath: m_TagString
+      value: Player
+      objectReference: {fileID: 0}
     - target: {fileID: 1171028554531081990, guid: 70fb8a08a271bf14b8a0fe7da0411b33, type: 3}
       propertyPath: m_Materials.Array.size
       value: 2
@@ -1164,6 +1213,12 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 70fb8a08a271bf14b8a0fe7da0411b33, type: 3}
       insertIndex: -1
       addedObject: {fileID: 8057979048023481307}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 70fb8a08a271bf14b8a0fe7da0411b33, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2449252089958787363}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 70fb8a08a271bf14b8a0fe7da0411b33, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3743148589522942247}
   m_SourcePrefab: {fileID: 100100000, guid: 70fb8a08a271bf14b8a0fe7da0411b33, type: 3}
 --- !u!1 &4615796181579259910 stripped
 GameObject:
@@ -1205,16 +1260,59 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::canonEsferas
   esferaPrefab: {fileID: 2455423318711257128, guid: 65410ef6d4b3ef64bbafe500bf45cbb6, type: 3}
-  puntoDisparo: {fileID: 5144115777486177697}
+  puntoDisparo: {fileID: 5965289938473737938}
   fuerza: 7
   tiempoVida: 2
   seleccionModulo: {fileID: 5671469501826641489}
   animator: {fileID: 5739601430869017850}
---- !u!4 &5144115777486177697 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 841154920444074230, guid: 70fb8a08a271bf14b8a0fe7da0411b33, type: 3}
-  m_PrefabInstance: {fileID: 5534910722308300119}
+--- !u!65 &2449252089958787363
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4615796181579259910}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1.6296892, y: 1.9831994, z: 1.5761344}
+  m_Center: {x: -0.027617887, y: 1.1544298, z: 0.01986675}
+--- !u!54 &3743148589522942247
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4615796181579259910}
+  serializedVersion: 5
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!4 &5423823271866055356 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 70fb8a08a271bf14b8a0fe7da0411b33, type: 3}

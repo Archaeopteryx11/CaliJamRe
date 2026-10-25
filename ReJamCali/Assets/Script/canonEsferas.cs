@@ -12,7 +12,7 @@ public class canonEsferas : MonoBehaviour
 
     private static readonly int DisparoHash = Animator.StringToHash("Shot");
     private bool disparoActivo = false;
-    private bool disparando = false;        // true desde que empieza la animación hasta que termina
+    private bool disparando = false;        // true desde que empieza la animaciï¿½n hasta que termina
 
     void OnEnable() { seleccionModulo.OnDeteccionCambiada += disparo; }
     void OnDisable() { seleccionModulo.OnDeteccionCambiada -= disparo; }
@@ -30,7 +30,7 @@ public class canonEsferas : MonoBehaviour
 
         if (animator != null)
         {
-            animator.SetTrigger(DisparoHash);   // la esfera saldrá cuando la animación llame a EmitirEsfera()
+            animator.SetTrigger(DisparoHash);   // la esfera saldrï¿½ cuando la animaciï¿½n llame a EmitirEsfera()
         }
         else
         {
@@ -48,6 +48,8 @@ public class canonEsferas : MonoBehaviour
         Rigidbody rb = esfera.GetComponent<Rigidbody>();
         if (rb == null) rb = esfera.AddComponent<Rigidbody>();
 
+        rb.useGravity = false;
+        
         rb.linearVelocity = origen.forward * fuerza;
 
         Destroy(esfera, tiempoVida);

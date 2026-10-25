@@ -85615,6 +85615,34 @@ PrefabInstance:
       propertyPath: targetCamera
       value: 
       objectReference: {fileID: 330585545}
+    - target: {fileID: 8115674314275387852, guid: 55a09441710c50f4998fa66fe9ac86ea, type: 3}
+      propertyPath: onWin.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8115674314275387852, guid: 55a09441710c50f4998fa66fe9ac86ea, type: 3}
+      propertyPath: onWin.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8115674314275387852, guid: 55a09441710c50f4998fa66fe9ac86ea, type: 3}
+      propertyPath: onWin.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 4969085824237544201, guid: 31f4bac4bb5d5e64585dbbdd9ff3cfbc, type: 3}
+    - target: {fileID: 8115674314275387852, guid: 55a09441710c50f4998fa66fe9ac86ea, type: 3}
+      propertyPath: onWin.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8115674314275387852, guid: 55a09441710c50f4998fa66fe9ac86ea, type: 3}
+      propertyPath: onWin.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: Victoria
+      objectReference: {fileID: 0}
+    - target: {fileID: 8115674314275387852, guid: 55a09441710c50f4998fa66fe9ac86ea, type: 3}
+      propertyPath: onWin.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: PlayerAudio, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 8115674314275387852, guid: 55a09441710c50f4998fa66fe9ac86ea, type: 3}
+      propertyPath: onWin.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

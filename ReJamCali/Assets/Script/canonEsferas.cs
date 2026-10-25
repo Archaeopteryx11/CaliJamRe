@@ -7,15 +7,11 @@ public class canonEsferas : MonoBehaviour
     [SerializeField] private Transform puntoDisparo;
     [SerializeField] private float fuerza = 15f;
     [SerializeField] private float tiempoVida = 5f;
-    [SerializeField] private SelectorModulos seleccionModulo;
     [SerializeField] private Animator animator;
 
     private static readonly int DisparoHash = Animator.StringToHash("Shot");
     private bool disparoActivo = false;
     private bool disparando = false;        // true desde que empieza la animaci�n hasta que termina
-
-    void OnEnable() { seleccionModulo.OnDeteccionCambiada += disparo; }
-    void OnDisable() { seleccionModulo.OnDeteccionCambiada -= disparo; }
 
     public void Update()
     {

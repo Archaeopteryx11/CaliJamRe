@@ -61,7 +61,7 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("Magnetismo")]
     public bool magneticMode;
-    public Key magneticToggleKey = Key.M;
+    public Key magneticToggleKey = Key.F;
     public float magneticRange = 1.2f;
     public float magneticRotationSpeed = 360f;
     public LayerMask magneticLayers = ~0;

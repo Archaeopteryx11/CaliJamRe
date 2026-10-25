@@ -1,16 +1,11 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class TileDetector : MonoBehaviour
 {
     public enum TileDetectorType
     {
-        Left,
-        Right,
-        Forward,
-        Backward,
-        Floor
+        Left, Right, Forward, Backward, Floor,
+        WallLeft, WallRight, WallForward, WallBackward   // NUEVO: a la altura del cuerpo
     }
 
     public TileDetectorType detectorType;
@@ -18,61 +13,35 @@ public class TileDetector : MonoBehaviour
 
     void Start()
     {
-        player = transform.parent.parent.GetComponent<PlayerMovement>();//we know the parent has this script
+        player = transform.parent.parent.GetComponent<PlayerMovement>();
     }
 
-
-    private void OnTriggerStay(Collider other)
+    void OnTriggerStay(Collider other)
     {
         Tile tile = other.GetComponent<Tile>();
-        if (tile != null)
-        {
-            switch (detectorType)
-            {
-                case TileDetectorType.Left:
-                    player.SetLeftTile(tile);
-                    break;
-                case TileDetectorType.Right:
-                    player.SetRightTile(tile);
-                    break;
-                case TileDetectorType.Forward:
-                    player.SetForwardTile(tile);
-                    break;
-                case TileDetectorType.Backward:
-                    player.SetBackwardTile(tile);
-                    break;
-                case TileDetectorType.Floor:
-                    player.SetCurrentTile(tile);
-                    break;
-            }
-
-        }
+        if (tile != null) Assign(tile);
     }
-    private void OnTriggerExit(Collider other)
+
+    void OnTriggerExit(Collider other)
     {
         Tile tile = other.GetComponent<Tile>();
-        if (tile != null)
-        {
-            switch (detectorType)
-            {
-                case TileDetectorType.Left:
-                    player.SetLeftTile(null);
-                    break;
-                case TileDetectorType.Right:
-                    player.SetRightTile(null);
-                    break;
-                case TileDetectorType.Forward:
-                    player.SetForwardTile(null);
-                    break;
-                case TileDetectorType.Backward:
-                    player.SetBackwardTile(null);
-                    break;
-                case TileDetectorType.Floor:
-                    player.SetCurrentTile(null);
-                    break;
-            }
-
-        }
+        if (tile != null) Assign(null);
     }
 
+    void Assign(Tile tile)
+    {
+        switch (detectorType)
+        {
+            case TileDetectorType.Left: player.SetLeftTile(tile); break;
+            case TileDetectorType.Right: player.SetRightTile(tile); break;
+            case TileDetectorType.Forward: player.SetForwardTile(tile); break;
+            case TileDetectorType.Backward: player.SetBackwardTile(tile); break;
+            case TileDetectorType.Floor: player.SetCurrentTile(tile); break;
+
+            case TileDetectorType.WallLeft: player.SetWallLeftTile(tile); break;
+            case TileDetectorType.WallRight: player.SetWallRightTile(tile); break;
+            case TileDetectorType.WallForward: player.SetWallForwardTile(tile); break;
+            case TileDetectorType.WallBackward: player.SetWallBackwardTile(tile); break;
+        }
+    }
 }

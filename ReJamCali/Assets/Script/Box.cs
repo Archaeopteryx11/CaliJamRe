@@ -7,6 +7,10 @@ public class Box : MonoBehaviour
     /// Se dispara cuando la caja queda en un sitio sin salida (para mostrar "reinicia el nivel").
     public static event Action<Box> Stuck;
 
+    [Header("Paredes")]
+    [Tooltip("Un tile cuenta como pared si está, al menos, esta fracción de TileSize POR ENCIMA del tile donde está la caja.")]
+    [Range(0.1f, 1f)] public float wallMinHeight = 0.5f;
+
     public Tile CurrentTile { get; private set; }
 
     bool moving;
@@ -34,10 +38,21 @@ public class Box : MonoBehaviour
         if (CurrentTile != null) CurrentTile.Exit(gameObject);
     }
 
-    /// ¿Se puede empujar la caja hacia ese tile?
+    /// ¿Se puede empujar la caja hacia ese tile? (Tile.At devuelve el tile más alto de la casilla:
+    /// si hay una pared, es ella.)
     public bool CanPushTo(Tile beyond)
     {
-        return beyond != null && beyond.IsWalkable && beyond.BoxOn == null;
+        return beyond != null && beyond.IsWalkable && beyond.BoxOn == null && !IsWall(beyond);
+    }
+
+    /// Pared = tile activo apilado por encima del nivel del suelo donde está la caja.
+    /// Un Tile desactivado (por ejemplo, una puerta abierta) no cuenta.
+    bool IsWall(Tile t)
+    {
+        if (t == null || !t.isActiveAndEnabled) return false;
+
+        float level = CurrentTile != null ? CurrentTile.GetTilePosition().y : transform.position.y;
+        return t.GetTilePosition().y > level + Tile.TileSize * wallMinHeight;
     }
 
     public void PushTo(Tile tile, float moveSpeed)
@@ -64,7 +79,7 @@ public class Box : MonoBehaviour
         CheckStuck();
     }
 
-    /// Atascada = en cada eje (X y Z) le falta al menos un lado, así que nunca se puede empujar.
+    /// Atascada = en cada eje (X y Z) le falta al menos un lado (vacío o pared), así que nunca se puede empujar.
     /// Si está sobre un botón no cuenta, porque ahí puede ser justo la solución.
     void CheckStuck()
     {
@@ -80,6 +95,13 @@ public class Box : MonoBehaviour
     bool DeadAxis(Vector3 axis)
     {
         var p = CurrentTile.GetTilePosition();
-        return Tile.At(p + axis * Tile.TileSize) == null || Tile.At(p - axis * Tile.TileSize) == null;
+        return IsDeadSide(Tile.At(p + axis * Tile.TileSize)) || IsDeadSide(Tile.At(p - axis * Tile.TileSize));
+    }
+
+    /// Lado sin salida: vacío o pared. Las puertas no cuentan, porque pueden abrirse.
+    bool IsDeadSide(Tile t)
+    {
+        if (t == null) return true;
+        return IsWall(t) && t.GetComponent<Door>() == null;
     }
 }

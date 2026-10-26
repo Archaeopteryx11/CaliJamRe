@@ -7,6 +7,7 @@ public class AudioManager : MonoBehaviour
 
     public static float VolumenMusica = 0.4f;
     public static float VolumenSfx = 1f;
+    bool musicaPausada;
 
     static AudioManager Instancia
     {
@@ -37,11 +38,12 @@ public class AudioManager : MonoBehaviour
     public static void PlayMusic(AudioClip clip)
     {
         if (clip == null) return;
-        var m = Instancia.musica;
-        if (m.clip == clip && m.isPlaying) return;
-        m.clip = clip;
-        m.volume = VolumenMusica;
-        m.Play();
+        var a = Instancia;
+        if (a.musica.clip == clip && (a.musica.isPlaying || a.musicaPausada)) return;
+        a.musica.clip = clip;
+        a.musica.volume = VolumenMusica;
+        a.musicaPausada = false;
+        a.musica.Play();
     }
 
     public static void Sfx(AudioClip clip, float volumen = 1f)
@@ -54,5 +56,29 @@ public class AudioManager : MonoBehaviour
     {
         VolumenMusica = Mathf.Clamp01(v);
         Instancia.musica.volume = VolumenMusica;
+    }
+
+    public static void PausarMusica()
+    {
+        var a = Instancia;
+        if (!a.musica.isPlaying) return;
+        a.musica.Pause();
+        a.musicaPausada = true;
+    }
+
+    public static void ReanudarMusica()
+    {
+        var a = Instancia;
+        if (!a.musicaPausada) return;
+        a.musica.UnPause();
+        a.musicaPausada = false;
+    }
+
+    public static void DetenerMusica()
+    {
+        var a = Instancia;
+        a.musica.Stop();
+        a.musica.clip = null;
+        a.musicaPausada = false;
     }
 }

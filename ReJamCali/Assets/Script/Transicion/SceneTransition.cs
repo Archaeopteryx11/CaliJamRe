@@ -25,6 +25,19 @@ public class SceneTransition : MonoBehaviour
     [Tooltip("Segundos máximos de espera por seguridad (por si la animación hace loop o el trigger no tiene transición).")]
     public float maxWaitSeconds = 10f;
 
+    [Header("Música")]
+    [Tooltip("Baja el volumen de TODO el juego (AudioListener.volume): música, efectos, ambiente... sin asignar AudioSources.")]
+    public bool fundidoGlobal = true;
+    [Tooltip("Volumen general al que se restaura al empezar cada escena (AudioListener.volume se queda en 0 entre escenas). " +
+             "Si más adelante haces un menú de opciones, pon aquí el valor guardado.")]
+    [Range(0f, 1f)] public float volumenMaestro = 1f;
+    [Tooltip("Solo si 'Fundido Global' está desactivado: AudioSources concretos que bajan a 0. Vacío = sin fundido.")]
+    public AudioSource[] musica;
+    [Tooltip("Segundos que dura el fundido. Empieza en cuanto se llama a la transición.")]
+    public float fadeOutDuration = 1f;
+    [Tooltip("Si el fundido dura más que la animación, espera a que termine antes de cambiar de escena.")]
+    public bool esperarFundido = true;
+
     [Header("Escena")]
     [Tooltip("Nombre de la escena a cargar (debe estar en Build Settings). Si está vacío, carga la siguiente del Build.")]
     public string sceneName;
@@ -40,6 +53,7 @@ public class SceneTransition : MonoBehaviour
     public UnityEvent onAnimationFinished;
 
     bool running;
+    bool fading;
 
     void Reset()
     {
@@ -49,6 +63,9 @@ public class SceneTransition : MonoBehaviour
     void Awake()
     {
         if (animator == null) animator = GetComponent<Animator>();
+
+        // AudioListener.volume es estático y sobrevive al cambio de escena: se restaura al entrar.
+        if (fundidoGlobal) AudioListener.volume = volumenMaestro;
     }
 
     void Start()
@@ -92,6 +109,7 @@ public class SceneTransition : MonoBehaviour
     {
         running = true;
         onTransitionStarted?.Invoke();
+        StartCoroutine(FadeOutMusic());   // corre en paralelo a la animación
 
         if (animator != null && HasTrigger(animator, triggerName))
         {
@@ -135,8 +153,54 @@ public class SceneTransition : MonoBehaviour
                              "Se cambia de escena directamente.", this);
         }
 
+        if (esperarFundido)
+            while (fading) yield return null;
+
         onAnimationFinished?.Invoke();
         LoadScene(targetScene);
+    }
+
+    /// Baja el volumen de cada fuente desde el que tenga ahora hasta 0 (tiempo sin escalar: funciona con timeScale = 0).
+    IEnumerator FadeOutMusic()
+    {
+        if (fundidoGlobal)
+        {
+            fading = true;
+            float desde = AudioListener.volume;
+            float tg = 0f;
+            while (tg < fadeOutDuration)
+            {
+                tg += Time.unscaledDeltaTime;
+                float k = fadeOutDuration > 0f ? Mathf.Clamp01(tg / fadeOutDuration) : 1f;
+                AudioListener.volume = Mathf.Lerp(desde, 0f, k);
+                yield return null;
+            }
+            AudioListener.volume = 0f;
+            fading = false;
+            yield break;
+        }
+
+        if (musica == null || musica.Length == 0) yield break;
+
+        fading = true;
+        float[] inicial = new float[musica.Length];
+        for (int i = 0; i < musica.Length; i++)
+            inicial[i] = musica[i] != null ? musica[i].volume : 0f;
+
+        float t = 0f;
+        while (t < fadeOutDuration)
+        {
+            t += Time.unscaledDeltaTime;
+            float k = fadeOutDuration > 0f ? Mathf.Clamp01(t / fadeOutDuration) : 1f;
+            for (int i = 0; i < musica.Length; i++)
+                if (musica[i] != null) musica[i].volume = Mathf.Lerp(inicial[i], 0f, k);
+            yield return null;
+        }
+
+        for (int i = 0; i < musica.Length; i++)
+            if (musica[i] != null) musica[i].volume = 0f;
+
+        fading = false;
     }
 
     void LoadScene(string targetScene)

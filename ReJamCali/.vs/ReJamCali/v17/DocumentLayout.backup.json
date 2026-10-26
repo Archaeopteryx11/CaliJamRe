@@ -3,31 +3,11 @@
   "WorkspaceRootPath": "C:\\Users\\USUARIO\\Documents\\GitHub\\CaliJamRe\\ReJamCali\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\USUARIO\\Documents\\GitHub\\CaliJamRe\\ReJamCali\\Library\\PackageCache\\com.unity.render-pipelines.universal@97f77d4dda9a\\Shaders\\Lit.shader||{3B902123-F8A7-4915-9F01-361F908088D0}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Library\\PackageCache\\com.unity.render-pipelines.universal@97f77d4dda9a\\Shaders\\Lit.shader||{3B902123-F8A7-4915-9F01-361F908088D0}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{8B5766C8-D85B-08EC-CD37-1CE347213260}|Assembly-CSharp.csproj|C:\\Users\\USUARIO\\Documents\\GitHub\\CaliJamRe\\ReJamCali\\assets\\script\\box.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{8B5766C8-D85B-08EC-CD37-1CE347213260}|Assembly-CSharp.csproj|solutionrelative:assets\\script\\box.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{8B5766C8-D85B-08EC-CD37-1CE347213260}|Assembly-CSharp.csproj|C:\\Users\\USUARIO\\Documents\\GitHub\\CaliJamRe\\ReJamCali\\assets\\script\\door.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{8B5766C8-D85B-08EC-CD37-1CE347213260}|Assembly-CSharp.csproj|solutionrelative:assets\\script\\door.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{8B5766C8-D85B-08EC-CD37-1CE347213260}|Assembly-CSharp.csproj|C:\\Users\\USUARIO\\Documents\\GitHub\\CaliJamRe\\ReJamCali\\assets\\script\\pressurebutton.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{8B5766C8-D85B-08EC-CD37-1CE347213260}|Assembly-CSharp.csproj|solutionrelative:assets\\script\\pressurebutton.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{8B5766C8-D85B-08EC-CD37-1CE347213260}|Assembly-CSharp.csproj|c:\\users\\usuario\\documents\\github\\calijamre\\rejamcali\\assets\\script\\musicascene.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{8B5766C8-D85B-08EC-CD37-1CE347213260}|Assembly-CSharp.csproj|solutionrelative:assets\\script\\musicascene.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{8B5766C8-D85B-08EC-CD37-1CE347213260}|Assembly-CSharp.csproj|c:\\users\\usuario\\documents\\github\\calijamre\\rejamcali\\assets\\script\\audiomanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{8B5766C8-D85B-08EC-CD37-1CE347213260}|Assembly-CSharp.csproj|solutionrelative:assets\\script\\audiomanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{8B5766C8-D85B-08EC-CD37-1CE347213260}|Assembly-CSharp.csproj|C:\\Users\\USUARIO\\Documents\\GitHub\\CaliJamRe\\ReJamCali\\assets\\script\\controlremoto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{8B5766C8-D85B-08EC-CD37-1CE347213260}|Assembly-CSharp.csproj|c:\\users\\usuario\\documents\\github\\calijamre\\rejamcali\\assets\\script\\controlremoto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{8B5766C8-D85B-08EC-CD37-1CE347213260}|Assembly-CSharp.csproj|solutionrelative:assets\\script\\controlremoto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
@@ -47,6 +27,14 @@
       "RelativeMoniker": "D:0:0:{8B5766C8-D85B-08EC-CD37-1CE347213260}|Assembly-CSharp.csproj|solutionrelative:assets\\script\\playermovement.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{8B5766C8-D85B-08EC-CD37-1CE347213260}|Assembly-CSharp.csproj|C:\\Users\\USUARIO\\Documents\\GitHub\\CaliJamRe\\ReJamCali\\assets\\script\\door.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8B5766C8-D85B-08EC-CD37-1CE347213260}|Assembly-CSharp.csproj|solutionrelative:assets\\script\\door.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8B5766C8-D85B-08EC-CD37-1CE347213260}|Assembly-CSharp.csproj|C:\\Users\\USUARIO\\Documents\\GitHub\\CaliJamRe\\ReJamCali\\assets\\script\\pressurebutton.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8B5766C8-D85B-08EC-CD37-1CE347213260}|Assembly-CSharp.csproj|solutionrelative:assets\\script\\pressurebutton.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{8B5766C8-D85B-08EC-CD37-1CE347213260}|Assembly-CSharp.csproj|C:\\Users\\USUARIO\\Documents\\GitHub\\CaliJamRe\\ReJamCali\\assets\\script\\levelreset.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{8B5766C8-D85B-08EC-CD37-1CE347213260}|Assembly-CSharp.csproj|solutionrelative:assets\\script\\levelreset.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -57,6 +45,10 @@
     {
       "AbsoluteMoniker": "D:0:0:{8B5766C8-D85B-08EC-CD37-1CE347213260}|Assembly-CSharp.csproj|C:\\Users\\USUARIO\\Documents\\GitHub\\CaliJamRe\\ReJamCali\\assets\\script\\transicion\\scenetransition.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{8B5766C8-D85B-08EC-CD37-1CE347213260}|Assembly-CSharp.csproj|solutionrelative:assets\\script\\transicion\\scenetransition.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8B5766C8-D85B-08EC-CD37-1CE347213260}|Assembly-CSharp.csproj|C:\\Users\\USUARIO\\Documents\\GitHub\\CaliJamRe\\ReJamCali\\assets\\script\\box.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8B5766C8-D85B-08EC-CD37-1CE347213260}|Assembly-CSharp.csproj|solutionrelative:assets\\script\\box.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{8B5766C8-D85B-08EC-CD37-1CE347213260}|Assembly-CSharp.csproj|C:\\Users\\USUARIO\\Documents\\GitHub\\CaliJamRe\\ReJamCali\\assets\\script\\tile.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -87,32 +79,6 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "Lit.shader",
-              "DocumentMoniker": "C:\\Users\\USUARIO\\Documents\\GitHub\\CaliJamRe\\ReJamCali\\Library\\PackageCache\\com.unity.render-pipelines.universal@97f77d4dda9a\\Shaders\\Lit.shader",
-              "RelativeDocumentMoniker": "Library\\PackageCache\\com.unity.render-pipelines.universal@97f77d4dda9a\\Shaders\\Lit.shader",
-              "ToolTip": "C:\\Users\\USUARIO\\Documents\\GitHub\\CaliJamRe\\ReJamCali\\Library\\PackageCache\\com.unity.render-pipelines.universal@97f77d4dda9a\\Shaders\\Lit.shader",
-              "RelativeToolTip": "Library\\PackageCache\\com.unity.render-pipelines.universal@97f77d4dda9a\\Shaders\\Lit.shader",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.002777|",
-              "WhenOpened": "2026-10-26T01:52:01.082Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "MusicaScene.cs",
-              "DocumentMoniker": "C:\\Users\\USUARIO\\Documents\\GitHub\\CaliJamRe\\ReJamCali\\Assets\\Script\\MusicaScene.cs",
-              "RelativeDocumentMoniker": "Assets\\Script\\MusicaScene.cs",
-              "ToolTip": "C:\\Users\\USUARIO\\Documents\\GitHub\\CaliJamRe\\ReJamCali\\Assets\\Script\\MusicaScene.cs",
-              "RelativeToolTip": "Assets\\Script\\MusicaScene.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAA0AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-10-25T23:05:11.809Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
               "Title": "AudioManager.cs",
               "DocumentMoniker": "C:\\Users\\USUARIO\\Documents\\GitHub\\CaliJamRe\\ReJamCali\\Assets\\Script\\AudioManager.cs",
               "RelativeDocumentMoniker": "Assets\\Script\\AudioManager.cs",
@@ -125,130 +91,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "HabilidadesNivel.cs",
-              "DocumentMoniker": "C:\\Users\\USUARIO\\Documents\\GitHub\\CaliJamRe\\ReJamCali\\Assets\\Script\\HabilidadesNivel.cs",
-              "RelativeDocumentMoniker": "Assets\\Script\\HabilidadesNivel.cs",
-              "ToolTip": "C:\\Users\\USUARIO\\Documents\\GitHub\\CaliJamRe\\ReJamCali\\Assets\\Script\\HabilidadesNivel.cs",
-              "RelativeToolTip": "Assets\\Script\\HabilidadesNivel.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-10-25T17:51:01.472Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "controlRemoto.cs",
-              "DocumentMoniker": "C:\\Users\\USUARIO\\Documents\\GitHub\\CaliJamRe\\ReJamCali\\Assets\\Script\\controlRemoto.cs",
-              "RelativeDocumentMoniker": "Assets\\Script\\controlRemoto.cs",
-              "ToolTip": "C:\\Users\\USUARIO\\Documents\\GitHub\\CaliJamRe\\ReJamCali\\Assets\\Script\\controlRemoto.cs",
-              "RelativeToolTip": "Assets\\Script\\controlRemoto.cs",
-              "ViewState": "AgIAAGgAAAAAAAAAAIAwwHgAAAAFAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-10-25T04:57:04.202Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 12,
-              "Title": "WinCondition.cs",
-              "DocumentMoniker": "C:\\Users\\USUARIO\\Documents\\GitHub\\CaliJamRe\\ReJamCali\\Assets\\Script\\WinCondition.cs",
-              "RelativeDocumentMoniker": "Assets\\Script\\WinCondition.cs",
-              "ToolTip": "C:\\Users\\USUARIO\\Documents\\GitHub\\CaliJamRe\\ReJamCali\\Assets\\Script\\WinCondition.cs",
-              "RelativeToolTip": "Assets\\Script\\WinCondition.cs",
-              "ViewState": "AgIAAKIAAAAAAAAAAAAwwLsAAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-10-24T22:55:09.19Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 13,
-              "Title": "SceneTransition.cs",
-              "DocumentMoniker": "C:\\Users\\USUARIO\\Documents\\GitHub\\CaliJamRe\\ReJamCali\\Assets\\Script\\Transicion\\SceneTransition.cs",
-              "RelativeDocumentMoniker": "Assets\\Script\\Transicion\\SceneTransition.cs",
-              "ToolTip": "C:\\Users\\USUARIO\\Documents\\GitHub\\CaliJamRe\\ReJamCali\\Assets\\Script\\Transicion\\SceneTransition.cs",
-              "RelativeToolTip": "Assets\\Script\\Transicion\\SceneTransition.cs",
-              "ViewState": "AgIAAAwAAAAAAAAAAAAAAK8AAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-10-24T02:02:17.222Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 14,
-              "Title": "Tile.cs",
-              "DocumentMoniker": "C:\\Users\\USUARIO\\Documents\\GitHub\\CaliJamRe\\ReJamCali\\Assets\\Script\\Tile.cs",
-              "RelativeDocumentMoniker": "Assets\\Script\\Tile.cs",
-              "ToolTip": "C:\\Users\\USUARIO\\Documents\\GitHub\\CaliJamRe\\ReJamCali\\Assets\\Script\\Tile.cs",
-              "RelativeToolTip": "Assets\\Script\\Tile.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAD0AAAAUAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-10-19T03:18:43.875Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 11,
-              "Title": "LevelReset.cs",
-              "DocumentMoniker": "C:\\Users\\USUARIO\\Documents\\GitHub\\CaliJamRe\\ReJamCali\\Assets\\Script\\LevelReset.cs",
-              "RelativeDocumentMoniker": "Assets\\Script\\LevelReset.cs",
-              "ToolTip": "C:\\Users\\USUARIO\\Documents\\GitHub\\CaliJamRe\\ReJamCali\\Assets\\Script\\LevelReset.cs",
-              "RelativeToolTip": "Assets\\Script\\LevelReset.cs",
-              "ViewState": "AgIAABAAAAAAAAAAAAAwwCkAAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-10-19T04:11:56.698Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "Box.cs",
-              "DocumentMoniker": "C:\\Users\\USUARIO\\Documents\\GitHub\\CaliJamRe\\ReJamCali\\Assets\\Script\\Box.cs",
-              "RelativeDocumentMoniker": "Assets\\Script\\Box.cs",
-              "ToolTip": "C:\\Users\\USUARIO\\Documents\\GitHub\\CaliJamRe\\ReJamCali\\Assets\\Script\\Box.cs",
-              "RelativeToolTip": "Assets\\Script\\Box.cs",
-              "ViewState": "AgIAAIQAAAAAAAAAAAAIwJEAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-10-19T04:08:53.779Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "Door.cs",
-              "DocumentMoniker": "C:\\Users\\USUARIO\\Documents\\GitHub\\CaliJamRe\\ReJamCali\\Assets\\Script\\Door.cs",
-              "RelativeDocumentMoniker": "Assets\\Script\\Door.cs",
-              "ToolTip": "C:\\Users\\USUARIO\\Documents\\GitHub\\CaliJamRe\\ReJamCali\\Assets\\Script\\Door.cs",
-              "RelativeToolTip": "Assets\\Script\\Door.cs",
-              "ViewState": "AgIAABEAAAAAAAAAAAAAwCAAAAAYAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-10-25T03:21:14.666Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 3,
-              "Title": "PressureButton.cs",
-              "DocumentMoniker": "C:\\Users\\USUARIO\\Documents\\GitHub\\CaliJamRe\\ReJamCali\\Assets\\Script\\PressureButton.cs",
-              "RelativeDocumentMoniker": "Assets\\Script\\PressureButton.cs",
-              "ToolTip": "C:\\Users\\USUARIO\\Documents\\GitHub\\CaliJamRe\\ReJamCali\\Assets\\Script\\PressureButton.cs",
-              "RelativeToolTip": "Assets\\Script\\PressureButton.cs",
-              "ViewState": "AgIAAC4AAAAAAAAAAAAwwDwAAAA7AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-10-19T03:24:14.249Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 9,
-              "Title": "canonEsferas.cs",
-              "DocumentMoniker": "C:\\Users\\USUARIO\\Documents\\GitHub\\CaliJamRe\\ReJamCali\\Assets\\Script\\canonEsferas.cs",
-              "RelativeDocumentMoniker": "Assets\\Script\\canonEsferas.cs",
-              "ToolTip": "C:\\Users\\USUARIO\\Documents\\GitHub\\CaliJamRe\\ReJamCali\\Assets\\Script\\canonEsferas.cs",
-              "RelativeToolTip": "Assets\\Script\\canonEsferas.cs",
-              "ViewState": "AgIAAAUAAAAAAAAAAAAAwA0AAABkAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-10-25T18:01:17.001Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 8,
               "Title": "RayHit.cs",
               "DocumentMoniker": "C:\\Users\\USUARIO\\Documents\\GitHub\\CaliJamRe\\ReJamCali\\Assets\\Script\\RayHit.cs",
               "RelativeDocumentMoniker": "Assets\\Script\\RayHit.cs",
@@ -260,7 +103,104 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 17,
+              "DocumentIndex": 4,
+              "Title": "canonEsferas.cs",
+              "DocumentMoniker": "C:\\Users\\USUARIO\\Documents\\GitHub\\CaliJamRe\\ReJamCali\\Assets\\Script\\canonEsferas.cs",
+              "RelativeDocumentMoniker": "Assets\\Script\\canonEsferas.cs",
+              "ToolTip": "C:\\Users\\USUARIO\\Documents\\GitHub\\CaliJamRe\\ReJamCali\\Assets\\Script\\canonEsferas.cs",
+              "RelativeToolTip": "Assets\\Script\\canonEsferas.cs",
+              "ViewState": "AgIAAAUAAAAAAAAAAAAAwA0AAABkAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-10-25T18:01:17.001Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "HabilidadesNivel.cs",
+              "DocumentMoniker": "C:\\Users\\USUARIO\\Documents\\GitHub\\CaliJamRe\\ReJamCali\\Assets\\Script\\HabilidadesNivel.cs",
+              "RelativeDocumentMoniker": "Assets\\Script\\HabilidadesNivel.cs",
+              "ToolTip": "C:\\Users\\USUARIO\\Documents\\GitHub\\CaliJamRe\\ReJamCali\\Assets\\Script\\HabilidadesNivel.cs",
+              "RelativeToolTip": "Assets\\Script\\HabilidadesNivel.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-10-25T17:51:01.472Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "controlRemoto.cs",
+              "DocumentMoniker": "C:\\Users\\USUARIO\\Documents\\GitHub\\CaliJamRe\\ReJamCali\\Assets\\Script\\controlRemoto.cs",
+              "RelativeDocumentMoniker": "Assets\\Script\\controlRemoto.cs",
+              "ToolTip": "C:\\Users\\USUARIO\\Documents\\GitHub\\CaliJamRe\\ReJamCali\\Assets\\Script\\controlRemoto.cs",
+              "RelativeToolTip": "Assets\\Script\\controlRemoto.cs",
+              "ViewState": "AgIAAGgAAAAAAAAAAIAwwHgAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-10-25T04:57:04.202Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "WinCondition.cs",
+              "DocumentMoniker": "C:\\Users\\USUARIO\\Documents\\GitHub\\CaliJamRe\\ReJamCali\\Assets\\Script\\WinCondition.cs",
+              "RelativeDocumentMoniker": "Assets\\Script\\WinCondition.cs",
+              "ToolTip": "C:\\Users\\USUARIO\\Documents\\GitHub\\CaliJamRe\\ReJamCali\\Assets\\Script\\WinCondition.cs",
+              "RelativeToolTip": "Assets\\Script\\WinCondition.cs",
+              "ViewState": "AgIAAKIAAAAAAAAAAAAwwLsAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-10-24T22:55:09.19Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "SceneTransition.cs",
+              "DocumentMoniker": "C:\\Users\\USUARIO\\Documents\\GitHub\\CaliJamRe\\ReJamCali\\Assets\\Script\\Transicion\\SceneTransition.cs",
+              "RelativeDocumentMoniker": "Assets\\Script\\Transicion\\SceneTransition.cs",
+              "ToolTip": "C:\\Users\\USUARIO\\Documents\\GitHub\\CaliJamRe\\ReJamCali\\Assets\\Script\\Transicion\\SceneTransition.cs",
+              "RelativeToolTip": "Assets\\Script\\Transicion\\SceneTransition.cs",
+              "ViewState": "AgIAAAwAAAAAAAAAAAAAAK8AAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-10-24T02:02:17.222Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "Tile.cs",
+              "DocumentMoniker": "C:\\Users\\USUARIO\\Documents\\GitHub\\CaliJamRe\\ReJamCali\\Assets\\Script\\Tile.cs",
+              "RelativeDocumentMoniker": "Assets\\Script\\Tile.cs",
+              "ToolTip": "C:\\Users\\USUARIO\\Documents\\GitHub\\CaliJamRe\\ReJamCali\\Assets\\Script\\Tile.cs",
+              "RelativeToolTip": "Assets\\Script\\Tile.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAD0AAAAUAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-10-19T03:18:43.875Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "LevelReset.cs",
+              "DocumentMoniker": "C:\\Users\\USUARIO\\Documents\\GitHub\\CaliJamRe\\ReJamCali\\Assets\\Script\\LevelReset.cs",
+              "RelativeDocumentMoniker": "Assets\\Script\\LevelReset.cs",
+              "ToolTip": "C:\\Users\\USUARIO\\Documents\\GitHub\\CaliJamRe\\ReJamCali\\Assets\\Script\\LevelReset.cs",
+              "RelativeToolTip": "Assets\\Script\\LevelReset.cs",
+              "ViewState": "AgIAABAAAAAAAAAAAAAwwCkAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-10-19T04:11:56.698Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "Box.cs",
+              "DocumentMoniker": "C:\\Users\\USUARIO\\Documents\\GitHub\\CaliJamRe\\ReJamCali\\Assets\\Script\\Box.cs",
+              "RelativeDocumentMoniker": "Assets\\Script\\Box.cs",
+              "ToolTip": "C:\\Users\\USUARIO\\Documents\\GitHub\\CaliJamRe\\ReJamCali\\Assets\\Script\\Box.cs",
+              "RelativeToolTip": "Assets\\Script\\Box.cs",
+              "ViewState": "AgIAAAkAAAAAAAAAAAAvwBwAAABLAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-10-19T04:08:53.779Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
               "Title": "TileDetector.cs",
               "DocumentMoniker": "C:\\Users\\USUARIO\\Documents\\GitHub\\CaliJamRe\\ReJamCali\\Assets\\Script\\TileDetector.cs",
               "RelativeDocumentMoniker": "Assets\\Script\\TileDetector.cs",
@@ -272,7 +212,19 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 16,
+              "DocumentIndex": 7,
+              "Title": "PressureButton.cs",
+              "DocumentMoniker": "C:\\Users\\USUARIO\\Documents\\GitHub\\CaliJamRe\\ReJamCali\\Assets\\Script\\PressureButton.cs",
+              "RelativeDocumentMoniker": "Assets\\Script\\PressureButton.cs",
+              "ToolTip": "C:\\Users\\USUARIO\\Documents\\GitHub\\CaliJamRe\\ReJamCali\\Assets\\Script\\PressureButton.cs",
+              "RelativeToolTip": "Assets\\Script\\PressureButton.cs",
+              "ViewState": "AgIAACoAAAAAAAAAAAAkwEAAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-10-19T03:24:14.249Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
               "Title": "Activatable.cs",
               "DocumentMoniker": "C:\\Users\\USUARIO\\Documents\\GitHub\\CaliJamRe\\ReJamCali\\Assets\\Script\\Activatable.cs",
               "RelativeDocumentMoniker": "Assets\\Script\\Activatable.cs",
@@ -284,7 +236,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 5,
               "Title": "PlayerMovement.cs",
               "DocumentMoniker": "C:\\Users\\USUARIO\\Documents\\GitHub\\CaliJamRe\\ReJamCali\\Assets\\Script\\PlayerMovement.cs",
               "RelativeDocumentMoniker": "Assets\\Script\\PlayerMovement.cs",
@@ -296,7 +248,19 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 15,
+              "DocumentIndex": 6,
+              "Title": "Door.cs",
+              "DocumentMoniker": "C:\\Users\\USUARIO\\Documents\\GitHub\\CaliJamRe\\ReJamCali\\Assets\\Script\\Door.cs",
+              "RelativeDocumentMoniker": "Assets\\Script\\Door.cs",
+              "ToolTip": "C:\\Users\\USUARIO\\Documents\\GitHub\\CaliJamRe\\ReJamCali\\Assets\\Script\\Door.cs",
+              "RelativeToolTip": "Assets\\Script\\Door.cs",
+              "ViewState": "AgIAAHMAAAAAAAAAAAAwwIAAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-10-25T03:21:14.666Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
               "Title": "CameraFollow.cs",
               "DocumentMoniker": "C:\\Users\\USUARIO\\Documents\\GitHub\\CaliJamRe\\ReJamCali\\Assets\\Script\\CameraFollow.cs",
               "RelativeDocumentMoniker": "Assets\\Script\\CameraFollow.cs",

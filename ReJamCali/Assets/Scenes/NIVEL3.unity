@@ -30533,6 +30533,34 @@ PrefabInstance:
       propertyPath: winCanvas
       value: 
       objectReference: {fileID: 701866309}
+    - target: {fileID: 4864650738615759046, guid: a6bc1612451d8be4485768d986d1bbb1, type: 3}
+      propertyPath: onWinStart.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4864650738615759046, guid: a6bc1612451d8be4485768d986d1bbb1, type: 3}
+      propertyPath: onWinStart.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4864650738615759046, guid: a6bc1612451d8be4485768d986d1bbb1, type: 3}
+      propertyPath: onWinStart.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 7225913600865837876, guid: 31f4bac4bb5d5e64585dbbdd9ff3cfbc, type: 3}
+    - target: {fileID: 4864650738615759046, guid: a6bc1612451d8be4485768d986d1bbb1, type: 3}
+      propertyPath: onWinStart.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4864650738615759046, guid: a6bc1612451d8be4485768d986d1bbb1, type: 3}
+      propertyPath: onWinStart.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: Victoria
+      objectReference: {fileID: 0}
+    - target: {fileID: 4864650738615759046, guid: a6bc1612451d8be4485768d986d1bbb1, type: 3}
+      propertyPath: onWinStart.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: PlayerAudio, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 4864650738615759046, guid: a6bc1612451d8be4485768d986d1bbb1, type: 3}
+      propertyPath: onWinStart.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -65400,7 +65428,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3528136386701374471, guid: 6e69722efd58d11429f0dfbd806f5904, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6013453766813111518, guid: 6e69722efd58d11429f0dfbd806f5904, type: 3}
       propertyPath: m_IsActive

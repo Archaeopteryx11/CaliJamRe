@@ -10,13 +10,12 @@ public class ControlRemoto : MonoBehaviour
 
     [Header("Dispositivos")]
     [SerializeField] private string tagBuscado = "Dispositivo";
-    [SerializeField] private Key teclaSalir = Key.Escape;
+    [Tooltip("Entra al modo remoto y pasa al siguiente robot (Shift + tecla = el anterior). Tras el último, vuelve al principal.")]
     [SerializeField] private Key teclaCambiar = Key.Tab;
 
     private readonly List<PlayerMovement> dispositivos = new List<PlayerMovement>();
     private int indice;
-    private bool modoRemoto;       // eligiendo o conectado
-    private bool conectado;        // controlando un dispositivo
+    private bool modoRemoto;       // controlando un dispositivo
     private Transform objetivoOriginal;
 
     void Start()
@@ -91,14 +90,13 @@ public class ControlRemoto : MonoBehaviour
         dispositivos.RemoveAll(d => d == null);
         if (dispositivos.Count == 0) { Salir(); return; }
 
-        if (kb[teclaSalir].wasPressedThisFrame)
-        {
-            if (PuedeCambiar()) Salir();
-            return;
-        }
-
+        // TAB recorre: principal -> dispositivo 1 -> ... -> último -> principal (Shift+TAB al revés).
         if (kb[teclaCambiar].wasPressedThisFrame && PuedeCambiar())
-            Conectar(indice + (kb.shiftKey.isPressed ? -1 : 1));
+        {
+            int siguiente = indice + (kb.shiftKey.isPressed ? -1 : 1);
+            if (siguiente < 0 || siguiente >= dispositivos.Count) Salir();   // pasó del último (o del primero): vuelve al principal
+            else Conectar(siguiente);
+        }
     }
 
     void EntrarModoRemoto()
@@ -107,13 +105,13 @@ public class ControlRemoto : MonoBehaviour
         if (principal.moving) return;
 
         modoRemoto = true;
-        Conectar(indice);
+        Conectar(0);                             // siempre empieza por el primer dispositivo
     }
     void Conectar(int i)
     {
         int n = dispositivos.Count;
         if (n == 0) return;
-        indice = ((i % n) + n) % n;       // da la vuelta: después del último va el primero
+        indice = Mathf.Clamp(i, 0, n - 1);
 
         ActivarSolo(dispositivos[indice]);
         Enfocar(dispositivos[indice].transform);
@@ -135,7 +133,7 @@ public class ControlRemoto : MonoBehaviour
     /// No se cambia de robot a mitad de una casilla.
     bool PuedeCambiar()
     {
-        PlayerMovement actual = conectado ? dispositivos[indice] : principal;
+        PlayerMovement actual = modoRemoto && indice < dispositivos.Count ? dispositivos[indice] : principal;
         return actual == null || !actual.moving;
     }
 

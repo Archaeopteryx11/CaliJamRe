@@ -1,13 +1,19 @@
 using UnityEngine;
+using UnityEngine.Playables;
+using UnityEngine.SceneManagement;
+using UnityEngine.Video;
 
 public class AudioManager : MonoBehaviour
 {
+    public const string TagCinematica = "Cinematica";
+
     static AudioManager instancia;
     AudioSource musica, sfx;
+    AudioClip musicaActual;      // la que debería sonar (se recupera al terminar una cinemática)
+    bool enCinematica;
 
     public static float VolumenMusica = 0.4f;
     public static float VolumenSfx = 1f;
-    bool musicaPausada;
 
     static AudioManager Instancia
     {
@@ -32,24 +38,40 @@ public class AudioManager : MonoBehaviour
 
         sfx = gameObject.AddComponent<AudioSource>();
         sfx.playOnAwake = false;
+
+        SceneManager.sceneLoaded += AlCargarEscena;
+        EnlazarCinematicas();                         // la escena actual
     }
 
+    void OnDestroy() { SceneManager.sceneLoaded -= AlCargarEscena; }
+
+    void AlCargarEscena(Scene escena, LoadSceneMode modo)
+    {
+        enCinematica = false;
+        EnlazarCinematicas();                         // cada escena nueva
+    }
+
+    // ---------------- Música ----------------
     /// No reinicia la canción si ya está sonando (así R no corta la música del nivel).
     public static void PlayMusic(AudioClip clip)
     {
         if (clip == null) return;
         var a = Instancia;
-        if (a.musica.clip == clip && (a.musica.isPlaying || a.musicaPausada)) return;
+        a.musicaActual = clip;
+        if (a.enCinematica) return;                   // durante la cinemática solo se recuerda cuál toca
+        if (a.musica.clip == clip && a.musica.isPlaying) return;
+
         a.musica.clip = clip;
         a.musica.volume = VolumenMusica;
-        a.musicaPausada = false;
         a.musica.Play();
     }
 
-    public static void Sfx(AudioClip clip, float volumen = 1f)
+    public static void DetenerMusica()
     {
-        if (clip == null) return;
-        Instancia.sfx.PlayOneShot(clip, volumen * VolumenSfx);
+        var a = Instancia;
+        a.musica.Stop();
+        a.musica.clip = null;
+        a.musicaActual = null;
     }
 
     public static void SetVolumenMusica(float v)
@@ -58,27 +80,54 @@ public class AudioManager : MonoBehaviour
         Instancia.musica.volume = VolumenMusica;
     }
 
-    public static void PausarMusica()
+    // ---------------- Efectos ----------------
+    public static void Sfx(AudioClip clip, float volumen = 1f)
     {
-        var a = Instancia;
-        if (!a.musica.isPlaying) return;
-        a.musica.Pause();
-        a.musicaPausada = true;
+        if (clip == null) return;
+        Instancia.sfx.PlayOneShot(clip, volumen * VolumenSfx);
     }
 
-    public static void ReanudarMusica()
+    // ---------------- Cinemáticas ----------------
+    /// Por si quieres llamarlas a mano (UnityEvent, señal de Timeline, tu propio código).
+    public static void IniciarCinematica() { Instancia.InicioCine(); }
+    public static void TerminarCinematica() { Instancia.FinCine(); }
+
+    void InicioCine()
     {
-        var a = Instancia;
-        if (!a.musicaPausada) return;
-        a.musica.UnPause();
-        a.musicaPausada = false;
+        if (enCinematica) return;
+        enCinematica = true;
+        musica.Stop();
+        musica.clip = null;                           // musicaActual se conserva para volver a ponerla
     }
 
-    public static void DetenerMusica()
+    void FinCine()
     {
-        var a = Instancia;
-        a.musica.Stop();
-        a.musica.clip = null;
-        a.musicaPausada = false;
+        if (!enCinematica) return;
+        enCinematica = false;
+        if (musicaActual != null) PlayMusic(musicaActual);   // arranca de nuevo desde el principio
+    }
+
+    /// Detecta solo los VideoPlayer y PlayableDirector (Timeline) cuyo objeto tenga el tag "Cinematica".
+    void EnlazarCinematicas()
+    {
+        foreach (var v in FindObjectsByType<VideoPlayer>(FindObjectsInactive.Include, FindObjectsSortMode.None))
+        {
+            if (!EsCinematica(v.gameObject)) continue;
+            v.started += (x) => InicioCine();
+            v.loopPointReached += (x) => FinCine();
+        }
+
+        foreach (var d in FindObjectsByType<PlayableDirector>(FindObjectsInactive.Include, FindObjectsSortMode.None))
+        {
+            if (!EsCinematica(d.gameObject)) continue;
+            d.played += (x) => InicioCine();
+            d.stopped += (x) => FinCine();
+        }
+    }
+
+    static bool EsCinematica(GameObject go)
+    {
+        try { return go.CompareTag(TagCinematica); }
+        catch (UnityException) { return false; }      // el tag no existe todavía
     }
 }

@@ -65,6 +65,10 @@ public class PlayerAudio : MonoBehaviour
             }
         }
 
+        // Si es la misma fuente que la de los sonidos puntuales, el Stop() y el volumen del deslizamiento
+        // cancelarían (o silenciarían) el resto de sonidos: se separa siempre.
+        if (fuenteDeslizar == fuente) fuenteDeslizar = null;
+
         if (fuenteDeslizar == null)
         {
             // Fuente propia en un hijo, para no mezclarla con la de los sonidos puntuales.
@@ -76,6 +80,10 @@ public class PlayerAudio : MonoBehaviour
         }
         fuenteDeslizar.loop = true;
         fuenteDeslizar.volume = 0f;
+
+        // Un AudioSource con el componente desmarcado no puede reproducir nada ("Can not play a disabled audio source").
+        fuente.enabled = true;
+        fuenteDeslizar.enabled = true;
     }
 
     private void Start()
@@ -159,13 +167,40 @@ public class PlayerAudio : MonoBehaviour
     /// Enlázalo, por ejemplo, al evento On Win de WinCondition.
     public void Victoria()
     {
-        Reproducir(victoria);
+        if (victoria == null)
+        {
+            Debug.LogWarning("PlayerAudio.Victoria(): el campo 'Victoria' no tiene clip asignado en " + name, this);
+            return;
+        }
+        if (fuente == null) fuente = GetComponent<AudioSource>();
+        if (fuente == null)
+        {
+            // Red de seguridad: suena aunque la fuente no exista (por ejemplo, si se llama antes de Awake).
+            AudioSource.PlayClipAtPoint(victoria, transform.position, volumen);
+            return;
+        }
+
+        Sonar(victoria);
     }
 
     /// Reproduce cualquier clip por el AudioSource del robot (se puede enlazar desde un UnityEvent).
     public void Reproducir(AudioClip clip)
     {
         if (clip == null || fuente == null) return;
-        fuente.PlayOneShot(clip, volumen);
+        Sonar(clip);
+    }
+
+    /// PlayOneShot falla si el objeto de la fuente está inactivo en la jerarquía; en ese caso suena igualmente.
+    private void Sonar(AudioClip clip)
+    {
+        if (fuente != null && fuente.gameObject.activeInHierarchy)
+        {
+            if (!fuente.enabled) fuente.enabled = true;
+            fuente.PlayOneShot(clip, volumen);
+        }
+        else
+        {
+            AudioSource.PlayClipAtPoint(clip, transform.position, volumen);
+        }
     }
 }

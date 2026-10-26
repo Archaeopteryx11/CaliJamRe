@@ -22,7 +22,7 @@ public class canonEsferas : MonoBehaviour
     void IniciarDisparo()
     {
         if (disparando) return;             // ya hay un disparo en curso
-        disparando = true;
+        disarando = true;
 
         if (animator != null)
         {

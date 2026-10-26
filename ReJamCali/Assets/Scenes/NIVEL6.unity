@@ -59096,7 +59096,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd199d33f06c42b40bca9a43dace1426, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MusicaScene
-  musica: {fileID: 8300000, guid: f0867ca79001eb04289f1dfa38b894bb, type: 3}
 --- !u!114 &1060553694
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -119217,6 +119216,10 @@ PrefabInstance:
       objectReference: {fileID: 330585545}
     - target: {fileID: 6697082628436623407, guid: c40d8a4d6fc84614888b9e5b520668f4, type: 3}
       propertyPath: onWin.m_PersistentCalls.m_Calls.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6697082628436623407, guid: c40d8a4d6fc84614888b9e5b520668f4, type: 3}
+      propertyPath: onWinStart.m_PersistentCalls.m_Calls.Array.size
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6697082628436623407, guid: c40d8a4d6fc84614888b9e5b520668f4, type: 3}
@@ -119232,7 +119235,23 @@ PrefabInstance:
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6697082628436623407, guid: c40d8a4d6fc84614888b9e5b520668f4, type: 3}
+      propertyPath: onWinStart.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6697082628436623407, guid: c40d8a4d6fc84614888b9e5b520668f4, type: 3}
       propertyPath: onWin.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: Victoria
+      objectReference: {fileID: 0}
+    - target: {fileID: 6697082628436623407, guid: c40d8a4d6fc84614888b9e5b520668f4, type: 3}
+      propertyPath: onWinStart.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1454090829}
+    - target: {fileID: 6697082628436623407, guid: c40d8a4d6fc84614888b9e5b520668f4, type: 3}
+      propertyPath: onWinStart.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6697082628436623407, guid: c40d8a4d6fc84614888b9e5b520668f4, type: 3}
+      propertyPath: onWinStart.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: Victoria
       objectReference: {fileID: 0}
     - target: {fileID: 6697082628436623407, guid: c40d8a4d6fc84614888b9e5b520668f4, type: 3}
@@ -119240,7 +119259,15 @@ PrefabInstance:
       value: PlayerAudio, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 6697082628436623407, guid: c40d8a4d6fc84614888b9e5b520668f4, type: 3}
+      propertyPath: onWinStart.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: PlayerAudio, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 6697082628436623407, guid: c40d8a4d6fc84614888b9e5b520668f4, type: 3}
       propertyPath: onWin.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 6697082628436623407, guid: c40d8a4d6fc84614888b9e5b520668f4, type: 3}
+      propertyPath: onWinStart.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 7099135008017663552, guid: c40d8a4d6fc84614888b9e5b520668f4, type: 3}

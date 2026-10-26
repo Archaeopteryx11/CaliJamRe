@@ -27,6 +27,11 @@ public class Door : Activatable
     public float closeDuration = 0.5f;
     public AnimationCurve ease = AnimationCurve.EaseInOut(0f, 0f, 1f, 1f);
 
+    [Header("Sonido")]
+    public AudioClip sonidoAbrir;
+    public AudioClip sonidoCerrar;
+    bool querAbrirAntes;
+
     [Header("Paso")]
     [Tooltip("Al abrir, el tile se desbloquea cuando se ha hundido este porcentaje. Al cerrar, se bloquea al instante.")]
     [Range(0f, 1f)] public float passableAt = 0.8f;
@@ -82,6 +87,12 @@ public class Door : Activatable
 
         // Nunca cerrar encima del robot o de una caja: espera a que salgan.
         if (!wantsOpen && progress > 0f && tile.IsOccupied) wantsOpen = true;
+
+        if (wantsOpen != querAbrirAntes)
+        {
+            querAbrirAntes = wantsOpen;
+            AudioManager.Sfx(wantsOpen ? sonidoAbrir : sonidoCerrar);
+        }
 
         float target = wantsOpen ? 1f : 0f;
         if (progress != target)

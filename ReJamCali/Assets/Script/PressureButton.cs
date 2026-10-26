@@ -16,6 +16,10 @@ public class PressureButton : MonoBehaviour
     public Color offColor = new Color(0.6f, 0.2f, 0.2f);
     public Color onColor = new Color(0.2f, 0.9f, 0.3f);
 
+    [Header("Sonido")]
+    public AudioClip sonidoPulsar;
+    public AudioClip sonidoSoltar;
+
     public bool IsActive { get; private set; }
     public float TimeLeft { get; private set; }
 
@@ -54,6 +58,7 @@ public class PressureButton : MonoBehaviour
     {
         if (IsActive == on) return;
         IsActive = on;
+        AudioManager.Sfx(on ? sonidoPulsar : sonidoSoltar);
         foreach (var t in targets) if (t != null) t.SetActivated(on);
         Paint();
     }

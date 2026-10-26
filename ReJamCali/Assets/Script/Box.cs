@@ -16,6 +16,10 @@ public class Box : MonoBehaviour
     [Tooltip("Distancia máxima a caer si no encuentra ningún tile debajo.")]
     public float maxFallDistance = 10f;
 
+    [Header("Sonido")]
+    public AudioClip sonidoArrastre;
+    AudioSource fuente;
+
     public Tile CurrentTile { get; private set; }
 
     bool moving;
@@ -26,6 +30,13 @@ public class Box : MonoBehaviour
     float targetFallY;
     Tile landingTile;
 
+    void Awake()
+    {
+        fuente = gameObject.AddComponent<AudioSource>();
+        fuente.loop = true;
+        fuente.playOnAwake = false;
+        fuente.clip = sonidoArrastre;
+    }
     IEnumerator Start()
     {
         yield return null;      // espera 1 frame para que todos los tiles ya existan y estén colocados
@@ -85,6 +96,12 @@ public class Box : MonoBehaviour
         if (CurrentTile != null) CurrentTile.Enter(gameObject);
 
         speed = moveSpeed;
+
+        if (sonidoArrastre != null && !fuente.isPlaying)
+        {
+            fuente.volume = AudioManager.VolumenSfx;
+            fuente.Play();
+        }
         moving = true;
     }
 
@@ -126,8 +143,9 @@ public class Box : MonoBehaviour
         if ((transform.position - target).sqrMagnitude > 0.000001f) return;
 
         transform.position = target;
-        moving = false;
 
+        moving = false;
+        fuente.Stop();
         // 3. Comprobar si quedó sobre el vacío para iniciar caída
         if (CurrentTile == null)
         {

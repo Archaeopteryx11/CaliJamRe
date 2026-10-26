@@ -27483,6 +27483,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: CanvasNIVELES
       objectReference: {fileID: 0}
+    - target: {fileID: 9052254254966109142, guid: 6e69722efd58d11429f0dfbd806f5904, type: 3}
+      propertyPath: m_UiScaleMode
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

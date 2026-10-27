@@ -1,78 +1,77 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\USUARIO\\Documents\\GitHub\\CaliJamRe\\ReJamCali\\",
+  "WorkspaceRootPath": "C:\\Users\\julia\\Documents\\GitHub\\CaliJamRe\\ReJamCali\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{8B5766C8-D85B-08EC-CD37-1CE347213260}|Assembly-CSharp.csproj|c:\\users\\usuario\\documents\\github\\calijamre\\rejamcali\\assets\\script\\audiomanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{8B5766C8-D85B-08EC-CD37-1CE347213260}|Assembly-CSharp.csproj|solutionrelative:assets\\script\\audiomanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{8B5766C8-D85B-08EC-CD37-1CE347213260}|Assembly-CSharp.csproj|c:\\users\\usuario\\documents\\github\\calijamre\\rejamcali\\assets\\script\\pausarmusic.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{8B5766C8-D85B-08EC-CD37-1CE347213260}|Assembly-CSharp.csproj|solutionrelative:assets\\script\\pausarmusic.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{8B5766C8-D85B-08EC-CD37-1CE347213260}|Assembly-CSharp.csproj|C:\\Users\\USUARIO\\Documents\\GitHub\\CaliJamRe\\ReJamCali\\assets\\script\\playeraudio.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{8B5766C8-D85B-08EC-CD37-1CE347213260}|Assembly-CSharp.csproj|solutionrelative:assets\\script\\playeraudio.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{8B5766C8-D85B-08EC-CD37-1CE347213260}|Assembly-CSharp.csproj|C:\\Users\\USUARIO\\Documents\\GitHub\\CaliJamRe\\ReJamCali\\assets\\script\\transicion\\scenetransition.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{8B5766C8-D85B-08EC-CD37-1CE347213260}|Assembly-CSharp.csproj|solutionrelative:assets\\script\\transicion\\scenetransition.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{8B5766C8-D85B-08EC-CD37-1CE347213260}|Assembly-CSharp.csproj|C:\\Users\\USUARIO\\Documents\\GitHub\\CaliJamRe\\ReJamCali\\assets\\script\\controlremoto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{8B5766C8-D85B-08EC-CD37-1CE347213260}|Assembly-CSharp.csproj|C:\\Users\\julia\\Documents\\GitHub\\CaliJamRe\\ReJamCali\\assets\\script\\controlremoto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{8B5766C8-D85B-08EC-CD37-1CE347213260}|Assembly-CSharp.csproj|solutionrelative:assets\\script\\controlremoto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{8B5766C8-D85B-08EC-CD37-1CE347213260}|Assembly-CSharp.csproj|C:\\Users\\USUARIO\\Documents\\GitHub\\CaliJamRe\\ReJamCali\\assets\\script\\habilidadesnivel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{8B5766C8-D85B-08EC-CD37-1CE347213260}|Assembly-CSharp.csproj|c:\\users\\julia\\documents\\github\\calijamre\\rejamcali\\assets\\script\\audiomanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8B5766C8-D85B-08EC-CD37-1CE347213260}|Assembly-CSharp.csproj|solutionrelative:assets\\script\\audiomanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8B5766C8-D85B-08EC-CD37-1CE347213260}|Assembly-CSharp.csproj|C:\\Users\\julia\\Documents\\GitHub\\CaliJamRe\\ReJamCali\\assets\\script\\playeraudio.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8B5766C8-D85B-08EC-CD37-1CE347213260}|Assembly-CSharp.csproj|solutionrelative:assets\\script\\playeraudio.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8B5766C8-D85B-08EC-CD37-1CE347213260}|Assembly-CSharp.csproj|C:\\Users\\julia\\Documents\\GitHub\\CaliJamRe\\ReJamCali\\assets\\script\\transicion\\scenetransition.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8B5766C8-D85B-08EC-CD37-1CE347213260}|Assembly-CSharp.csproj|solutionrelative:assets\\script\\transicion\\scenetransition.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8B5766C8-D85B-08EC-CD37-1CE347213260}|Assembly-CSharp.csproj|C:\\Users\\julia\\Documents\\GitHub\\CaliJamRe\\ReJamCali\\assets\\script\\habilidadesnivel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{8B5766C8-D85B-08EC-CD37-1CE347213260}|Assembly-CSharp.csproj|solutionrelative:assets\\script\\habilidadesnivel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{8B5766C8-D85B-08EC-CD37-1CE347213260}|Assembly-CSharp.csproj|C:\\Users\\USUARIO\\Documents\\GitHub\\CaliJamRe\\ReJamCali\\assets\\script\\rayhit.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{8B5766C8-D85B-08EC-CD37-1CE347213260}|Assembly-CSharp.csproj|C:\\Users\\julia\\Documents\\GitHub\\CaliJamRe\\ReJamCali\\assets\\script\\rayhit.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{8B5766C8-D85B-08EC-CD37-1CE347213260}|Assembly-CSharp.csproj|solutionrelative:assets\\script\\rayhit.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{8B5766C8-D85B-08EC-CD37-1CE347213260}|Assembly-CSharp.csproj|C:\\Users\\USUARIO\\Documents\\GitHub\\CaliJamRe\\ReJamCali\\assets\\script\\canonesferas.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{8B5766C8-D85B-08EC-CD37-1CE347213260}|Assembly-CSharp.csproj|C:\\Users\\julia\\Documents\\GitHub\\CaliJamRe\\ReJamCali\\assets\\script\\canonesferas.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{8B5766C8-D85B-08EC-CD37-1CE347213260}|Assembly-CSharp.csproj|solutionrelative:assets\\script\\canonesferas.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{8B5766C8-D85B-08EC-CD37-1CE347213260}|Assembly-CSharp.csproj|C:\\Users\\USUARIO\\Documents\\GitHub\\CaliJamRe\\ReJamCali\\assets\\script\\playermovement.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{8B5766C8-D85B-08EC-CD37-1CE347213260}|Assembly-CSharp.csproj|C:\\Users\\julia\\Documents\\GitHub\\CaliJamRe\\ReJamCali\\assets\\script\\playermovement.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{8B5766C8-D85B-08EC-CD37-1CE347213260}|Assembly-CSharp.csproj|solutionrelative:assets\\script\\playermovement.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{8B5766C8-D85B-08EC-CD37-1CE347213260}|Assembly-CSharp.csproj|C:\\Users\\USUARIO\\Documents\\GitHub\\CaliJamRe\\ReJamCali\\assets\\script\\door.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{8B5766C8-D85B-08EC-CD37-1CE347213260}|Assembly-CSharp.csproj|C:\\Users\\julia\\Documents\\GitHub\\CaliJamRe\\ReJamCali\\assets\\script\\door.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{8B5766C8-D85B-08EC-CD37-1CE347213260}|Assembly-CSharp.csproj|solutionrelative:assets\\script\\door.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{8B5766C8-D85B-08EC-CD37-1CE347213260}|Assembly-CSharp.csproj|C:\\Users\\USUARIO\\Documents\\GitHub\\CaliJamRe\\ReJamCali\\assets\\script\\pressurebutton.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{8B5766C8-D85B-08EC-CD37-1CE347213260}|Assembly-CSharp.csproj|C:\\Users\\julia\\Documents\\GitHub\\CaliJamRe\\ReJamCali\\assets\\script\\pressurebutton.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{8B5766C8-D85B-08EC-CD37-1CE347213260}|Assembly-CSharp.csproj|solutionrelative:assets\\script\\pressurebutton.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{8B5766C8-D85B-08EC-CD37-1CE347213260}|Assembly-CSharp.csproj|C:\\Users\\USUARIO\\Documents\\GitHub\\CaliJamRe\\ReJamCali\\assets\\script\\levelreset.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{8B5766C8-D85B-08EC-CD37-1CE347213260}|Assembly-CSharp.csproj|C:\\Users\\julia\\Documents\\GitHub\\CaliJamRe\\ReJamCali\\assets\\script\\levelreset.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{8B5766C8-D85B-08EC-CD37-1CE347213260}|Assembly-CSharp.csproj|solutionrelative:assets\\script\\levelreset.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{8B5766C8-D85B-08EC-CD37-1CE347213260}|Assembly-CSharp.csproj|C:\\Users\\USUARIO\\Documents\\GitHub\\CaliJamRe\\ReJamCali\\assets\\script\\wincondition.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{8B5766C8-D85B-08EC-CD37-1CE347213260}|Assembly-CSharp.csproj|C:\\Users\\julia\\Documents\\GitHub\\CaliJamRe\\ReJamCali\\assets\\script\\wincondition.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{8B5766C8-D85B-08EC-CD37-1CE347213260}|Assembly-CSharp.csproj|solutionrelative:assets\\script\\wincondition.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{8B5766C8-D85B-08EC-CD37-1CE347213260}|Assembly-CSharp.csproj|C:\\Users\\USUARIO\\Documents\\GitHub\\CaliJamRe\\ReJamCali\\assets\\script\\box.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{8B5766C8-D85B-08EC-CD37-1CE347213260}|Assembly-CSharp.csproj|C:\\Users\\julia\\Documents\\GitHub\\CaliJamRe\\ReJamCali\\assets\\script\\box.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{8B5766C8-D85B-08EC-CD37-1CE347213260}|Assembly-CSharp.csproj|solutionrelative:assets\\script\\box.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{8B5766C8-D85B-08EC-CD37-1CE347213260}|Assembly-CSharp.csproj|C:\\Users\\USUARIO\\Documents\\GitHub\\CaliJamRe\\ReJamCali\\assets\\script\\tile.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{8B5766C8-D85B-08EC-CD37-1CE347213260}|Assembly-CSharp.csproj|C:\\Users\\julia\\Documents\\GitHub\\CaliJamRe\\ReJamCali\\assets\\script\\tile.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{8B5766C8-D85B-08EC-CD37-1CE347213260}|Assembly-CSharp.csproj|solutionrelative:assets\\script\\tile.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{8B5766C8-D85B-08EC-CD37-1CE347213260}|Assembly-CSharp.csproj|C:\\Users\\USUARIO\\Documents\\GitHub\\CaliJamRe\\ReJamCali\\assets\\script\\camerafollow.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{8B5766C8-D85B-08EC-CD37-1CE347213260}|Assembly-CSharp.csproj|C:\\Users\\julia\\Documents\\GitHub\\CaliJamRe\\ReJamCali\\assets\\script\\camerafollow.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{8B5766C8-D85B-08EC-CD37-1CE347213260}|Assembly-CSharp.csproj|solutionrelative:assets\\script\\camerafollow.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{8B5766C8-D85B-08EC-CD37-1CE347213260}|Assembly-CSharp.csproj|C:\\Users\\USUARIO\\Documents\\GitHub\\CaliJamRe\\ReJamCali\\assets\\script\\activatable.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{8B5766C8-D85B-08EC-CD37-1CE347213260}|Assembly-CSharp.csproj|C:\\Users\\julia\\Documents\\GitHub\\CaliJamRe\\ReJamCali\\assets\\script\\activatable.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{8B5766C8-D85B-08EC-CD37-1CE347213260}|Assembly-CSharp.csproj|solutionrelative:assets\\script\\activatable.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{8B5766C8-D85B-08EC-CD37-1CE347213260}|Assembly-CSharp.csproj|C:\\Users\\USUARIO\\Documents\\GitHub\\CaliJamRe\\ReJamCali\\assets\\script\\tiledetector.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{8B5766C8-D85B-08EC-CD37-1CE347213260}|Assembly-CSharp.csproj|C:\\Users\\julia\\Documents\\GitHub\\CaliJamRe\\ReJamCali\\assets\\script\\tiledetector.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{8B5766C8-D85B-08EC-CD37-1CE347213260}|Assembly-CSharp.csproj|solutionrelative:assets\\script\\tiledetector.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\USUARIO\\Documents\\GitHub\\CaliJamRe\\ReJamCali\\Assets\\Script\\PausarMusic.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -82,28 +81,27 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 2,
+          "SelectedChildIndex": 6,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 17,
               "Title": "PausarMusic.cs",
               "DocumentMoniker": "C:\\Users\\USUARIO\\Documents\\GitHub\\CaliJamRe\\ReJamCali\\Assets\\Script\\PausarMusic.cs",
-              "RelativeDocumentMoniker": "Assets\\Script\\PausarMusic.cs",
+              "RelativeDocumentMoniker": "..\\..\\..\\..\\..\\USUARIO\\Documents\\GitHub\\CaliJamRe\\ReJamCali\\Assets\\Script\\PausarMusic.cs",
               "ToolTip": "C:\\Users\\USUARIO\\Documents\\GitHub\\CaliJamRe\\ReJamCali\\Assets\\Script\\PausarMusic.cs",
-              "RelativeToolTip": "Assets\\Script\\PausarMusic.cs",
+              "RelativeToolTip": "..\\..\\..\\..\\..\\USUARIO\\Documents\\GitHub\\CaliJamRe\\ReJamCali\\Assets\\Script\\PausarMusic.cs",
               "ViewState": "AgIAABcAAAAAAAAAAAA3wAQAAAAZAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-10-26T04:39:22.767Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-10-26T04:39:22.767Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 2,
               "Title": "PlayerAudio.cs",
-              "DocumentMoniker": "C:\\Users\\USUARIO\\Documents\\GitHub\\CaliJamRe\\ReJamCali\\Assets\\Script\\PlayerAudio.cs",
+              "DocumentMoniker": "C:\\Users\\julia\\Documents\\GitHub\\CaliJamRe\\ReJamCali\\Assets\\Script\\PlayerAudio.cs",
               "RelativeDocumentMoniker": "Assets\\Script\\PlayerAudio.cs",
-              "ToolTip": "C:\\Users\\USUARIO\\Documents\\GitHub\\CaliJamRe\\ReJamCali\\Assets\\Script\\PlayerAudio.cs",
+              "ToolTip": "C:\\Users\\julia\\Documents\\GitHub\\CaliJamRe\\ReJamCali\\Assets\\Script\\PlayerAudio.cs",
               "RelativeToolTip": "Assets\\Script\\PlayerAudio.cs",
               "ViewState": "AgIAAMIAAAAAAAAAAAAIwM0AAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -111,24 +109,24 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "AudioManager.cs",
-              "DocumentMoniker": "C:\\Users\\USUARIO\\Documents\\GitHub\\CaliJamRe\\ReJamCali\\Assets\\Script\\AudioManager.cs",
+              "DocumentMoniker": "C:\\Users\\julia\\Documents\\GitHub\\CaliJamRe\\ReJamCali\\Assets\\Script\\AudioManager.cs",
               "RelativeDocumentMoniker": "Assets\\Script\\AudioManager.cs",
-              "ToolTip": "C:\\Users\\USUARIO\\Documents\\GitHub\\CaliJamRe\\ReJamCali\\Assets\\Script\\AudioManager.cs",
+              "ToolTip": "C:\\Users\\julia\\Documents\\GitHub\\CaliJamRe\\ReJamCali\\Assets\\Script\\AudioManager.cs",
               "RelativeToolTip": "Assets\\Script\\AudioManager.cs",
-              "ViewState": "AgIAAGoAAAAAAAAAAAAmwIQAAAABAAAAAAAAAA==",
+              "ViewState": "AgIAAIQAAAAAAAAAAAAAAIQAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-10-25T23:01:10.397Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 5,
               "Title": "RayHit.cs",
-              "DocumentMoniker": "C:\\Users\\USUARIO\\Documents\\GitHub\\CaliJamRe\\ReJamCali\\Assets\\Script\\RayHit.cs",
+              "DocumentMoniker": "C:\\Users\\julia\\Documents\\GitHub\\CaliJamRe\\ReJamCali\\Assets\\Script\\RayHit.cs",
               "RelativeDocumentMoniker": "Assets\\Script\\RayHit.cs",
-              "ToolTip": "C:\\Users\\USUARIO\\Documents\\GitHub\\CaliJamRe\\ReJamCali\\Assets\\Script\\RayHit.cs",
+              "ToolTip": "C:\\Users\\julia\\Documents\\GitHub\\CaliJamRe\\ReJamCali\\Assets\\Script\\RayHit.cs",
               "RelativeToolTip": "Assets\\Script\\RayHit.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAyAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -136,11 +134,11 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 6,
               "Title": "canonEsferas.cs",
-              "DocumentMoniker": "C:\\Users\\USUARIO\\Documents\\GitHub\\CaliJamRe\\ReJamCali\\Assets\\Script\\canonEsferas.cs",
+              "DocumentMoniker": "C:\\Users\\julia\\Documents\\GitHub\\CaliJamRe\\ReJamCali\\Assets\\Script\\canonEsferas.cs",
               "RelativeDocumentMoniker": "Assets\\Script\\canonEsferas.cs",
-              "ToolTip": "C:\\Users\\USUARIO\\Documents\\GitHub\\CaliJamRe\\ReJamCali\\Assets\\Script\\canonEsferas.cs",
+              "ToolTip": "C:\\Users\\julia\\Documents\\GitHub\\CaliJamRe\\ReJamCali\\Assets\\Script\\canonEsferas.cs",
               "RelativeToolTip": "Assets\\Script\\canonEsferas.cs",
               "ViewState": "AgIAAAUAAAAAAAAAAAAAwA0AAABkAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -148,11 +146,11 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 4,
               "Title": "HabilidadesNivel.cs",
-              "DocumentMoniker": "C:\\Users\\USUARIO\\Documents\\GitHub\\CaliJamRe\\ReJamCali\\Assets\\Script\\HabilidadesNivel.cs",
+              "DocumentMoniker": "C:\\Users\\julia\\Documents\\GitHub\\CaliJamRe\\ReJamCali\\Assets\\Script\\HabilidadesNivel.cs",
               "RelativeDocumentMoniker": "Assets\\Script\\HabilidadesNivel.cs",
-              "ToolTip": "C:\\Users\\USUARIO\\Documents\\GitHub\\CaliJamRe\\ReJamCali\\Assets\\Script\\HabilidadesNivel.cs",
+              "ToolTip": "C:\\Users\\julia\\Documents\\GitHub\\CaliJamRe\\ReJamCali\\Assets\\Script\\HabilidadesNivel.cs",
               "RelativeToolTip": "Assets\\Script\\HabilidadesNivel.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -160,23 +158,24 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 0,
               "Title": "controlRemoto.cs",
-              "DocumentMoniker": "C:\\Users\\USUARIO\\Documents\\GitHub\\CaliJamRe\\ReJamCali\\Assets\\Script\\controlRemoto.cs",
+              "DocumentMoniker": "C:\\Users\\julia\\Documents\\GitHub\\CaliJamRe\\ReJamCali\\Assets\\Script\\controlRemoto.cs",
               "RelativeDocumentMoniker": "Assets\\Script\\controlRemoto.cs",
-              "ToolTip": "C:\\Users\\USUARIO\\Documents\\GitHub\\CaliJamRe\\ReJamCali\\Assets\\Script\\controlRemoto.cs",
+              "ToolTip": "C:\\Users\\julia\\Documents\\GitHub\\CaliJamRe\\ReJamCali\\Assets\\Script\\controlRemoto.cs",
               "RelativeToolTip": "Assets\\Script\\controlRemoto.cs",
-              "ViewState": "AgIAAGgAAAAAAAAAAIAwwHgAAAAFAAAAAAAAAA==",
+              "ViewState": "AgIAAIEAAAAAAAAAAAAIwJgAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-10-25T04:57:04.202Z"
+              "WhenOpened": "2026-10-25T04:57:04.202Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 12,
+              "DocumentIndex": 11,
               "Title": "WinCondition.cs",
-              "DocumentMoniker": "C:\\Users\\USUARIO\\Documents\\GitHub\\CaliJamRe\\ReJamCali\\Assets\\Script\\WinCondition.cs",
+              "DocumentMoniker": "C:\\Users\\julia\\Documents\\GitHub\\CaliJamRe\\ReJamCali\\Assets\\Script\\WinCondition.cs",
               "RelativeDocumentMoniker": "Assets\\Script\\WinCondition.cs",
-              "ToolTip": "C:\\Users\\USUARIO\\Documents\\GitHub\\CaliJamRe\\ReJamCali\\Assets\\Script\\WinCondition.cs",
+              "ToolTip": "C:\\Users\\julia\\Documents\\GitHub\\CaliJamRe\\ReJamCali\\Assets\\Script\\WinCondition.cs",
               "RelativeToolTip": "Assets\\Script\\WinCondition.cs",
               "ViewState": "AgIAAKIAAAAAAAAAAAAwwLsAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -186,9 +185,9 @@
               "$type": "Document",
               "DocumentIndex": 3,
               "Title": "SceneTransition.cs",
-              "DocumentMoniker": "C:\\Users\\USUARIO\\Documents\\GitHub\\CaliJamRe\\ReJamCali\\Assets\\Script\\Transicion\\SceneTransition.cs",
+              "DocumentMoniker": "C:\\Users\\julia\\Documents\\GitHub\\CaliJamRe\\ReJamCali\\Assets\\Script\\Transicion\\SceneTransition.cs",
               "RelativeDocumentMoniker": "Assets\\Script\\Transicion\\SceneTransition.cs",
-              "ToolTip": "C:\\Users\\USUARIO\\Documents\\GitHub\\CaliJamRe\\ReJamCali\\Assets\\Script\\Transicion\\SceneTransition.cs",
+              "ToolTip": "C:\\Users\\julia\\Documents\\GitHub\\CaliJamRe\\ReJamCali\\Assets\\Script\\Transicion\\SceneTransition.cs",
               "RelativeToolTip": "Assets\\Script\\Transicion\\SceneTransition.cs",
               "ViewState": "AgIAAM8AAAAAAAAAAAAIwO8AAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -196,11 +195,11 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 14,
+              "DocumentIndex": 13,
               "Title": "Tile.cs",
-              "DocumentMoniker": "C:\\Users\\USUARIO\\Documents\\GitHub\\CaliJamRe\\ReJamCali\\Assets\\Script\\Tile.cs",
+              "DocumentMoniker": "C:\\Users\\julia\\Documents\\GitHub\\CaliJamRe\\ReJamCali\\Assets\\Script\\Tile.cs",
               "RelativeDocumentMoniker": "Assets\\Script\\Tile.cs",
-              "ToolTip": "C:\\Users\\USUARIO\\Documents\\GitHub\\CaliJamRe\\ReJamCali\\Assets\\Script\\Tile.cs",
+              "ToolTip": "C:\\Users\\julia\\Documents\\GitHub\\CaliJamRe\\ReJamCali\\Assets\\Script\\Tile.cs",
               "RelativeToolTip": "Assets\\Script\\Tile.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAD0AAAAUAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -208,11 +207,11 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 10,
               "Title": "LevelReset.cs",
-              "DocumentMoniker": "C:\\Users\\USUARIO\\Documents\\GitHub\\CaliJamRe\\ReJamCali\\Assets\\Script\\LevelReset.cs",
+              "DocumentMoniker": "C:\\Users\\julia\\Documents\\GitHub\\CaliJamRe\\ReJamCali\\Assets\\Script\\LevelReset.cs",
               "RelativeDocumentMoniker": "Assets\\Script\\LevelReset.cs",
-              "ToolTip": "C:\\Users\\USUARIO\\Documents\\GitHub\\CaliJamRe\\ReJamCali\\Assets\\Script\\LevelReset.cs",
+              "ToolTip": "C:\\Users\\julia\\Documents\\GitHub\\CaliJamRe\\ReJamCali\\Assets\\Script\\LevelReset.cs",
               "RelativeToolTip": "Assets\\Script\\LevelReset.cs",
               "ViewState": "AgIAABAAAAAAAAAAAAAwwCkAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -220,11 +219,11 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 13,
+              "DocumentIndex": 12,
               "Title": "Box.cs",
-              "DocumentMoniker": "C:\\Users\\USUARIO\\Documents\\GitHub\\CaliJamRe\\ReJamCali\\Assets\\Script\\Box.cs",
+              "DocumentMoniker": "C:\\Users\\julia\\Documents\\GitHub\\CaliJamRe\\ReJamCali\\Assets\\Script\\Box.cs",
               "RelativeDocumentMoniker": "Assets\\Script\\Box.cs",
-              "ToolTip": "C:\\Users\\USUARIO\\Documents\\GitHub\\CaliJamRe\\ReJamCali\\Assets\\Script\\Box.cs",
+              "ToolTip": "C:\\Users\\julia\\Documents\\GitHub\\CaliJamRe\\ReJamCali\\Assets\\Script\\Box.cs",
               "RelativeToolTip": "Assets\\Script\\Box.cs",
               "ViewState": "AgIAAAkAAAAAAAAAAAAvwBwAAABLAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -232,11 +231,11 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 17,
+              "DocumentIndex": 16,
               "Title": "TileDetector.cs",
-              "DocumentMoniker": "C:\\Users\\USUARIO\\Documents\\GitHub\\CaliJamRe\\ReJamCali\\Assets\\Script\\TileDetector.cs",
+              "DocumentMoniker": "C:\\Users\\julia\\Documents\\GitHub\\CaliJamRe\\ReJamCali\\Assets\\Script\\TileDetector.cs",
               "RelativeDocumentMoniker": "Assets\\Script\\TileDetector.cs",
-              "ToolTip": "C:\\Users\\USUARIO\\Documents\\GitHub\\CaliJamRe\\ReJamCali\\Assets\\Script\\TileDetector.cs",
+              "ToolTip": "C:\\Users\\julia\\Documents\\GitHub\\CaliJamRe\\ReJamCali\\Assets\\Script\\TileDetector.cs",
               "RelativeToolTip": "Assets\\Script\\TileDetector.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -244,11 +243,11 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 9,
               "Title": "PressureButton.cs",
-              "DocumentMoniker": "C:\\Users\\USUARIO\\Documents\\GitHub\\CaliJamRe\\ReJamCali\\Assets\\Script\\PressureButton.cs",
+              "DocumentMoniker": "C:\\Users\\julia\\Documents\\GitHub\\CaliJamRe\\ReJamCali\\Assets\\Script\\PressureButton.cs",
               "RelativeDocumentMoniker": "Assets\\Script\\PressureButton.cs",
-              "ToolTip": "C:\\Users\\USUARIO\\Documents\\GitHub\\CaliJamRe\\ReJamCali\\Assets\\Script\\PressureButton.cs",
+              "ToolTip": "C:\\Users\\julia\\Documents\\GitHub\\CaliJamRe\\ReJamCali\\Assets\\Script\\PressureButton.cs",
               "RelativeToolTip": "Assets\\Script\\PressureButton.cs",
               "ViewState": "AgIAACoAAAAAAAAAAAAkwEAAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -256,11 +255,11 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 16,
+              "DocumentIndex": 15,
               "Title": "Activatable.cs",
-              "DocumentMoniker": "C:\\Users\\USUARIO\\Documents\\GitHub\\CaliJamRe\\ReJamCali\\Assets\\Script\\Activatable.cs",
+              "DocumentMoniker": "C:\\Users\\julia\\Documents\\GitHub\\CaliJamRe\\ReJamCali\\Assets\\Script\\Activatable.cs",
               "RelativeDocumentMoniker": "Assets\\Script\\Activatable.cs",
-              "ToolTip": "C:\\Users\\USUARIO\\Documents\\GitHub\\CaliJamRe\\ReJamCali\\Assets\\Script\\Activatable.cs",
+              "ToolTip": "C:\\Users\\julia\\Documents\\GitHub\\CaliJamRe\\ReJamCali\\Assets\\Script\\Activatable.cs",
               "RelativeToolTip": "Assets\\Script\\Activatable.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -268,11 +267,11 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 7,
               "Title": "PlayerMovement.cs",
-              "DocumentMoniker": "C:\\Users\\USUARIO\\Documents\\GitHub\\CaliJamRe\\ReJamCali\\Assets\\Script\\PlayerMovement.cs",
+              "DocumentMoniker": "C:\\Users\\julia\\Documents\\GitHub\\CaliJamRe\\ReJamCali\\Assets\\Script\\PlayerMovement.cs",
               "RelativeDocumentMoniker": "Assets\\Script\\PlayerMovement.cs",
-              "ToolTip": "C:\\Users\\USUARIO\\Documents\\GitHub\\CaliJamRe\\ReJamCali\\Assets\\Script\\PlayerMovement.cs",
+              "ToolTip": "C:\\Users\\julia\\Documents\\GitHub\\CaliJamRe\\ReJamCali\\Assets\\Script\\PlayerMovement.cs",
               "RelativeToolTip": "Assets\\Script\\PlayerMovement.cs",
               "ViewState": "AgIAAKMAAAAAAAAAAAAjwKwAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -280,11 +279,11 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 8,
               "Title": "Door.cs",
-              "DocumentMoniker": "C:\\Users\\USUARIO\\Documents\\GitHub\\CaliJamRe\\ReJamCali\\Assets\\Script\\Door.cs",
+              "DocumentMoniker": "C:\\Users\\julia\\Documents\\GitHub\\CaliJamRe\\ReJamCali\\Assets\\Script\\Door.cs",
               "RelativeDocumentMoniker": "Assets\\Script\\Door.cs",
-              "ToolTip": "C:\\Users\\USUARIO\\Documents\\GitHub\\CaliJamRe\\ReJamCali\\Assets\\Script\\Door.cs",
+              "ToolTip": "C:\\Users\\julia\\Documents\\GitHub\\CaliJamRe\\ReJamCali\\Assets\\Script\\Door.cs",
               "RelativeToolTip": "Assets\\Script\\Door.cs",
               "ViewState": "AgIAAHMAAAAAAAAAAAAwwIAAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -292,11 +291,11 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 15,
+              "DocumentIndex": 14,
               "Title": "CameraFollow.cs",
-              "DocumentMoniker": "C:\\Users\\USUARIO\\Documents\\GitHub\\CaliJamRe\\ReJamCali\\Assets\\Script\\CameraFollow.cs",
+              "DocumentMoniker": "C:\\Users\\julia\\Documents\\GitHub\\CaliJamRe\\ReJamCali\\Assets\\Script\\CameraFollow.cs",
               "RelativeDocumentMoniker": "Assets\\Script\\CameraFollow.cs",
-              "ToolTip": "C:\\Users\\USUARIO\\Documents\\GitHub\\CaliJamRe\\ReJamCali\\Assets\\Script\\CameraFollow.cs",
+              "ToolTip": "C:\\Users\\julia\\Documents\\GitHub\\CaliJamRe\\ReJamCali\\Assets\\Script\\CameraFollow.cs",
               "RelativeToolTip": "Assets\\Script\\CameraFollow.cs",
               "ViewState": "AgIAAAMAAAAAAAAAAAAAAAwAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",

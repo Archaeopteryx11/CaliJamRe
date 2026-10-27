@@ -40310,7 +40310,6 @@ MonoBehaviour:
   principal: {fileID: 1357598069}
   camara: {fileID: 433600390}
   tagBuscado: Dispositivo
-  teclaSalir: 60
   teclaCambiar: 3
 --- !u!114 &1060553694
 MonoBehaviour:
@@ -81067,10 +81066,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1381024720672264404, guid: 6e69722efd58d11429f0dfbd806f5904, type: 3}
       propertyPath: m_text
-      value: 'Usa Tab para cambiar entre robots auxiliares
-
-        Usa ESC para
-        volver al principal'
+      value: Usa Tab para controlar remotamente robots auxiliares
       objectReference: {fileID: 0}
     - target: {fileID: 1381024720672264404, guid: 6e69722efd58d11429f0dfbd806f5904, type: 3}
       propertyPath: m_lineSpacing

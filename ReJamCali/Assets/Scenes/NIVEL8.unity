@@ -40940,11 +40940,11 @@ PrefabInstance:
     - target: {fileID: 4768839797478721153, guid: 30cc5e1172032054cae59daae1dd1065, type: 3}
       propertyPath: 'materialesBrillantes.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: 34661287bd2f2354ba84370066bde644, type: 2}
+      objectReference: {fileID: 2100000, guid: 339f9a36b2a11c54698dabdf545fe52d, type: 2}
     - target: {fileID: 4768839797478721153, guid: 30cc5e1172032054cae59daae1dd1065, type: 3}
       propertyPath: 'materialesBrillantes.Array.data[1]'
       value: 
-      objectReference: {fileID: 2100000, guid: 339f9a36b2a11c54698dabdf545fe52d, type: 2}
+      objectReference: {fileID: 2100000, guid: 34661287bd2f2354ba84370066bde644, type: 2}
     - target: {fileID: 7345156460488858774, guid: 30cc5e1172032054cae59daae1dd1065, type: 3}
       propertyPath: 'm_Materials.Array.data[1]'
       value: 

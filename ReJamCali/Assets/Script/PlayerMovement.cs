@@ -141,7 +141,7 @@ public class PlayerMovement : MonoBehaviour
         magneticToggleAction = new InputAction(
             "ToggleMagnetism",
             InputActionType.Button,
-            "<Keyboard>/m"
+            "<Keyboard>/f"
         );
 
         Vector3 f = playerAvatar != null ? playerAvatar.transform.forward : transform.forward;

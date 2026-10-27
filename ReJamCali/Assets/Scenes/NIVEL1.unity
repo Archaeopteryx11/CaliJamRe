@@ -47615,6 +47615,10 @@ PrefabInstance:
       propertyPath: sceneName
       value: NIVEL2
       objectReference: {fileID: 0}
+    - target: {fileID: 2380935555839241524, guid: 6e69722efd58d11429f0dfbd806f5904, type: 3}
+      propertyPath: m_AdditionalShaderChannelsFlag
+      value: 25
+      objectReference: {fileID: 0}
     - target: {fileID: 3528136386701374471, guid: 6e69722efd58d11429f0dfbd806f5904, type: 3}
       propertyPath: m_Name
       value: CanvasNIVELES
@@ -47627,9 +47631,49 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 31.00003
       objectReference: {fileID: 0}
+    - target: {fileID: 3696188205917367051, guid: 6e69722efd58d11429f0dfbd806f5904, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4914338771206423906, guid: 6e69722efd58d11429f0dfbd806f5904, type: 3}
+      propertyPath: m_AdditionalShaderChannelsFlag
+      value: 25
+      objectReference: {fileID: 0}
     - target: {fileID: 5324550252400962337, guid: 6e69722efd58d11429f0dfbd806f5904, type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5864146680040158119, guid: 6e69722efd58d11429f0dfbd806f5904, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5864146680040158119, guid: 6e69722efd58d11429f0dfbd806f5904, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5864146680040158119, guid: 6e69722efd58d11429f0dfbd806f5904, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6050625772735056740, guid: 6e69722efd58d11429f0dfbd806f5904, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8206473207542873646, guid: 6e69722efd58d11429f0dfbd806f5904, type: 3}
+      propertyPath: m_ScaleAtRest.y
+      value: 0.000007212162
+      objectReference: {fileID: 0}
+    - target: {fileID: 8206473207542873646, guid: 6e69722efd58d11429f0dfbd806f5904, type: 3}
+      propertyPath: m_ScaleOffset.x
+      value: 0.26761782
+      objectReference: {fileID: 0}
+    - target: {fileID: 8206473207542873646, guid: 6e69722efd58d11429f0dfbd806f5904, type: 3}
+      propertyPath: m_ScaleOffset.y
+      value: 0.26761782
+      objectReference: {fileID: 0}
+    - target: {fileID: 8206473207542873646, guid: 6e69722efd58d11429f0dfbd806f5904, type: 3}
+      propertyPath: m_ScaleOffset.z
+      value: 0.26761782
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
